@@ -1,3 +1,4 @@
+@import url('https://googleapis.com');
 @import 'tailwindcss';
 
 @theme {
@@ -12,12 +13,15 @@
   --color-bg-tertiary: var(--background-tertiaty);
 
   --color-primary-main: var(--primary-main);
-  --color-secondary-main: var(--secondary-main);
+  --color-primary-secondary: var(--primary-secondary);
 
   --color-info-main: var(--info-main);
   --color-error-main: var(--error-main);
   --color-warning-main: var(--warning-main);
   --color-success-main: var(--success-main);
+
+  /* borders */
+  --color-border-primary: var(--border-primary);
 }
 
 :root {
@@ -30,13 +34,15 @@
   --text-tertiary: purple;
 
   --background-main: #fff;
-  --background-secondary: #fefefe;
+  --background-secondary: #dbdbdb;
   --background-tertiaty: violet;
 
   --info-main: purple;
   --error-main: red;
   --warning-main: orange;
   --success-main: green;
+
+  --border-primary: gray;
 
   /* fonts */
   font-family:
@@ -57,6 +63,7 @@
 
   /* font-size */
   --font-size-base: 16px;
+  --font-size-subtitle: 14px;
 
   /* border-radius */
   --border-radius-sm: 0.5rem;
@@ -132,7 +139,6 @@ h1 {
 
 p {
   margin: 0;
-  color: var(--gray-700);
 }
 
 main {
@@ -146,10 +152,27 @@ main {
   position: relative;
 }
 
-.angular-logo {
-  max-width: 9.2rem;
+section {
+  width: 100%;
 }
 
+.title {
+  color: var(--text-main);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: var(--font-size-subtitle);
+}
+
+.big-icon {
+  font-size: 36px;
+  width: 36px !important;
+  height: 36px !important;
+}
+/* todo: delete */
 .content {
   display: flex;
   justify-content: space-around;
