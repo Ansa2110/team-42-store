@@ -1,0 +1,23 @@
+<div
+  class="w-full bg-header-accent text-bg-header px-6 py-2 flex flex-col sm:flex-row items-center justify-center gap-3 text-sm"
+>
+  <div class="flex items-center gap-2">
+    <span>🔥</span>
+
+    <span class="font-medium">
+      {{ title }}
+    </span>
+
+    <span class="font-bold">
+      {{ timeLeft() }}
+    </span>
+  </div>
+
+  <button
+    type="button"
+    (click)="onBannerClick()"
+    class="px-3 py-1 rounded-lg bg-bg-header text-header-accent font-semibold hover:opacity-90 transition"
+  >
+    {{ buttonText }}
+  </button>
+</div>

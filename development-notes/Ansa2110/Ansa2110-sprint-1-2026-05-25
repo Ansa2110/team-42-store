@@ -1,0 +1,33 @@
+# Sprint 1 Diary Entry
+
+**Name:** Ansa2110  
+**Date:** 2026-05-25  
+**Project:** Team 42 Store  
+
+## What I worked on
+
+Today our team connected our separate parts into one shared project. We started combining the work from different branches and checked how the main project structure works together.
+
+I also learned more about working with Git branches. With the help of my teammate Viktoria, I understood better how to create a separate branch, make changes, commit them, push the branch, and then merge the work into the main project. This helped me understand the team workflow more clearly.
+
+In addition, I added a custom component called `PromoCountdownBanner`. This component is placed in the header and shows a promotional banner with a countdown timer for a store sale.
+
+In this component, I used several Angular concepts:
+
+- `@Component` decorator to define the component
+- `@Input()` to receive data from the parent component, such as the banner title, button text, and sale end date
+- `@Output()` to send events to the parent component when the user clicks the banner button or when the timer expires
+- Interpolation `{{ }}` to display the title, button text, and countdown time
+- Property binding to pass values from the parent component
+- Event binding to handle user actions
+- Lifecycle hooks such as `ngOnInit` and `ngOnDestroy` to start and clear the countdown timer
+
+This component helped me practice component communication and understand how reusable Angular components can be used in a real online store project.
+
+## Plan for Sprint 2
+
+In Sprint 2, we plan to continue building the main sections of the online store. We will add more components for the store pages, such as product sections, category sections, product cards, and other reusable UI parts.
+
+We also plan to work on the authorization functionality. The login and authentication flow should be connected to the project structure so users can access the store properly.
+
+I also plan to continue improving my understanding of Git branches and team collaboration. My goal is to make clean commits, avoid conflicts, and make sure my components are easy for my teammates to use.

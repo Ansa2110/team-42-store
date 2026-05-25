@@ -1,3 +1,10 @@
+<app-promo-countdown-banner
+  title="Summer Sale ends in"
+  buttonText="Shop Now"
+  [endDate]="saleEndDate"
+  (bannerClicked)="onPromoClicked()"
+  (expired)="onPromoExpired()"
+/>
 <header class="w-full bg-bg-header border-b border-border-header sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
 
