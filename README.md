@@ -1,8 +1,8 @@
-# ShopFront
+# Team42Store
 
 ## About the Project
 
-ShopFront is a modern e-commerce web application built with Angular.  
+Team 42 Store is a modern e-commerce web application built with Angular.  
 Users can browse products, search and filter items, add products to the cart, place orders, and manage their profiles.
 
 The project is developed as part of the RS School Angular Sprint and demonstrates the usage of modern Angular features and architecture.
