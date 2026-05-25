@@ -1,0 +1,9 @@
+@if (advantages.length > 0) {
+  @for (advantage of advantages; track advantage.title) {
+    <app-advantages-card
+      [title]="advantage.title"
+      [subtitle]="advantage.subtitle"
+      [iconName]="advantage.iconName"
+    ></app-advantages-card>
+  }
+}

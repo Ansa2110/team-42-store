@@ -1,0 +1,12 @@
+<div class="bg-bg-secondary rounded-md p-4">
+  @if (imgSrc(); as src) {
+    <img src="src" />
+  } @else {
+    <img alt="error" />
+  }
+  <p>{{ title() }}</p>
+  <p>{{ rating() }}</p>
+  <div>
+    <p>{{ price() }}</p>
+  </div>
+</div>
