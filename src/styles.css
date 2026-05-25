@@ -31,6 +31,26 @@
   --color-warning-main: var(--warning-main);
   --color-warning-light: var(--warning-light);
   --color-success-main: var(--success-main);
+
+  --color-header: var(--color-header);
+  --color-footer: var(--color-footer);
+
+  /* header */
+  --color-bg-header: var(--background-header);
+  --color-border-header: var(--border-header);
+  --color-text-header-primary: var(--text-header-primary);
+  --color-text-header-secondary: var(--text-header-secondary);
+  --color-header-accent: var(--header-accent);
+  --color-header-accent-hover: var(--header-accent-hover);
+
+  /* footer */
+  --color-bg-footer: var(--background-footer);
+  --color-bg-footer-bottom: var(--background-footer-bottom);
+  --color-text-footer: var(--text-footer);
+  --color-text-footer-muted: var(--text-footer-muted);
+  --color-text-footer-title: var(--text-footer-title);
+  --color-border-footer: var(--border-footer);
+  --color-accent-footer: var(--footer-accent);
   --color-success-light: var(--success-light);
 
   --color-border: var(--border);
@@ -42,7 +62,7 @@
   --color-shadow-card: var(--shadow-card);
   --color-shadow-card-hover: var(--shadow-card-shadow-card);
 }
-@tai lwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 :root {
@@ -72,20 +92,10 @@
   --footer: #060b1a;
   --footer-light: #0b1227;
 
-  --success-main: #16a34a;
-  --success-light: #dcfce7;
-  --warning-main: #d97706;
-  --warning-light: #fef3c7;
-  --error-main: #dc2626;
-  --error-light: #fee2e2;
-  --rating: #fbbf24;
-
-  --radius-sm: 12px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-
-  --shadow-card: 0 2px 10px rgba(15, 23, 42, 0.04);
-  --shadow-card-hover: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --info-main: purple;
+  --error-main: red;
+  --warning-main: orange;
+  --success-main: green;
 
   /* fonts */
   font-family:
@@ -196,12 +206,12 @@ main {
 }
 
 @layer components {
-  .container {
+  /* .container {
     @apply mx-auto w-full max-w-[1440px] px-6;
   }
 
   .page {
-    @apply bg-background text-text-primary;
+    @apply bg-bg-main text-text-primary;
   }
 
   .page-content {
@@ -237,15 +247,11 @@ main {
   }
 
   .card {
-    @apply rounded-2xl border border-border bg-white shadow-card;
+    @apply rounded-2xl border border-border bg-white bg-shadow-card;
   }
 
   .card-hover {
-    @apply transition-all duration-200 hover:shadow-card-hover;
-  }
-
-  .panel {
-    @apply rounded-panel border border-border bg-white shadow-card;
+    @apply transition-all duration-200 hover:bg-shadow-card-hover;
   }
 
   .soft-panel {
@@ -269,23 +275,23 @@ main {
   }
 
   .btn-primary {
-    @apply btn bg-primary text-white hover:bg-primary-hover active:bg-primary-active;
+    @apply bg-bg-main text-white hover:bg-primary-hover active:bg-primary-active;
   }
 
   .btn-secondary {
-    @apply btn border border-primary bg-white text-primary hover:bg-primary-light;
+    @apply border border bg-white text-primary hover:bg-primary-light;
   }
 
   .btn-ghost {
-    @apply btn bg-transparent text-text-primary hover:bg-background-secondary;
+    @apply bg-transparent text-text-primary hover:bg-background-secondary;
   }
 
   .btn-danger {
-    @apply btn border border-error bg-white text-error hover:bg-error-light;
+    @apply border border-error bg-white text-error hover:bg-error-light;
   }
 
   .input {
-    @apply h-12 w-full rounded-xl border border-border bg-white px-4 text-sm text-text-primary outline-none transition-colors duration-200 placeholder:text-text-muted focus:border-primary;
+    @apply h-12 w-full rounded-xl border border-border bg-white px-4 text-sm text-text-primary outline-none transition-colors duration-200 placeholder:text-text-muted focus:border;
   }
 
   .select {
@@ -421,11 +427,11 @@ main {
   }
 
   .product-thumb {
-    @apply flex h-20 w-20 items-center justify-center rounded-xl border border-border bg-white p-2 transition-colors duration-200 hover:border-primary;
+    @apply flex h-20 w-20 items-center justify-center rounded-xl border border-border bg-white p-2 transition-colors duration-200 hover:border;
   }
 
   .product-thumb-active {
-    @apply border-primary;
+    @apply border;
   }
 
   .product-main-image {
@@ -434,7 +440,7 @@ main {
 
   .empty-state {
     @apply card flex flex-col items-center justify-center px-6 py-16 text-center;
-  }
+  } */
 }
 /* todo: delete */
 .content {

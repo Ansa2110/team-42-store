@@ -1,5 +1,5 @@
 import { Component, input, signal } from '@angular/core';
-import { ProductCard } from '../../product-card/product-card';
+import { ProductCard } from '../../shared/product-card/product-card';
 import { products } from './constants';
 
 @Component({
