@@ -1,0 +1,38 @@
+<section class="auth-page">
+  <div class="auth-page__info">
+    <div class="auth-page__logo">ShopFront</div>
+
+    @if (mode() === 'login') {
+      <h1>Добро пожаловать в ShopFront!</h1>
+      <p>Войдите в свой аккаунт и продолжайте покупки с удовольствием.</p>
+    } @else {
+      <h1>Создайте свой аккаунт</h1>
+      <p>Зарегистрируйтесь и откройте для себя лучшие товары.</p>
+    }
+
+    <ul>
+      <li>Быстрый доступ к корзине</li>
+      <li>Сохранённые товары в избранном</li>
+      <li>История заказов и доставка</li>
+      <li>Персональные рекомендации</li>
+    </ul>
+  </div>
+
+  <div class="auth-page__form">
+    @if (mode() === 'login') {
+      <app-login-form
+        [title]="'Вход в аккаунт'"
+        [subtitle]="'Введите свои данные для входа'"
+        (formSubmit)="handleLogin($event)"
+        (registerClick)="showRegister()"
+      />
+    } @else {
+      <app-register-form
+        [title]="'Регистрация'"
+        [subtitle]="'Заполните форму, чтобы создать аккаунт'"
+        (formSubmit)="handleRegister($event)"
+        (loginClick)="showLogin()"
+      />
+    }
+  </div>
+</section>
