@@ -1,41 +1,54 @@
-<header class="w-full bg-white border-b border-gray-200 sticky top-0 z-50">
+<header class="w-full bg-bg-header border-b border-border-header sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
 
-    
     <div class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-xl bg-[#5227D6] flex items-center justify-center text-white font-bold">
+      <div class="w-10 h-10 rounded-xl bg-header-accent flex items-center justify-center text-bg-header font-bold">
         42
       </div>
+
       <div>
-        <h1 class="text-lg font-semibold text-gray-800">Team 42 Store</h1>
-        <p class="text-xs text-gray-500">Online shopping</p>
+        <h1 class="text-lg font-semibold text-text-header-primary">
+          Team 42 Store
+        </h1>
+
+        <p class="text-xs text-text-header-secondary">
+          Online shopping
+        </p>
       </div>
     </div>
 
-    
     <div class="hidden md:flex flex-1 max-w-md">
       <input
         type="text"
         placeholder="Search products..."
-        class="w-full px-4 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#5227D6] focus:border-[#5227D6]"
+        class="w-full px-4 py-2 rounded-xl border border-border-header text-sm focus:outline-none focus:ring-2 focus:ring-header-accent focus:border-header-accent"
       />
     </div>
 
-    
     <nav class="hidden lg:flex items-center gap-6 text-sm font-medium">
-      <a href="#" class="text-[#5227D6]">Home</a>
-      <a href="#" class="text-gray-600 hover:text-[#5227D6] transition">Catalog</a>
-      <a href="#" class="text-gray-600 hover:text-[#5227D6] transition">New Arrivals</a>
-      <a href="#" class="text-gray-600 hover:text-[#5227D6] transition">Deals</a>
+      <a href="#" class="text-header-accent">
+        Home
+      </a>
+
+      <a href="#" class="text-text-header-secondary hover:text-header-accent transition">
+        Catalog
+      </a>
+
+      <a href="#" class="text-text-header-secondary hover:text-header-accent transition">
+        New Arrivals
+      </a>
+
+      <a href="#" class="text-text-header-secondary hover:text-header-accent transition">
+        Deals
+      </a>
     </nav>
 
-    
     <div class="flex items-center gap-3">
-      <button class="px-4 py-2 text-sm font-medium text-white bg-[#5227D6] rounded-xl hover:bg-[#5227D6] transition">
+      <button class="px-4 py-2 text-sm font-medium text-bg-header bg-header-accent rounded-xl hover:bg-header-accent-hover transition">
         Login
       </button>
 
-      <button class="px-4 py-2 text-sm font-medium text-white bg-[#5227D6] rounded-xl hover:bg-[#5227D6] transition shadow-sm">
+      <button class="px-4 py-2 text-sm font-medium text-bg-header bg-header-accent rounded-xl hover:bg-header-accent-hover transition shadow-sm">
         Cart
       </button>
     </div>

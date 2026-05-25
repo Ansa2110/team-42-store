@@ -18,6 +18,26 @@
   --color-error-main: var(--error-main);
   --color-warning-main: var(--warning-main);
   --color-success-main: var(--success-main);
+
+  --color-header: var(--color-header);
+  --color-footer: var(--color-footer);
+
+  /* header */
+  --color-bg-header: var(--background-header);
+  --color-border-header: var(--border-header);
+  --color-text-header-primary: var(--text-header-primary);
+  --color-text-header-secondary: var(--text-header-secondary);
+  --color-header-accent: var(--header-accent);
+  --color-header-accent-hover: var(--header-accent-hover);
+
+  /* footer */
+  --color-bg-footer: var(--background-footer);
+  --color-bg-footer-bottom: var(--background-footer-bottom);
+  --color-text-footer: var(--text-footer);
+  --color-text-footer-muted: var(--text-footer-muted);
+  --color-text-footer-title: var(--text-footer-title);
+  --color-border-footer: var(--border-footer);
+  --color-accent-footer: var(--footer-accent);
 }
 
 :root {
@@ -37,6 +57,30 @@
   --error-main: red;
   --warning-main: orange;
   --success-main: green;
+
+  --color-header: #5227D6;
+  --color-footer: #5227D6;
+
+  /* header */
+  --background-header: #ffffff;
+  --border-header: #e5e7eb;
+
+  --text-header-primary: #1f2937;
+  --text-header-secondary: #6b7280;
+
+  --header-accent: #5227D6;
+  --header-accent-hover: #4520B8;
+   
+  /* footer */
+  --background-footer: #020617;
+  --background-footer-bottom: #0f172a99;
+
+  --text-footer: #cbd5e1;
+  --text-footer-muted: #94a3b8;
+  --text-footer-title: #ffffff;
+
+  --border-footer: #334155;
+  --footer-accent: #5227D6;
 
   /* fonts */
   font-family:

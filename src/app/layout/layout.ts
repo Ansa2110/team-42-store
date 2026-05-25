@@ -5,7 +5,7 @@ import { RouterOutlet } from "../../../node_modules/@angular/router/types/_route
 
 @Component({
   selector: 'app-layout',
-  imports: [Header, Footer, RouterOutlet],
+  imports: [Header, Footer],
   templateUrl: './layout.html',
   styleUrl: './layout.css',
 })
