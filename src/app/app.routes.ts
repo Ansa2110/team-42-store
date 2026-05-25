@@ -1,26 +1,26 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  /*
+  
   {
-    path: 'login',
+    path: 'auth',
     loadComponent: () =>
-      import('./pages/login/login.component')
-        .then(m => m.LoginComponent)
+      import('./auth/auth-page/auth-page')
+        .then(m => m.AuthPage)
   },
-
   {
     path: '',
     loadComponent: () =>
-      import('./layout/layout.component')
-        .then(m => m.LayoutComponent),
-    children: [
+      import('./layout/layout')
+        .then(m => m.Layout),
+      children: [
       {
-        path: '',
+        path: 'main',
         loadComponent: () =>
-          import('./pages/home/home.component')
-            .then(m => m.HomeComponent)
+          import('./main-page/main-page')
+            .then(m => m.MainPage)
       },
+      /*
       {
         path: 'catalog',
         loadComponent: () =>
@@ -44,12 +44,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/cart/cart.component')
             .then(m => m.CartComponent)
-      }
+      }*/
     ]
   },
 
   {
     path: '**',
     redirectTo: ''
-  }*/
+  }
 ];
