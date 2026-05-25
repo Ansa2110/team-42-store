@@ -1,0 +1,82 @@
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 520px;
+  gap: 48px;
+  align-items: center;
+  padding: 48px;
+  background:
+    radial-gradient(circle at 20% 20%, #f3eeff 0, transparent 32%),
+    #ffffff;
+}
+
+.auth-page__info {
+  max-width: 620px;
+}
+
+.auth-page__logo {
+  width: fit-content;
+  margin-bottom: 32px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: #f3eeff;
+  color: #6d3df5;
+  font-weight: 700;
+}
+
+.auth-page__info h1 {
+  margin: 0 0 16px;
+  color: #111827;
+  font-size: 48px;
+  line-height: 1.1;
+}
+
+.auth-page__info p {
+  margin: 0 0 32px;
+  color: #6b7280;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.auth-page__info ul {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.auth-page__info li {
+  color: #111827;
+  font-size: 16px;
+}
+
+.auth-page__info li::before {
+  content: '✓';
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #6d3df5;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.auth-page__form {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .auth-page {
+    grid-template-columns: 1fr;
+    padding: 24px;
+  }
+
+  .auth-page__info h1 {
+    font-size: 36px;
+  }
+}

@@ -1,0 +1,41 @@
+<form class="auth-form" (submit)="onSubmit($event)">
+  <div class="auth-form__header">
+    <h2>{{ title() }}</h2>
+    <p>{{ subtitle() }}</p>
+  </div>
+
+  <label class="auth-field">
+    <span>Email</span>
+    <input
+      name="email"
+      type="email"
+      placeholder="Введите ваш email"
+      [class.auth-field__input_error]="errors().email"
+    />
+    @if (errors().email) {
+      <small>{{ errors().email }}</small>
+    }
+  </label>
+
+  <label class="auth-field">
+    <span>Пароль</span>
+    <input
+      name="password"
+      type="password"
+      placeholder="Введите ваш пароль"
+      [class.auth-field__input_error]="errors().password"
+    />
+    @if (errors().password) {
+      <small>{{ errors().password }}</small>
+    }
+  </label>
+
+  <button class="auth-form__button" type="submit" [disabled]="isSubmitting()">
+    {{ isSubmitting() ? 'Входим...' : 'Войти' }}
+  </button>
+
+  <p class="auth-form__switch">
+    Нет аккаунта?
+    <button type="button" (click)="onRegisterClick()">Зарегистрироваться</button>
+  </p>
+</form>
