@@ -1,0 +1,17 @@
+<section>
+  <div class="flex justify-between my-2">
+    <p class="font-medium">{{ sectionTitle() }}</p>
+    <p class="text-text-tertiary font-medium text-sm">{{ viewAll }}</p>
+  </div>
+  <div class="flex gap-2">
+    @if (products.length > 0) {
+      @for (product of products; track product.id) {
+        <app-product-card
+          [title]="product.title"
+          [price]="product.price"
+          [rating]="product.rating"
+        ></app-product-card>
+      }
+    }
+  </div>
+</section>
