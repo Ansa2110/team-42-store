@@ -1,32 +1,38 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { LoginForm, type LoginFormValue } from '../login-form/login-form';
-import { RegisterForm, type RegisterFormValue } from '../register-form/register-form';
+import { MatIconModule } from '@angular/material/icon';
+
+import { AuthService } from '../auth.service';
+import { LoginForm } from '../login-form/login-form';
+import { RegisterForm } from '../register-form/register-form';
 
 type AuthMode = 'login' | 'register';
 
 @Component({
   selector: 'app-auth-page',
-  imports: [LoginForm, RegisterForm],
+  standalone: true,
+  imports: [LoginForm, RegisterForm, MatIconModule],
   templateUrl: './auth-page.html',
   styleUrl: './auth-page.css',
 })
 export class AuthPage {
-  protected readonly mode = signal<AuthMode>('login');
+  private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
 
-  protected showLogin(): void {
+  readonly mode = signal<AuthMode>('login');
+
+  constructor() {
+    if (this.authService.isAuthenticated()) {
+      void this.router.navigateByUrl('/main-page');
+    }
+  }
+
+  showLogin(): void {
     this.mode.set('login');
   }
 
-  protected showRegister(): void {
+  showRegister(): void {
     this.mode.set('register');
-  }
-
-  protected handleLogin(value: LoginFormValue): void {
-    console.log('Login submit:', value);
-  }
-
-  protected handleRegister(value: RegisterFormValue): void {
-    console.log('Register submit:', value);
   }
 }
