@@ -504,3 +504,7 @@ main {
 .social-links a:hover svg path {
   fill: var(--gray-900);
 }
+
+.nav-link-active {
+  color: var(--header-accent);
+}
