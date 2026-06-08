@@ -1,4 +1,4 @@
-<form class="space-y-5" [formGroup]="form" (ngSubmit)="submit()">
+<form id="formId" class="space-y-5" [formGroup]="form" (ngSubmit)="submit()">
   <div class="flex items-start gap-4">
     <div
       class="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-primary-light text-primary-main"
@@ -11,9 +11,7 @@
         Вход в аккаунт
       </h2>
 
-      <p class="mt-1 text-sm text-text-secondary">
-        Введите свои данные для входа
-      </p>
+      <p class="mt-1 text-sm text-text-secondary">Введите свои данные для входа</p>
     </div>
   </div>
 
@@ -26,9 +24,7 @@
   }
 
   <div>
-    <label class="mb-2 block text-sm font-bold text-text-primary">
-      Email
-    </label>
+    <label for="formId" class="mb-2 block text-sm font-bold text-text-primary"> Email </label>
 
     <mat-form-field class="w-full" appearance="outline">
       <input
@@ -57,9 +53,7 @@
   </div>
 
   <div>
-    <label class="mb-2 block text-sm font-bold text-text-primary">
-      Пароль
-    </label>
+    <label for="formId" class="mb-2 block text-sm font-bold text-text-primary"> Пароль </label>
 
     <mat-form-field class="w-full" appearance="outline">
       <input
@@ -129,9 +123,7 @@
   <div class="relative py-2 text-center">
     <div class="absolute left-0 top-1/2 h-px w-full bg-border"></div>
 
-    <span class="relative bg-surface px-4 text-sm text-text-muted">
-      или войдите через
-    </span>
+    <span class="relative bg-surface px-4 text-sm text-text-muted"> или войдите через </span>
   </div>
 
   <div class="grid grid-cols-2 gap-3">
@@ -141,11 +133,7 @@
       class="flex h-12 cursor-pointer items-center justify-center rounded-xl border border-border bg-surface shadow-sm transition hover:bg-bg-secondary"
       aria-label="Войти через Google"
     >
-      <img
-        src="images/auth/google.png"
-        alt="Google"
-        class="h-7 w-7 object-contain"
-      />
+      <img src="images/auth/google.png" alt="Google" class="h-7 w-7 object-contain" />
     </a>
 
     <a
@@ -154,11 +142,7 @@
       class="flex h-12 cursor-pointer items-center justify-center rounded-xl border border-border bg-surface shadow-sm transition hover:bg-bg-secondary"
       aria-label="Войти через GitHub"
     >
-      <img
-        src="images/auth/github.png"
-        alt="GitHub"
-        class="h-7 w-7 object-contain"
-      />
+      <img src="images/auth/github.png" alt="GitHub" class="h-7 w-7 object-contain" />
     </a>
   </div>
 

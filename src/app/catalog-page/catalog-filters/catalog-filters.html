@@ -1,21 +1,11 @@
 <div class="p-3 border border-border rounded-md">
   <mat-list>
     <h6 class="title">Категории</h6>
-    <ul>
+    <mat-selection-list>
       @for (category of categories; track category.title) {
-        <li
-          (click)="selectCategory(category.title)"
-          class="cursor-pointer p-2 rounded transition-colors"
-          [class]="
-            currentFilters().category === category.title
-              ? 'bg-primary-soft text-primary-active font-bold'
-              : 'hover:bg-gray-100 text-gray-700'
-          "
-        >
-          {{ category.title }}
-        </li>
+        <mat-list-option>{{ category.title }}</mat-list-option>
       }
-    </ul>
+    </mat-selection-list>
     <mat-divider></mat-divider>
     <h6 class="title">Фильтры</h6>
     <p>Цена</p>

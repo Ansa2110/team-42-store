@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CatalogFilters } from './catalog-filters/catalog-filters';
 import { CatalogFiltersType, ProductType } from './catalog-page.types';
 import { ProductCard } from '../shared/product-card/product-card';

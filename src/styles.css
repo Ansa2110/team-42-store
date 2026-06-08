@@ -216,6 +216,9 @@ h1 {
 p {
   margin: 0;
 }
+a {
+  cursor: pointer;
+}
 
 main {
   width: 100%;
@@ -227,7 +230,6 @@ main {
   box-sizing: inherit;
   position: relative;
 }
-
 
 @layer components {
   /* .container {
