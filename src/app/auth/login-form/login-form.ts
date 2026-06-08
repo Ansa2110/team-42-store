@@ -1,82 +1,104 @@
-import { Component, OnDestroy, OnInit, input, output, signal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  inject,
+  signal,
+} from '@angular/core';
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Router } from '@angular/router';
 
-export interface LoginFormValue {
-  email: string;
-  password: string;
-}
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
-interface LoginFormErrors {
-  email?: string;
-  password?: string;
-}
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login-form',
-  imports: [],
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+  ],
   templateUrl: './login-form.html',
   styleUrl: './login-form.css',
 })
-export class LoginForm implements OnInit, OnDestroy {
-  title = input('Вход в аккаунт');
-  subtitle = input('Введите свои данные для входа');
+export class LoginForm {
+  @Output() readonly registerClick = new EventEmitter<void>();
 
-  formSubmit = output<LoginFormValue>();
-  registerClick = output<void>();
+  private readonly fb = inject(FormBuilder);
+  private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
 
-  protected readonly errors = signal<LoginFormErrors>({});
-  protected readonly isSubmitting = signal(false);
+  readonly isSubmitting = signal(false);
+  readonly serverError = signal<string | null>(null);
+  readonly passwordVisible = signal(false);
 
-  ngOnInit(): void {
-    console.log('LoginForm initialized');
+  readonly form = this.fb.nonNullable.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
+    rememberMe: [false],
+  });
+
+  get email() {
+    return this.form.controls.email;
   }
 
-  ngOnDestroy(): void {
-    console.log('LoginForm destroyed');
+  get password() {
+    return this.form.controls.password;
   }
 
-  protected onSubmit(event: SubmitEvent): void {
-    event.preventDefault();
+  get passwordInputType(): 'text' | 'password' {
+    return this.passwordVisible() ? 'text' : 'password';
+  }
 
-    const form = event.currentTarget as HTMLFormElement;
-    const formData = new FormData(form);
+  togglePasswordVisibility(): void {
+    this.passwordVisible.update((value) => !value);
+  }
 
-    const value: LoginFormValue = {
-      email: String(formData.get('email') ?? '').trim(),
-      password: String(formData.get('password') ?? ''),
-    };
+  async submit(): Promise<void> {
+    this.serverError.set(null);
 
-    const errors = this.validate(value);
-    this.errors.set(errors);
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
 
-    if (Object.keys(errors).length > 0) {
       return;
     }
 
     this.isSubmitting.set(true);
-    this.formSubmit.emit(value);
 
-    setTimeout(() => {
+    try {
+      const { email, password } = this.form.getRawValue();
+
+      await this.authService.login({
+        email,
+        password,
+      });
+
+      await this.router.navigateByUrl('/main');
+    } catch (error) {
+      this.serverError.set(
+        error instanceof Error
+          ? error.message
+          : 'Не удалось войти в аккаунт',
+      );
+    } finally {
       this.isSubmitting.set(false);
-    }, 500);
+    }
   }
 
-  protected onRegisterClick(): void {
+  goToRegister(): void {
     this.registerClick.emit();
-  }
-
-  private validate(value: LoginFormValue): LoginFormErrors {
-    const errors: LoginFormErrors = {};
-
-    if (!value.email) {
-      errors.email = 'Введите email';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.email)) {
-      errors.email = 'Введите корректный email';
-    }
-
-    if (!value.password) {
-      errors.password = 'Введите пароль';
-    }
-
-    return errors;
   }
 }

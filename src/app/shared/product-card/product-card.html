@@ -1,6 +1,13 @@
-<div class="bg-bg-secondary rounded-md p-4">
+<div class="bg-bg-secondary rounded-md p-4 relative">
+  <div class="absolute right-2 top-2 text-text-tertiary">
+    @if (isFavorite()) {
+      <mat-icon class="material-icons-outlined" (click)="toggleItem()">favorite</mat-icon>
+    } @else {
+      <mat-icon class="material-icons-outlined" (click)="toggleItem()">favorite_border</mat-icon>
+    }
+  </div>
   @if (imgSrc(); as src) {
-    <img src="src" />
+    <img src="src" alt="src" />
   } @else {
     <img alt="error" />
   }

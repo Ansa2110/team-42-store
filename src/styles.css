@@ -106,8 +106,8 @@
   --text-header-primary: #1f2937;
   --text-header-secondary: #6b7280;
 
-  --header-accent: #5227D6;
-  --header-accent-hover: #4520B8;
+  --header-accent: #5227d6;
+  --header-accent-hover: #4520b8;
 
   /* footer */
   --background-footer: #020617;
@@ -118,7 +118,7 @@
   --text-footer-title: #ffffff;
 
   --border-footer: #334155;
-  --footer-accent: #5227D6;
+  --footer-accent: #5227d6;
 
   /* fonts */
   font-family:
@@ -215,6 +215,9 @@ h1 {
 
 p {
   margin: 0;
+}
+a {
+  cursor: pointer;
 }
 
 main {
@@ -502,4 +505,8 @@ main {
 
 .social-links a:hover svg path {
   fill: var(--gray-900);
+}
+
+.nav-link-active {
+  color: var(--header-accent);
 }

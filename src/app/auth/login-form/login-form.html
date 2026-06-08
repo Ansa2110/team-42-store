@@ -1,41 +1,160 @@
-<form class="auth-form" (submit)="onSubmit($event)">
-  <div class="auth-form__header">
-    <h2>{{ title() }}</h2>
-    <p>{{ subtitle() }}</p>
+<form id="formId" class="space-y-5" [formGroup]="form" (ngSubmit)="submit()">
+  <div class="flex items-start gap-4">
+    <div
+      class="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-primary-light text-primary-main"
+    >
+      <mat-icon>lock_outline</mat-icon>
+    </div>
+
+    <div>
+      <h2 class="text-3xl font-extrabold leading-tight tracking-tight text-text-primary">
+        Вход в аккаунт
+      </h2>
+
+      <p class="mt-1 text-sm text-text-secondary">Введите свои данные для входа</p>
+    </div>
   </div>
 
-  <label class="auth-field">
-    <span>Email</span>
-    <input
-      name="email"
-      type="email"
-      placeholder="Введите ваш email"
-      [class.auth-field__input_error]="errors().email"
-    />
-    @if (errors().email) {
-      <small>{{ errors().email }}</small>
-    }
-  </label>
+  @if (serverError()) {
+    <div
+      class="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700"
+    >
+      {{ serverError() }}
+    </div>
+  }
 
-  <label class="auth-field">
-    <span>Пароль</span>
-    <input
-      name="password"
-      type="password"
-      placeholder="Введите ваш пароль"
-      [class.auth-field__input_error]="errors().password"
-    />
-    @if (errors().password) {
-      <small>{{ errors().password }}</small>
-    }
-  </label>
+  <div>
+    <label for="formId" class="mb-2 block text-sm font-bold text-text-primary"> Email </label>
 
-  <button class="auth-form__button" type="submit" [disabled]="isSubmitting()">
-    {{ isSubmitting() ? 'Входим...' : 'Войти' }}
+    <mat-form-field class="w-full" appearance="outline">
+      <input
+        matInput
+        class="cursor-text"
+        type="email"
+        placeholder="Введите ваш email"
+        formControlName="email"
+        autocomplete="email"
+      />
+
+      <mat-icon matSuffix class="text-text-muted">mail_outline</mat-icon>
+    </mat-form-field>
+
+    @if (email.touched && email.invalid) {
+      <div class="-mt-3 text-sm font-medium text-red-600">
+        @if (email.errors?.['required']) {
+          <p>Требуется email</p>
+        }
+
+        @if (email.errors?.['email']) {
+          <p>Неверный адрес электронной почты</p>
+        }
+      </div>
+    }
+  </div>
+
+  <div>
+    <label for="formId" class="mb-2 block text-sm font-bold text-text-primary"> Пароль </label>
+
+    <mat-form-field class="w-full" appearance="outline">
+      <input
+        matInput
+        class="cursor-text"
+        [type]="passwordInputType"
+        placeholder="Введите ваш пароль"
+        formControlName="password"
+        autocomplete="current-password"
+      />
+
+      <button
+        mat-icon-button
+        matSuffix
+        class="!cursor-pointer"
+        type="button"
+        aria-label="Показать или скрыть пароль"
+        (click)="togglePasswordVisibility()"
+      >
+        @if (passwordVisible()) {
+          <mat-icon>visibility_off</mat-icon>
+        } @else {
+          <mat-icon>visibility</mat-icon>
+        }
+      </button>
+    </mat-form-field>
+
+    @if (password.touched && password.invalid) {
+      <div class="-mt-3 text-sm font-medium text-red-600">
+        @if (password.errors?.['required']) {
+          <p>Требуется пароль</p>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="flex items-center justify-between gap-4 pt-1">
+    <mat-checkbox formControlName="rememberMe">
+      <span class="cursor-pointer text-sm text-text-secondary">Запомнить меня</span>
+    </mat-checkbox>
+
+    <button
+      class="cursor-pointer text-sm font-bold text-primary-main transition hover:text-primary-hover"
+      type="button"
+    >
+      Забыли пароль?
+    </button>
+  </div>
+
+  <button
+    mat-flat-button
+    class="!h-12 !w-full !cursor-pointer !rounded-xl !bg-primary-main !font-bold !text-text-inverse hover:!bg-primary-hover"
+    type="submit"
+    [disabled]="isSubmitting()"
+  >
+    <span class="inline-flex items-center justify-center gap-2">
+      <mat-icon class="!text-[20px]">lock_outline</mat-icon>
+
+      @if (isSubmitting()) {
+        Вход...
+      } @else {
+        Войти
+      }
+    </span>
   </button>
 
-  <p class="auth-form__switch">
+  <div class="relative py-2 text-center">
+    <div class="absolute left-0 top-1/2 h-px w-full bg-border"></div>
+
+    <span class="relative bg-surface px-4 text-sm text-text-muted"> или войдите через </span>
+  </div>
+
+  <div class="grid grid-cols-2 gap-3">
+    <a
+      href="https://accounts.google.com/"
+      target="_self"
+      class="flex h-12 cursor-pointer items-center justify-center rounded-xl border border-border bg-surface shadow-sm transition hover:bg-bg-secondary"
+      aria-label="Войти через Google"
+    >
+      <img src="images/auth/google.png" alt="Google" class="h-7 w-7 object-contain" />
+    </a>
+
+    <a
+      href="https://github.com/login"
+      target="_self"
+      class="flex h-12 cursor-pointer items-center justify-center rounded-xl border border-border bg-surface shadow-sm transition hover:bg-bg-secondary"
+      aria-label="Войти через GitHub"
+    >
+      <img src="images/auth/github.png" alt="GitHub" class="h-7 w-7 object-contain" />
+    </a>
+  </div>
+
+  <p class="text-center text-sm text-text-secondary">
     Нет аккаунта?
-    <button type="button" (click)="onRegisterClick()">Зарегистрироваться</button>
+
+    <button
+      class="cursor-pointer font-bold text-primary-main transition hover:text-primary-hover"
+      type="button"
+      (click)="goToRegister()"
+    >
+      Зарегистрироваться
+    </button>
   </p>
 </form>
