@@ -1,12 +1,12 @@
 import { Component, input, output } from '@angular/core';
 import { CatalogFiltersType } from '../catalog-page.types';
 import { MatDivider } from '@angular/material/divider';
-import { MatList } from '@angular/material/list';
+import { MatList, MatListModule } from '@angular/material/list';
 import { MatSlider, MatSliderModule } from '@angular/material/slider';
 
 @Component({
   selector: 'app-catalog-filters',
-  imports: [MatDivider, MatList, MatSlider, MatSliderModule],
+  imports: [MatDivider, MatList, MatSlider, MatSliderModule, MatListModule],
   templateUrl: './catalog-filters.html',
   styleUrl: './catalog-filters.css',
 })

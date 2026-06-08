@@ -1,10 +1,11 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { ProductCard } from '../../shared/product-card/product-card';
 import { products } from './constants';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-products-section',
-  imports: [ProductCard],
+  imports: [ProductCard, RouterLink],
   templateUrl: './products-section.html',
   styleUrl: './products-section.css',
 })
