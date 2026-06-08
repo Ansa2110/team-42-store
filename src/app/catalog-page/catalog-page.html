@@ -1,0 +1,17 @@
+<div class="grid grid-cols-4 gap-4">
+  <app-catalog-filters [currentFilters]="filters()" (filtersChange)="updateFilters($event)">
+  </app-catalog-filters>
+  <div class="grid col-start-2 col-end-5 justify-center">
+    @if (items(); as items) {
+      @for (item of items; track item.id) {
+        <app-product-card
+          [title]="item.title"
+          [price]="item.price"
+          [rating]="item.rating"
+        ></app-product-card>
+      }
+    } @else {
+      <p>Sorry! We couldn't find anything</p>
+    }
+  </div>
+</div>
