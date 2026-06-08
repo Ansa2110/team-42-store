@@ -1,92 +1,146 @@
-import { Component, OnDestroy, OnInit, input, output, signal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  inject,
+  signal,
+} from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
+import { Router } from '@angular/router';
 
-export interface RegisterFormValue {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
-interface RegisterFormErrors {
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  password?: string;
-}
+import { AuthService } from '../auth.service';
+import { strongPasswordValidator } from '../auth.validators';
 
 @Component({
   selector: 'app-register-form',
-  imports: [],
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+  ],
   templateUrl: './register-form.html',
   styleUrl: './register-form.css',
 })
-export class RegisterForm implements OnInit, OnDestroy {
-  title = input('Создайте аккаунт');
-  subtitle = input('Зарегистрируйтесь, чтобы начать покупки');
+export class RegisterForm {
+  @Output() readonly loginClick = new EventEmitter<void>();
 
-  formSubmit = output<RegisterFormValue>();
-  loginClick = output<void>();
+  private readonly fb = inject(FormBuilder);
+  private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
 
-  protected readonly errors = signal<RegisterFormErrors>({});
-  protected readonly isSubmitting = signal(false);
+  readonly isSubmitting = signal(false);
+  readonly serverError = signal<string | null>(null);
+  readonly passwordVisible = signal(false);
+  readonly confirmPasswordVisible = signal(false);
 
-  ngOnInit(): void {
-    console.log('RegisterForm initialized');
+  readonly form = this.fb.nonNullable.group(
+    {
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, strongPasswordValidator()]],
+      confirmPassword: ['', [Validators.required]],
+    },
+    {
+      validators: [this.passwordsMatchValidator],
+    },
+  );
+
+  get name() {
+    return this.form.controls.name;
   }
 
-  ngOnDestroy(): void {
-    console.log('RegisterForm destroyed');
+  get email() {
+    return this.form.controls.email;
   }
 
-  protected onSubmit(event: SubmitEvent): void {
-    event.preventDefault();
+  get password() {
+    return this.form.controls.password;
+  }
 
-    const form = event.currentTarget as HTMLFormElement;
-    const formData = new FormData(form);
+  get confirmPassword() {
+    return this.form.controls.confirmPassword;
+  }
 
-    const value: RegisterFormValue = {
-      firstName: String(formData.get('firstName') ?? '').trim(),
-      lastName: String(formData.get('lastName') ?? '').trim(),
-      email: String(formData.get('email') ?? '').trim(),
-      password: String(formData.get('password') ?? ''),
-    };
+  get passwordInputType(): 'text' | 'password' {
+    return this.passwordVisible() ? 'text' : 'password';
+  }
 
-    const errors = this.validate(value);
-    this.errors.set(errors);
+  get confirmPasswordInputType(): 'text' | 'password' {
+    return this.confirmPasswordVisible() ? 'text' : 'password';
+  }
 
-    if (Object.keys(errors).length > 0) {
+  togglePasswordVisibility(): void {
+    this.passwordVisible.update((value) => !value);
+  }
+
+  toggleConfirmPasswordVisibility(): void {
+    this.confirmPasswordVisible.update((value) => !value);
+  }
+
+  async submit(): Promise<void> {
+    this.serverError.set(null);
+
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+
       return;
     }
 
     this.isSubmitting.set(true);
-    this.formSubmit.emit(value);
 
-    setTimeout(() => {
+    try {
+      const { name, email, password } = this.form.getRawValue();
+
+      await this.authService.register({
+        name,
+        email,
+        password,
+      });
+
+      await this.router.navigateByUrl('/main');
+    } catch (error) {
+      this.serverError.set(
+        error instanceof Error
+          ? error.message
+          : 'Не удалось создать аккаунт',
+      );
+    } finally {
       this.isSubmitting.set(false);
-    }, 500);
+    }
   }
 
-  protected onLoginClick(): void {
+  goToLogin(): void {
     this.loginClick.emit();
   }
 
-  private validate(value: RegisterFormValue): RegisterFormErrors {
-    const errors: RegisterFormErrors = {};
+  private passwordsMatchValidator(
+    control: AbstractControl,
+  ): ValidationErrors | null {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
 
-    if (!value.firstName) errors.firstName = 'Введите имя';
-
-    if (!value.email) {
-      errors.email = 'Введите email';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.email)) {
-      errors.email = 'Введите корректный email';
+    if (!password || !confirmPassword) {
+      return null;
     }
 
-    if (!value.password) {
-      errors.password = 'Введите пароль';
-    } else if (!/^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(value.password)) {
-      errors.password = 'Пароль должен содержать минимум 8 символов, буквы и цифры';
-    }
-
-    return errors;
+    return password === confirmPassword
+      ? null
+      : {
+        passwordsMismatch: true,
+      };
   }
 }
