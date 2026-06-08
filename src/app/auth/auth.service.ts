@@ -16,6 +16,10 @@ export class AuthService {
 
   readonly isAuthenticated = computed(() => Boolean(this.token()));
 
+  isLoggedUser(): boolean {
+    return this.isAuthenticated();
+  }
+  
   async login(payload: LoginPayload): Promise<AuthResponse> {
     await this.fakeRequestDelay();
 

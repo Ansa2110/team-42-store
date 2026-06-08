@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { PromoCountdownBanner } from './promo-countdown-banner/promo-countdown-banner';
+import { RouterLink, RouterLinkActive } from "@angular/router";
 
 @Component({
   selector: 'app-header',
-  imports: [PromoCountdownBanner],
+  imports: [PromoCountdownBanner, RouterLink, RouterLinkActive],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
