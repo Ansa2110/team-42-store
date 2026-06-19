@@ -22,6 +22,8 @@
         <mat-error>Email is <strong>required</strong></mat-error>
       }
     </mat-form-field>
-    <button matButton="filled">Подписаться</button>
+    <button [appLoadingButton]="submitting()" matButton="filled" (click)="handleSubscribe()">
+      Подписаться
+    </button>
   </form>
 </div>
