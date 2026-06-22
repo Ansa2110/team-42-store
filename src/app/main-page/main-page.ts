@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { ProductsSection } from './products-section/products-section';
 import { AdvantagesSection } from './advantages-section/advantages-section';
+import { PromoBanner } from './promo-banner/promo-banner';
+import { SubscribeForm } from './subscribe-form/subscribe-form';
 
 @Component({
   selector: 'app-main-page',
-  imports: [ProductsSection, AdvantagesSection],
+  imports: [ProductsSection, AdvantagesSection, PromoBanner, SubscribeForm],
   templateUrl: './main-page.html',
 })
 export class MainPage {

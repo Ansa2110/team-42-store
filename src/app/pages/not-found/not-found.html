@@ -1,59 +1,62 @@
-<section class="min-h-screen bg-white text-text-primary">
-  <div class="grid min-h-screen grid-cols-1 lg:grid-cols-[40%_60%]">
-    <section class="flex flex-col bg-white px-6 py-5 sm:px-10 lg:px-14">
-      <header>
+<section
+  class="h-screen overflow-hidden bg-[linear-gradient(135deg,#ffffff_0%,#fbf9ff_48%,#f5efff_100%)] text-text-primary"
+>
+  <div class="mx-auto flex h-full w-full max-w-360 flex-col px-8 py-6 lg:px-16">
+    <header class="shrink-0">
+      <a
+        routerLink="/"
+        aria-label="Go to home page"
+        class="inline-flex items-center gap-2 text-sm font-bold text-text-primary no-underline"
+      >
+        <span class="flex h-5 w-5 items-center justify-center rounded bg-primary-main text-white">
+          <mat-icon class="h-4! w-4! text-base!">shopping_bag</mat-icon>
+        </span>
+        <span>ShopFront</span>
+      </a>
+    </header>
+
+    <div class="grid min-h-0 flex-1 items-center gap-4 lg:grid-cols-[38%_62%]">
+      <div class="flex min-w-0 flex-col items-start">
+        <h1
+          class="m-0 flex gap-8 font-sans! text-[7rem]! font-medium! leading-none! tracking-normal! text-text-primary sm:text-[10rem]! lg:text-[10rem]!"
+        >
+          <span>4</span>
+          <span class="text-primary-main">0</span>
+          <span>4</span>
+        </h1>
+
+        <h2 class="mt-8 text-3xl font-black leading-tight text-text-primary sm:text-4xl lg:text-[2.8rem]">
+          Страница не найдена
+        </h2>
+
+        <p class="mt-5! max-w-120 text-base leading-8 text-text-secondary sm:text-lg sm:leading-9">
+          К сожалению, запрашиваемая страница не существует или была удалена.
+        </p>
+
         <a
           routerLink="/"
-          aria-label="Go to home page"
-          class="inline-flex items-center gap-2 text-sm font-bold text-text-primary no-underline"
+          class="mt-10 inline-flex h-14 min-w-[18rem] cursor-pointer items-center justify-center gap-3 rounded-lg bg-primary-main px-8 text-base font-bold text-white no-underline shadow-[0_16px_32px_rgba(109,61,245,0.28)] transition hover:bg-primary-hover active:bg-primary-active"
         >
-          <span class="flex h-5 w-5 items-center justify-center rounded bg-primary-main text-white">
-            <mat-icon class="!h-4 !w-4 !text-base">shopping_bag</mat-icon>
-          </span>
-
-          <span>ShopFront</span>
+          <mat-icon class="h-5! w-5! text-xl!">home</mat-icon>
+          Вернуться на главную
         </a>
-      </header>
+      </div>
 
-      <main class="flex flex-1 items-center">
-        <div class="flex w-full max-w-[25rem] flex-col">
-          <h1 class="mb-8 !text-[7rem] !font-sans !font-bold !leading-none tracking-[-0.08em] text-text-primary sm:!text-[8rem] lg:!text-[9rem]">
-            4<span class="text-primary-main">0</span>4
-          </h1>
-          <div class="flex flex-col gap-6">
-            <h2 class="mt-5 text-4xl font-black leading-tight text-text-primary">
-              Страница не найдена
-            </h2>
+      <div class="relative hidden h-full min-h-0 items-center justify-end overflow-visible lg:flex">
+        <img
+          src="/assets/not-found/not-found-ufo.png"
+          alt="Иллюстрация с летающей тарелкой и коробкой"
+          class="h-auto w-[135%] max-w-none object-contain object-right xl:w-[145%]"
+        />
+      </div>
 
-            <p class="m-0 max-w-[23rem] text-base leading-8 text-text-secondary">
-              К сожалению, запрашиваемая страница не существует или была удалена.
-            </p>
-
-            <a
-              routerLink="/"
-              class="mt-3 inline-flex h-12 w-fit min-w-[13.5rem] items-center justify-center rounded-md bg-primary-main px-7 text-sm font-bold text-white no-underline shadow-[0_12px_24px_rgba(109,61,245,0.22)] transition hover:bg-primary-hover active:bg-primary-active"
-            >
-              Вернуться на главную
-            </a>
-          </div>
-        </div>
-      </main>
-    </section>
-
-    <section class="hidden min-h-screen items-center justify-center overflow-hidden bg-white lg:flex">
-      <img
-        src="/not-found-ufo.png"
-        alt="Иллюстрация с летающей тарелкой и коробкой"
-        class="h-full w-full object-cover object-center"
-      />
-    </section>
-
-    <section class="flex items-center justify-center px-6 pb-10 lg:hidden">
-      <img
-        src="/not-found-ufo.png"
-        alt="Иллюстрация с летающей тарелкой и коробкой"
-        class="w-full max-w-[32rem] object-contain"
-      />
-    </section>
+      <div class="mt-8 flex justify-center lg:hidden">
+        <img
+          src="/assets/not-found/not-found-ufo.png"
+          alt="Иллюстрация с летающей тарелкой и коробкой"
+          class="w-full max-w-md object-contain"
+        />
+      </div>
+    </div>
   </div>
 </section>
