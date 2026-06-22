@@ -1,3 +1,5 @@
+# Sprint 2 — Routing & Signals
+
 - **What was done:**
   Added and organized all visual assets for the ShopFront project. Created category images, product images, authentication illustrations, About Us page image, banner graphics, favicon, and a custom responsive 404 page. Structured assets inside the `public/assets` directory, connected images to application pages, configured routing for unknown URLs, added a home return button, and integrated Angular Material icons.
 
@@ -15,3 +17,7 @@
 
 - **Time spent:**
   4h
+
+https://github.com/Ansa2110/team-42-store/pull/14
+https://github.com/Ansa2110/team-42-store/pull/35
+https://github.com/Ansa2110/team-42-store/pull/36
