@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MatIconModule } from '@angular/material/icon';
@@ -15,6 +15,7 @@ type AuthMode = 'login' | 'register';
   imports: [LoginForm, RegisterForm, MatIconModule],
   templateUrl: './auth-page.html',
   styleUrl: './auth-page.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthPage {
   private readonly router = inject(Router);

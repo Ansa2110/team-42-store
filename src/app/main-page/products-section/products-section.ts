@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { ProductCard } from '../../shared/product-card/product-card';
 import { products } from './constants';
 import { RouterLink } from '@angular/router';
@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
   imports: [ProductCard, RouterLink],
   templateUrl: './products-section.html',
   styleUrl: './products-section.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsSection {
   readonly sectionTitle = input<string>('');

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { CatalogFilters } from './catalog-filters/catalog-filters';
 import { CatalogFiltersType } from './catalog-page.types';
 import { ProductCard } from '@shared/product-card/product-card';
@@ -13,6 +13,7 @@ import { ICategory, IProduct } from '@services/products-api/products.types';
   imports: [CatalogFilters, ProductCard],
   templateUrl: './catalog-page.html',
   styleUrl: './catalog-page.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CatalogPage {
   private productService = inject(ProductsService);
