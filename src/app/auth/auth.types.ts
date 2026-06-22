@@ -1,5 +1,5 @@
 export interface LoginPayload {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -10,5 +10,22 @@ export interface RegisterPayload {
 }
 
 export interface AuthResponse {
-  token: string;
+  id: number;
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface LocalRegisteredUser {
+  id: number;
+  name: string;
+  email: string;
+  passwordHash: string;
+}
+
+export interface GoogleAuthResponse {
+  credential?: string;
 }

@@ -3,7 +3,7 @@
     class="mx-auto grid min-h-[calc(100vh-48px)] max-w-7xl overflow-hidden rounded-3xl bg-surface/80 shadow-2xl shadow-primary-main/10 backdrop-blur lg:grid-cols-[1fr_1fr]"
   >
     <aside
-      class="relative hidden overflow-hidden bg-gradient-to-br from-surface via-primary-light to-primary-soft p-10 lg:flex lg:flex-col"
+      class="relative hidden overflow-hidden bg-linear-to-br from-surface via-primary-light to-primary-soft p-10 lg:flex lg:flex-col"
     >
       <div>
         @if (mode() === 'register') {
@@ -28,12 +28,8 @@
               </div>
 
               <div>
-                <p class="text-base font-bold text-text-primary">
-                  Широкий выбор
-                </p>
-                <p class="mt-1 text-sm font-semibold text-text-secondary">
-                  тысяч товаров
-                </p>
+                <p class="text-base font-bold text-text-primary">Широкий выбор</p>
+                <p class="mt-1 text-sm font-semibold text-text-secondary">тысяч товаров</p>
               </div>
             </div>
 
@@ -45,12 +41,8 @@
               </div>
 
               <div>
-                <p class="text-base font-bold text-text-primary">
-                  Эксклюзивные скидки
-                </p>
-                <p class="mt-1 text-sm font-semibold text-text-secondary">
-                  и акции
-                </p>
+                <p class="text-base font-bold text-text-primary">Эксклюзивные скидки</p>
+                <p class="mt-1 text-sm font-semibold text-text-secondary">и акции</p>
               </div>
             </div>
 
@@ -62,12 +54,8 @@
               </div>
 
               <div>
-                <p class="text-base font-bold text-text-primary">
-                  Безопасные покупки
-                </p>
-                <p class="mt-1 text-sm font-semibold text-text-secondary">
-                  и защита данных
-                </p>
+                <p class="text-base font-bold text-text-primary">Безопасные покупки</p>
+                <p class="mt-1 text-sm font-semibold text-text-secondary">и защита данных</p>
               </div>
             </div>
           </div>
@@ -92,10 +80,7 @@
               >
                 ✓
               </div>
-
-              <p class="text-base font-bold text-text-primary">
-                Быстрый доступ к корзине
-              </p>
+              <p class="text-base font-bold text-text-primary">Быстрый доступ к корзине</p>
             </div>
 
             <div class="flex items-center gap-4">
@@ -104,10 +89,7 @@
               >
                 ✓
               </div>
-
-              <p class="text-base font-bold text-text-primary">
-                Сохранённые товары в избранном
-              </p>
+              <p class="text-base font-bold text-text-primary">Сохранённые товары в избранном</p>
             </div>
 
             <div class="flex items-center gap-4">
@@ -116,10 +98,7 @@
               >
                 ✓
               </div>
-
-              <p class="text-base font-bold text-text-primary">
-                История заказов и доставка
-              </p>
+              <p class="text-base font-bold text-text-primary">История заказов и доставка</p>
             </div>
 
             <div class="flex items-center gap-4">
@@ -128,16 +107,13 @@
               >
                 ✓
               </div>
-
-              <p class="text-base font-bold text-text-primary">
-                Персональные рекомендации
-              </p>
+              <p class="text-base font-bold text-text-primary">Персональные рекомендации</p>
             </div>
           </div>
         }
       </div>
 
-      <div class="mt-auto min-h-[320px] w-full">
+      <div class="mt-auto min-h-80 w-full">
         @if (mode() === 'login') {
           <img
             src="/assets/auth/login-illustration.png"
@@ -155,7 +131,7 @@
     </aside>
 
     <main class="flex items-center justify-center bg-surface px-6 py-10 sm:px-10 lg:px-14">
-      <div class="w-full max-w-[430px]">
+      <div class="w-full max-w-107.5">
         @if (mode() === 'login') {
           <app-login-form (registerClick)="showRegister()" />
         } @else {

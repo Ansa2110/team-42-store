@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { MatIconModule } from '@angular/material/icon';
 
 import { AuthService } from '../auth.service';
@@ -11,7 +10,6 @@ type AuthMode = 'login' | 'register';
 
 @Component({
   selector: 'app-auth-page',
-  standalone: true,
   imports: [LoginForm, RegisterForm, MatIconModule],
   templateUrl: './auth-page.html',
   styleUrl: './auth-page.css',
@@ -25,7 +23,7 @@ export class AuthPage {
 
   constructor() {
     if (this.authService.isAuthenticated()) {
-      void this.router.navigateByUrl('/main-page');
+      void this.router.navigateByUrl('/main');
     }
   }
 

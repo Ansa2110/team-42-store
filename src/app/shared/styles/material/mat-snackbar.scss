@@ -1,0 +1,13 @@
+.mdc-snackbar.success {
+  .mat-mdc-snackbar-surface {
+    --mat-snack-bar-container-color: #d5fcd9;
+    --mat-snack-bar-supporting-text-color: #4b4b4b;
+  }
+}
+
+.mdc-snackbar.error {
+  .mat-mdc-snackbar-surface {
+    --mat-snack-bar-container-color: #ffcfd1;
+    --mat-snack-bar-supporting-text-color: #4b4b4b;
+  }
+}
