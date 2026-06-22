@@ -22,7 +22,7 @@ export const routes: Routes = [
       },
       {
         path: 'catalog',
-        loadComponent: () => import('./catalog-page/catalog-page').then((m) => m.CatalogPage),
+        loadComponent: () => import('@pages/catalog-page/catalog-page').then((m) => m.CatalogPage),
       },
     ],
   },

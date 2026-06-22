@@ -19,3 +19,7 @@ The project is developed as part of the RS School Angular Sprint and demonstrate
 
 - Viktoryia — https://github.com/viktorykings
 - Angelina — https://github.com/angelinavakkasova
+
+### Website 
+
+https://ansa2110.github.io/team-42-store

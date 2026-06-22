@@ -2,8 +2,10 @@
   <mat-list>
     <h6 class="title">Категории</h6>
     <mat-selection-list>
-      @for (category of categories; track category.title) {
-        <mat-list-option>{{ category.title }}</mat-list-option>
+      @if (categoriesList()) {
+        @for (category of categoriesList(); track category) {
+          <mat-list-option>{{ category }}</mat-list-option>
+        }
       }
     </mat-selection-list>
     <mat-divider></mat-divider>

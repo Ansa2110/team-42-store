@@ -1,4 +1,4 @@
-<div class="bg-bg-secondary rounded-md p-4 relative">
+<div class="bg-bg-secondary rounded-md p-4 relative h-[340px]">
   <div class="absolute right-2 top-2 text-text-tertiary">
     @if (isFavorite()) {
       <mat-icon class="material-icons-outlined" (click)="toggleItem()">favorite</mat-icon>
@@ -7,7 +7,7 @@
     }
   </div>
   @if (imgSrc(); as src) {
-    <img src="src" alt="src" />
+    <img [src]="src" alt="src" class="h-40 w-40" />
   } @else {
     <img alt="error" />
   }
