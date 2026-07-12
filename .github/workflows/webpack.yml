@@ -34,7 +34,17 @@ jobs:
     - name: Build Application
       run: npx ng build --base-href="/team-42-store/"
 
-    - name: Build
-      run: |
-        npm install
-        npx webpack
+    # Нам нужно скопировать index.html в 404.html, чтобы не ломался роутинг Angular на gh-pages
+    - name: Create 404 page for Angular Routing
+      run: cp dist/team-42-store/browser/index.html dist/team-42-store/browser/404.html
+
+    # Собираем файлы сборки в артефакт GitHub Pages
+    - name: Upload Pages Artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: ./dist/team-42-store/browser
+
+    # Публикуем сайт в сеть
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
