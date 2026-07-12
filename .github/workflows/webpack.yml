@@ -26,6 +26,10 @@ jobs:
     - name: Run ESLint
       run: npm run lint
       
+    - name: Create local environment file
+      run: |
+          mkdir -p src/environments
+          echo "export const environment = { production: true };" > src/environments/environment.local.ts
     - name: Build Application
       run: npx ng build --base-href="/team-42-store/"
 
