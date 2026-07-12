@@ -1,9 +1,7 @@
-name: NodeJS with Webpack
+name: Deploy Angular App to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
     branches: [ "main" ]
 
 permissions:
@@ -16,44 +14,43 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [22.x, 24.x]
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
+    # Фиксируем одну версию Node.js, без использования matrix
     - name: Use Node.js 24.x
       uses: actions/setup-node@v4
       with:
         node-version: '24.x'
+        
     - name: Install dependencies
-      run: |
-          echo "yes" | npm install
+      run: npm install --no-audit --no-fund
+      env:
+        CI: true
       
     - name: Run ESLint
       run: npm run lint
       
     - name: Create local environment file
       run: |
-          mkdir -p src/environments
-          echo "export const environment = { production: true, apiUrl: '', googleClientId: '' };" > src/environments/environment.local.ts
+        mkdir -p src/environments
+        echo "export const environment = { production: true, apiUrl: '', googleClientId: '' };" > src/environments/environment.local.ts
+        
     - name: Build Application
-      run: npx ng build --base-href="/team-42-store/"
+      run: npx ng build --configuration production --base-href="/team-42-store/"
 
-    # Нам нужно скопировать index.html в 404.html, чтобы не ломался роутинг Angular на gh-pages
     - name: Create 404 page for Angular Routing
       run: cp dist/team-42-store/browser/index.html dist/team-42-store/browser/404.html
 
-    # Собираем файлы сборки в артефакт GitHub Pages
     - name: Upload Pages Artifact
       uses: actions/upload-pages-artifact@v3
       with:
         path: ./dist/team-42-store/browser
 
-    # Публикуем сайт в сеть
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
