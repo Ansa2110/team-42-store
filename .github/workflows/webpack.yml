@@ -26,9 +26,9 @@ jobs:
       
     - name: Run ESLint
       run: npm run lint
-
+      
     - name: Build Application
-      run: npm run build:prod
+      run: npx ng build --base-href="/team-42-store/"
 
     - name: Build
       run: |
