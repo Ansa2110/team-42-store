@@ -3,6 +3,7 @@ export interface ProductsFilters {
   skip?: number;
   sortBy?: string;
   order?: string;
+  q?: string
 }
 
 export interface ICategory {
