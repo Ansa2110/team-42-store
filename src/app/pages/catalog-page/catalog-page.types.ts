@@ -5,11 +5,3 @@ export interface CatalogFiltersType {
   priceTo?: number;
   category?: string;
 }
-
-export interface ProductType {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  rating: number;
-}

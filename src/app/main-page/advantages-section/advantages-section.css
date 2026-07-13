@@ -1,5 +1,7 @@
 :host {
-  width: 100%;
+  max-width: 80%;
   display: flex;
+  gap: 10px;
   justify-content: space-between;
+  padding: 0 16px;
 }

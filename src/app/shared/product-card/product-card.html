@@ -1,19 +1,33 @@
-<div class="bg-bg-secondary rounded-md p-4 relative h-[340px]">
-  <div class="absolute right-2 top-2 text-text-tertiary">
-    @if (isFavorite()) {
-      <mat-icon class="material-icons-outlined" (click)="toggleItem()">favorite</mat-icon>
+@let productVM = product();
+<div class="bg-sufrace-soft border border-border rounded-md p-4 w-[320px]">
+  <div class="relative flex justify-center">
+    <div class="absolute right-2 top-2 text-text-tertiary">
+      @if (isFavorite()) {
+        <mat-icon class="material-icons-outlined" (click)="toggleItem()">favorite</mat-icon>
+      } @else {
+        <mat-icon class="material-icons-outlined" (click)="toggleItem()">favorite_border</mat-icon>
+      }
+    </div>
+    @if (productVM.thumbnail; as src) {
+      <img [src]="src" alt="src" class="h-35 w-35" />
     } @else {
-      <mat-icon class="material-icons-outlined" (click)="toggleItem()">favorite_border</mat-icon>
+      <img alt="error" />
     }
   </div>
-  @if (imgSrc(); as src) {
-    <img [src]="src" alt="src" class="h-40 w-40" />
-  } @else {
-    <img alt="error" />
-  }
-  <p>{{ title() }}</p>
-  <p>{{ rating() }}</p>
   <div>
-    <p>{{ price() }}</p>
+    <p class="text-text-tertiary font-bold text-base">{{ productVM.title }}</p>
+    <p>{{ productVM.rating }}</p>
+  </div>
+  <div class="my-2">
+    <p class="text-text-muted">
+      {{ productVM.price }}
+    </p>
+    <p class="flex justify-between text-lg">
+      {{
+        productVM.price - (productVM.price * productVM.discountPercentage) / 100 | number: '1.2-2'
+      }}
+      <span class="text-error-main"> - {{ productVM.discountPercentage | percent }} </span>
+    </p>
+    <p class="text-error-main"></p>
   </div>
 </div>

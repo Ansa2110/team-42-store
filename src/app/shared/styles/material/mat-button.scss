@@ -1,0 +1,12 @@
+.mat-mdc-flat-button.mat-primary,
+.mat-mdc-button-touch-target {
+  --mdc-flat-button-container-color: #6d3df5; /* Ваш кастомный фоновый цвет */
+  --mdc-flat-button-label-text-color: #ffffff; /* Цвет текста */
+}
+
+// Изменение внутренних отступов (padding) и высоты
+.mat-mdc-flat-button {
+  height: 44px !important; /* Ваша высота */
+  font-weight: 600;
+  border-radius: 4px;
+}

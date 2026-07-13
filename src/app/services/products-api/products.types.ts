@@ -1,8 +1,9 @@
 export interface ProductsFilters {
-  limit: number;
-  skip: number;
-  sortBy: string;
-  order: string;
+  limit?: number;
+  skip?: number;
+  sortBy?: string;
+  order?: string;
+  q?: string
 }
 
 export interface ICategory {
@@ -62,4 +63,9 @@ export interface IProductsResponse {
   total?: number;
   skip?: number;
   limit?: number;
+}
+export interface TCategory {
+  slug: string;
+  name: string;
+  url: string;
 }
