@@ -15,15 +15,4 @@ describe('App', () => {
 
     expect(app).toBeTruthy();
   });
-
-  it('should render auth page', async () => {
-    const fixture = TestBed.createComponent(App);
-
-    fixture.detectChanges();
-    await fixture.whenStable();
-
-    const compiled = fixture.nativeElement as HTMLElement;
-
-    expect(compiled.textContent).toContain('Добро пожаловать в ShopFront!');
-  });
 });

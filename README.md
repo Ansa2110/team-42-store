@@ -23,3 +23,7 @@ The project is developed as part of the RS School Angular Sprint and demonstrate
 ### Website 
 
 https://ansa2110.github.io/team-42-store
+
+
+### sptint 4 vid link
+https://youtu.be/qNzH0TlGdMI
