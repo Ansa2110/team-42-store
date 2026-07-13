@@ -7,10 +7,11 @@ import { ProductsService } from '@services/products-api/products.service';
 import { catchError, of } from 'rxjs';
 import { SnackBarService } from '@shared/services/snackbar.service';
 import { ICategory, IProduct } from '@services/products-api/products.types';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-catalog-page',
-  imports: [CatalogFilters, ProductCard],
+  imports: [CatalogFilters, ProductCard, MatProgressSpinner],
   templateUrl: './catalog-page.html',
   styleUrl: './catalog-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,7 +30,7 @@ export class CatalogPage {
   readonly products = toSignal(
     this.productService.getProducts().pipe(
       catchError((err) => {
-        this.snackBar.error(err.error.message);
+        this.snackBar.error(err.message);
         return of({ products: [] as IProduct[] });
       }),
     ),
@@ -38,7 +39,7 @@ export class CatalogPage {
   readonly categories = toSignal(
     this.productService.getAllCategories().pipe(
       catchError((err) => {
-        this.snackBar.error(err.error.message);
+        this.snackBar.error(err.message);
         return of([] as ICategory[]);
       }),
     ),

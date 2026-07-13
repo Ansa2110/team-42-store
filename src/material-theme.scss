@@ -6,13 +6,14 @@
 @use '@angular/material' as mat;
 @use './styles.css';
 @use '../src/app/shared/styles/material/mat-snackbar.scss';
+@use '../src/app/shared/styles/material/mat-button.scss';
 
 html {
   height: 100%;
   @include mat.theme(
     (
       color: (
-        primary: mat.$magenta-palette,
+        primary: mat.$violet-palette,
         tertiary: mat.$violet-palette,
       ),
       typography: Roboto,
@@ -22,7 +23,7 @@ html {
   @include mat.theme(
     (
       color: (
-        primary: mat.$magenta-palette,
+        primary: mat.$violet-palette,
         tertiary: mat.$violet-palette,
       ),
       typography: Roboto,
