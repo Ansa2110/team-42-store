@@ -7,10 +7,11 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ProductsService } from '@services/products-api/products.service';
 import { SnackBarService } from '@shared/services/snackbar.service';
 import { catchError, of } from 'rxjs';
+import { TranslatePipe } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-catalog-filters',
-  imports: [MatDivider, MatList, MatSlider, MatSliderModule, MatListModule],
+  imports: [MatDivider, MatList, MatSlider, MatSliderModule, MatListModule,TranslatePipe],
   templateUrl: './catalog-filters.html',
   styleUrl: './catalog-filters.css',
 })

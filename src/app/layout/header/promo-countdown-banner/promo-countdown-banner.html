@@ -1,8 +1,8 @@
 <div
-  class="w-full bg-header-accent text-bg-header px-6 py-2 flex flex-col sm:flex-row items-center justify-center gap-3 text-sm"
+  class="flex w-full flex-col items-center justify-center gap-3 bg-header-accent px-6 py-2 text-sm text-bg-header sm:flex-row"
 >
   <div class="flex items-center gap-2">
-    <span>🔥</span>
+    <span aria-hidden="true">🔥</span>
 
     <span class="font-medium">
       {{ title }}
@@ -15,8 +15,8 @@
 
   <button
     type="button"
+    class="rounded-lg bg-bg-header px-3 py-1 font-semibold text-header-accent transition hover:opacity-90"
     (click)="onBannerClick()"
-    class="px-3 py-1 rounded-lg bg-bg-header text-header-accent font-semibold hover:opacity-90 transition"
   >
     {{ buttonText }}
   </button>

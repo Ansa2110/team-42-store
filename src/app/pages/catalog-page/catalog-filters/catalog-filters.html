@@ -1,22 +1,32 @@
-<div class="p-3 border border-border rounded-md">
-  <mat-list>
-    <h6 class="title">Категории</h6>
+<div class="rounded-md border border-border bg-surface p-3 text-text-primary">
+  <mat-list class="text-text-primary">
+    <h6 class="title text-text-primary">{{ 'catalog.categories' | translate }}</h6>
+
     <mat-selection-list>
       @if (categoriesList()) {
         @for (category of categoriesList(); track category) {
-          <mat-list-option>{{ category }}</mat-list-option>
+          <mat-list-option
+            class="text-text-primary"
+            (click)="selectCategory(category)"
+          >
+            {{ ('categories.' + category) | translate }}
+          </mat-list-option>
         }
       }
     </mat-selection-list>
+
     <mat-divider></mat-divider>
-    <h6 class="title">Фильтры</h6>
-    <p>Цена</p>
+
+    <h6 class="title text-text-primary">{{ 'catalog.filters' | translate }}</h6>
+    <p class="text-text-secondary">{{ 'catalog.price' | translate }}</p>
+
     <mat-slider min="1" max="1000">
       <input
         [value]="currentFilters().priceFrom"
         matSliderStartThumb
         (change)="onPriceRangeChange($event, 'priceFrom')"
       />
+
       <input
         [value]="currentFilters().priceTo"
         matSliderEndThumb

@@ -1,0 +1,294 @@
+{
+  "header": {
+    "homeAria": "Go to the ShopFront home page",
+    "catalog": "Catalog",
+    "search": "Search products",
+    "searchPlaceholder": "Search products...",
+    "searchShort": "Search...",
+    "interfaceSettings": "Interface settings",
+    "changeLanguage": "Change language",
+    "darkTheme": "Enable dark theme",
+    "lightTheme": "Enable light theme",
+    "profileMenu": "Open profile menu",
+    "profile": "Profile",
+    "logout": "Log out",
+    "login": "Log in",
+    "favorites": "Favorites",
+    "cart": "Cart"
+  },
+  "footer": {
+    "homeAria": "Go to the ShopFront home page",
+    "about": "About us",
+    "copyright": "© 2026 ShopFront. All rights reserved."
+  },
+  "auth": {
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm password"
+    },
+    "actions": {
+      "togglePassword": "Show or hide password",
+      "toggleConfirmPassword": "Show or hide password confirmation"
+    },
+    "validation": {
+      "nameRequired": "Name is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Enter a valid email address",
+      "passwordRequired": "Password is required",
+      "passwordStrong": "Password must contain at least 8 characters, letters and numbers",
+      "confirmPasswordRequired": "Password confirmation is required",
+      "passwordsMismatch": "Passwords do not match"
+    },
+    "loginHero": {
+      "titleFirst": "Welcome back",
+      "titleSecond": "to",
+      "description": "Sign in to your account and continue shopping with pleasure",
+      "features": {
+        "cart": "Quick access to your cart",
+        "favorites": "Saved favorite products",
+        "orders": "Order history and delivery",
+        "recommendations": "Personal recommendations"
+      }
+    },
+    "registerHero": {
+      "titleFirst": "Create your",
+      "titleAccent": "account",
+      "description": "Register and discover the best products",
+      "features": {
+        "choice": {
+          "title": "Wide selection",
+          "text": "of thousands of products"
+        },
+        "discounts": {
+          "title": "Exclusive discounts",
+          "text": "and promotions"
+        },
+        "security": {
+          "title": "Secure shopping",
+          "text": "and data protection"
+        }
+      }
+    },
+    "images": {
+      "loginAlt": "ShopFront login illustration",
+      "registerAlt": "ShopFront registration illustration"
+    },
+    "login": {
+      "title": "Sign in",
+      "subtitle": "Enter your account details",
+      "emailPlaceholder": "Enter your email",
+      "passwordPlaceholder": "Enter your password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "submit": "Sign in",
+      "submitting": "Signing in...",
+      "socialDivider": "or sign in with",
+      "googleAria": "Sign in with Google",
+      "githubAria": "Sign in with GitHub",
+      "noAccount": "Don't have an account?",
+      "register": "Register",
+      "errors": {
+        "loginFailed": "Unable to sign in",
+        "googleUnavailable": "Google authorization is unavailable",
+        "googleFailed": "Google authorization failed",
+        "githubBackend": "GitHub authorization requires a backend"
+      }
+    },
+    "register": {
+      "title": "Register",
+      "subtitle": "Complete the form to create an account",
+      "namePlaceholder": "Enter your name",
+      "emailPlaceholder": "Enter your email",
+      "passwordPlaceholder": "At least 8 characters",
+      "confirmPasswordPlaceholder": "Repeat your password",
+      "submit": "Create account",
+      "submitting": "Creating account...",
+      "socialDivider": "or register with",
+      "googleAria": "Register with Google",
+      "githubAria": "Register with GitHub",
+      "hasAccount": "Already have an account?",
+      "login": "Sign in",
+      "errors": {
+        "registerFailed": "Unable to create an account",
+        "googleUnavailable": "Google registration is unavailable",
+        "googleFailed": "Google registration failed",
+        "githubBackend": "GitHub registration requires a backend"
+      }
+    }
+  },
+  "main": {
+    "advantages": {
+      "freeDelivery": {
+        "title": "Free delivery",
+        "subtitle": "on orders over 3000"
+      },
+      "qualityGuarantee": {
+        "title": "Quality guarantee",
+        "subtitle": "for all products"
+      },
+      "return": {
+        "title": "14-day returns",
+        "subtitle": "easy product returns"
+      },
+      "support": {
+        "title": "24/7 support",
+        "subtitle": "we are always available"
+      },
+      "securePayment": {
+        "title": "Secure payment",
+        "subtitle": "your data is protected"
+      }
+    },
+    "categories": {
+      "title": "Popular categories",
+      "viewAll": "View all"
+    },
+    "products": {
+      "title": "Popular products",
+      "viewAll": "View all"
+    },
+    "promo": {
+      "title": "Spring sale",
+      "discount": "Up to off",
+      "description": "Thousands of products at special prices",
+      "action": "Start shopping"
+    },
+    "subscribe": {
+      "title": "Subscribe to our newsletter",
+      "subtitle": "Receive information about discounts, promotions, and new products",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter your email",
+      "submit": "Subscribe",
+      "submitting": "Subscribing...",
+      "validation": {
+        "required": "Enter your email",
+        "invalid": "Enter a valid email address"
+      },
+      "messages": {
+        "success": "You have successfully subscribed to the newsletter",
+        "error": "Unable to complete the subscription"
+      }
+    }
+  },
+  "productCard": {
+    "addToFavorites": "Add product to favorites",
+    "removeFromFavorites": "Remove product from favorites",
+    "imageAlt": "Image of {{title}}",
+    "imageUnavailable": "Product image is unavailable",
+    "rating": "Rating",
+    "discount": "{{value}} discount",
+    "price": "Price",
+    "finalPrice": "Discounted price"
+  },
+  "about": {
+    "breadcrumb": {
+      "ariaLabel": "Breadcrumb navigation",
+      "home": "Home",
+      "current": "About us"
+    },
+    "hero": {
+      "title": "About us",
+      "descriptionFirst": "ShopFront is a team of like-minded people creating a modern online store for convenient and enjoyable shopping.",
+      "descriptionSecond": "Our goal is to provide every customer with quality service, a wide product range, and fair prices.",
+      "imageAlt": "ShopFront team meeting"
+    },
+    "stats": {
+      "customers": {
+        "title": "5000+",
+        "text": "happy customers"
+      },
+      "products": {
+        "title": "50,000+",
+        "text": "products in the catalog"
+      },
+      "delivery": {
+        "title": "Fast delivery",
+        "text": "across Kazakhstan"
+      },
+      "support": {
+        "title": "24/7 support",
+        "text": "we are always nearby"
+      }
+    },
+    "developers": {
+      "title": "Developers",
+      "description": "The team that created and supports ShopFront.",
+      "githubAria": "Open {{name}}'s GitHub profile",
+      "roles": {
+        "teamLead": "Team Lead",
+        "teamMember": "Team Member"
+      },
+      "members": {
+        "ansar": {
+          "name": "Ansar",
+          "text": "Coordinates the team, manages product decisions, and oversees the overall development process."
+        },
+        "viktoryia": {
+          "name": "Viktoryia",
+          "text": "Works on interface details and helps make the shopping process clear and enjoyable."
+        },
+        "angelina": {
+          "name": "Angelina",
+          "text": "Develops user-facing features and supports a high-quality customer experience."
+        }
+      }
+    }
+  },
+  "notFound": {
+    "homeAria": "Go to the ShopFront home page",
+    "title": "Page not found",
+    "description": "Unfortunately, the requested page does not exist or has been removed.",
+    "action": "Return to the home page",
+    "imageAlt": "Illustration with a flying saucer and a box"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "save": "Save",
+    "cancel": "Cancel",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "catalog": {
+    "categories": "Categories",
+    "filters": "Filters",
+    "price": "Price",
+    "empty": "Sorry! We couldn't find anything"
+  },
+  "categories": {
+    "beauty": "Beauty",
+    "fragrances": "Fragrances",
+    "furniture": "Furniture",
+    "groceries": "Groceries",
+    "home-decoration": "Home Decoration",
+    "kitchen-accessories": "Kitchen Accessories",
+    "laptops": "Laptops",
+    "mens-shirts": "Men's Shirts",
+    "mens-shoes": "Men's Shoes",
+    "mens-watches": "Men's Watches",
+    "mobile-accessories": "Mobile Accessories",
+    "motorcycle": "Motorcycles",
+    "skin-care": "Skin Care",
+    "smartphones": "Smartphones",
+    "sports-accessories": "Sports Accessories",
+    "sunglasses": "Sunglasses",
+    "tablets": "Tablets",
+    "tops": "Tops",
+    "vehicle": "Vehicles",
+    "womens-bags": "Women's Bags",
+    "womens-dresses": "Women's Dresses",
+    "womens-jewellery": "Women's Jewellery",
+    "womens-shoes": "Women's Shoes",
+    "womens-watches": "Women's Watches"
+  },
+  "promo": {
+    "title": "Summer sale ends in",
+    "button": "Shop now"
+  }
+}

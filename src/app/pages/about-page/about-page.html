@@ -2,33 +2,25 @@
   <div class="mx-auto w-full max-w-7xl">
     <nav
       class="mb-4 flex items-center gap-2 text-sm text-text-muted"
-      aria-label="Breadcrumb"
+      [attr.aria-label]="'about.breadcrumb.ariaLabel' | translate"
     >
       <a
         routerLink="/main"
         class="transition-colors duration-200 hover:text-primary-main"
       >
-        Home
+        {{ 'about.breadcrumb.home' | translate }}
       </a>
 
-      <span
-        class="material-icons-outlined text-base"
-        aria-hidden="true"
-      >
+      <span class="material-icons-outlined text-base" aria-hidden="true">
         chevron_right
       </span>
 
-      <span
-        class="text-text-secondary"
-        aria-current="page"
-      >
-        About us
+      <span class="text-text-secondary" aria-current="page">
+        {{ 'about.breadcrumb.current' | translate }}
       </span>
     </nav>
 
-    <section
-      class="overflow-hidden rounded-2xl border border-border bg-surface shadow-sm"
-    >
+    <section class="overflow-hidden rounded-2xl border border-border bg-surface shadow-sm">
       <div
         class="grid gap-8 p-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:p-8 lg:gap-12"
       >
@@ -37,23 +29,18 @@
             <div
               class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-primary-main"
             >
-              <span
-                class="material-icons-outlined text-xl"
-                aria-hidden="true"
-              >
+              <span class="material-icons-outlined text-xl" aria-hidden="true">
                 shopping_bag
               </span>
             </div>
 
-            <span class="text-lg font-semibold text-text-primary">
-              ShopFront
-            </span>
+            <span class="text-lg font-semibold text-text-primary">ShopFront</span>
           </div>
 
           <h1
             class="m-0 text-4xl font-bold leading-tight tracking-tight text-text-primary sm:text-5xl"
           >
-            About us
+            {{ 'about.hero.title' | translate }}
           </h1>
 
           <div
@@ -61,18 +48,9 @@
             aria-hidden="true"
           ></div>
 
-          <div
-            class="mt-6 space-y-5 text-base leading-7 text-text-secondary"
-          >
-            <p>
-              ShopFront is a team of like-minded people creating a modern
-              online store for convenient and pleasant shopping.
-            </p>
-
-            <p>
-              Our goal is to provide quality service, a wide product range,
-              and fair prices for every customer.
-            </p>
+          <div class="mt-6 space-y-5 text-base leading-7 text-text-secondary">
+            <p>{{ 'about.hero.descriptionFirst' | translate }}</p>
+            <p>{{ 'about.hero.descriptionSecond' | translate }}</p>
           </div>
         </div>
 
@@ -81,37 +59,32 @@
         >
           <img
             src="/assets/about-us/about-team.png"
-            alt="ShopFront team meeting"
+            [alt]="'about.hero.imageAlt' | translate"
             class="h-full w-full object-cover object-center"
           />
         </div>
       </div>
 
-      <div
-        class="grid border-t border-border bg-surface sm:grid-cols-2 lg:grid-cols-4"
-      >
-        @for (item of stats; track item.title) {
+      <div class="grid border-t border-border bg-surface sm:grid-cols-2 lg:grid-cols-4">
+        @for (item of stats; track item.key) {
           <article
             class="flex items-center gap-4 border-border p-6 sm:[&:nth-child(odd)]:border-r lg:border-r lg:last:border-r-0"
           >
             <div
               class="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary-main"
             >
-              <span
-                class="material-icons-outlined"
-                aria-hidden="true"
-              >
+              <span class="material-icons-outlined" aria-hidden="true">
                 {{ item.icon }}
               </span>
             </div>
 
             <div class="min-w-0">
               <h2 class="text-lg font-bold text-text-primary">
-                {{ item.title }}
+                {{ ('about.stats.' + item.key + '.title') | translate }}
               </h2>
 
               <p class="mt-1 text-sm text-text-secondary">
-                {{ item.text }}
+                {{ ('about.stats.' + item.key + '.text') | translate }}
               </p>
             </div>
           </article>
@@ -119,35 +92,37 @@
       </div>
     </section>
 
-    <section
-      class="mt-10"
-      aria-labelledby="developers-title"
-    >
+    <section class="mt-10" aria-labelledby="developers-title">
       <div class="mb-6">
         <div
           class="mb-3 h-1 w-8 rounded-full bg-primary-main"
           aria-hidden="true"
         ></div>
 
-        <h2
-          id="developers-title"
-          class="text-2xl font-bold text-text-primary"
-        >
-          Developers
+        <h2 id="developers-title" class="text-2xl font-bold text-text-primary">
+          {{ 'about.developers.title' | translate }}
         </h2>
 
         <p class="mt-2 text-sm text-text-secondary">
-          The team that created and supports ShopFront.
+          {{ 'about.developers.description' | translate }}
         </p>
       </div>
 
       <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        @for (developer of developers; track developer.github) {
+        @for (developer of developers; track developer.memberKey) {
           <a
             [href]="developer.github"
             target="_blank"
             rel="noopener noreferrer"
-            [attr.aria-label]="'Open ' + developer.name + ' GitHub profile'"
+            [attr.aria-label]="
+              'about.developers.githubAria'
+                | translate
+                  : {
+                      name:
+                        ('about.developers.members.' + developer.memberKey + '.name')
+                        | translate,
+                    }
+            "
             class="group flex flex-col items-center rounded-xl border border-border bg-surface p-6 text-center shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-primary-main hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-main focus-visible:ring-offset-2"
           >
             <div
@@ -157,28 +132,27 @@
             </div>
 
             <h3 class="mt-5 text-lg font-bold text-text-primary">
-              {{ developer.name }}
+              {{
+                ('about.developers.members.' + developer.memberKey + '.name')
+                  | translate
+              }}
             </h3>
 
             <p class="mt-1 text-sm font-medium text-primary-main">
-              {{ developer.role }}
+              {{ ('about.developers.roles.' + developer.roleKey) | translate }}
             </p>
 
-            <p
-              class="mt-4 min-h-16 text-sm leading-6 text-text-secondary"
-            >
-              {{ developer.text }}
+            <p class="mt-4 min-h-16 text-sm leading-6 text-text-secondary">
+              {{
+                ('about.developers.members.' + developer.memberKey + '.text')
+                  | translate
+              }}
             </p>
 
             <div
               class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-text-primary transition-colors duration-200 group-hover:text-primary-main"
             >
-              <img
-                src="/assets/icons/github.svg"
-                alt=""
-                class="size-5"
-              />
-
+              <img src="/assets/icons/github.svg" alt="" class="size-5" />
               <span>GitHub</span>
             </div>
           </a>

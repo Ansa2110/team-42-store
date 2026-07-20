@@ -1,23 +1,22 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 interface AboutStat {
   icon: string;
-  title: string;
-  text: string;
+  key: 'customers' | 'delivery' | 'products' | 'support';
 }
 
 interface Developer {
-  name: string;
-  role: string;
-  text: string;
   github: string;
   initials: string;
+  memberKey: 'angelina' | 'ansar' | 'viktoryia';
+  roleKey: 'teamLead' | 'teamMember';
 }
 
 @Component({
   selector: 'app-about-page',
-  imports: [RouterLink],
+  imports: [RouterLink, TranslatePipe],
   templateUrl: './about-page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -25,47 +24,40 @@ export class AboutPage {
   readonly stats: readonly AboutStat[] = [
     {
       icon: 'group',
-      title: '5000+',
-      text: 'happy customers',
+      key: 'customers',
     },
     {
       icon: 'inventory_2',
-      title: '50 000+',
-      text: 'products in catalog',
+      key: 'products',
     },
     {
       icon: 'local_shipping',
-      title: 'Fast delivery',
-      text: 'across Kazakhstan',
+      key: 'delivery',
     },
     {
       icon: 'support_agent',
-      title: '24/7 support',
-      text: 'we are always nearby',
+      key: 'support',
     },
   ];
 
   readonly developers: readonly Developer[] = [
     {
-      name: 'Ansar',
-      role: 'Team Lead',
-      text: 'Coordinates the team, product decisions, and the overall development process.',
       github: 'https://github.com/Ansa2110',
       initials: 'A',
+      memberKey: 'ansar',
+      roleKey: 'teamLead',
     },
     {
-      name: 'Viktoryia',
-      role: 'Team Member',
-      text: 'Works on interface details and helps make the shopping flow clear and pleasant.',
       github: 'https://github.com/viktorykings',
       initials: 'V',
+      memberKey: 'viktoryia',
+      roleKey: 'teamMember',
     },
     {
-      name: 'Angelina',
-      role: 'Team Member',
-      text: 'Builds user-facing features and supports a polished customer experience.',
       github: 'https://github.com/angelinavakkasova',
       initials: 'A',
+      memberKey: 'angelina',
+      roleKey: 'teamMember',
     },
   ];
 }

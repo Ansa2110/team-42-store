@@ -1,16 +1,36 @@
-<form id="loginForm" class="space-y-5" [formGroup]="form" (ngSubmit)="submit()">
+<form
+  id="loginForm"
+  class="space-y-5"
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+>
   <div class="flex items-start gap-4">
     <div
       class="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-primary-light text-primary-main"
     >
-      <mat-icon>lock_outline</mat-icon>
+      <mat-icon>
+        lock_outline
+      </mat-icon>
     </div>
 
     <div>
-      <h2 class="text-3xl font-extrabold leading-tight tracking-tight text-text-primary">
-        Вход в аккаунт
+      <h2
+        class="text-3xl font-extrabold leading-tight tracking-tight text-text-primary"
+      >
+        {{
+          'auth.login.title'
+            | translate
+        }}
       </h2>
-      <p class="mt-1 text-sm text-text-secondary">Введите свои данные для входа</p>
+
+      <p
+        class="mt-1 text-sm text-text-secondary"
+      >
+        {{
+          'auth.login.subtitle'
+            | translate
+        }}
+      </p>
     </div>
   </div>
 
@@ -23,44 +43,82 @@
   }
 
   <div>
-    <label for="loginUsername" class="mb-2 block text-sm font-bold text-text-primary">
-      Email
+    <label
+      for="loginUsername"
+      class="mb-2 block text-sm font-bold text-text-primary"
+    >
+      {{ 'auth.fields.email' | translate }}
     </label>
 
-    <mat-form-field class="w-full" appearance="outline">
+    <mat-form-field
+      class="w-full"
+      appearance="outline"
+    >
       <input
         id="loginUsername"
         matInput
         type="email"
-        placeholder="Введите email"
+        [placeholder]="
+          'auth.login.emailPlaceholder'
+            | translate
+        "
         formControlName="username"
         autocomplete="email"
       />
 
-      <mat-icon matSuffix class="text-text-muted">person_outline</mat-icon>
+      <mat-icon
+        matSuffix
+        class="text-text-muted"
+      >
+        person_outline
+      </mat-icon>
     </mat-form-field>
 
-    @if (username.touched && username.invalid) {
-      <div class="-mt-3 text-sm font-medium text-red-600">
-        @if (username.errors?.['required']) {
-          <p>Требуется email</p>
+    @if (
+      username.touched &&
+      username.invalid
+      ) {
+      <div
+        class="-mt-3 text-sm font-medium text-red-600"
+      >
+        @if (
+          username.errors?.['required']
+          ) {
+          <p>
+            {{
+              'auth.validation.emailRequired'
+                | translate
+            }}
+          </p>
         }
       </div>
     }
   </div>
 
   <div>
-    <label for="loginPassword" class="mb-2 block text-sm font-bold text-text-primary">
-      Пароль
+    <label
+      for="loginPassword"
+      class="mb-2 block text-sm font-bold text-text-primary"
+    >
+      {{
+        'auth.fields.password'
+          | translate
+      }}
     </label>
 
-    <mat-form-field class="w-full" appearance="outline">
+    <mat-form-field
+      class="w-full"
+      appearance="outline"
+    >
       <input
         id="loginPassword"
         matInput
         class="cursor-text"
         [type]="passwordInputType"
-        placeholder="Введите ваш пароль"
+        [placeholder]="
+          'auth.login.passwordPlaceholder'
+            | translate
+        "
         formControlName="password"
         autocomplete="current-password"
       />
@@ -70,36 +128,71 @@
         matSuffix
         class="cursor-pointer!"
         type="button"
-        aria-label="Показать или скрыть пароль"
-        (click)="togglePasswordVisibility()"
+        [attr.aria-label]="
+          'auth.actions.togglePassword'
+            | translate
+        "
+        (click)="
+          togglePasswordVisibility()
+        "
       >
         @if (passwordVisible()) {
-          <mat-icon>visibility_off</mat-icon>
+          <mat-icon>
+            visibility_off
+          </mat-icon>
         } @else {
-          <mat-icon>visibility</mat-icon>
+          <mat-icon>
+            visibility
+          </mat-icon>
         }
       </button>
     </mat-form-field>
 
-    @if (password.touched && password.invalid) {
-      <div class="-mt-3 text-sm font-medium text-red-600">
-        @if (password.errors?.['required']) {
-          <p>Требуется пароль</p>
+    @if (
+      password.touched &&
+      password.invalid
+      ) {
+      <div
+        class="-mt-3 text-sm font-medium text-red-600"
+      >
+        @if (
+          password.errors?.['required']
+          ) {
+          <p>
+            {{
+              'auth.validation.passwordRequired'
+                | translate
+            }}
+          </p>
         }
       </div>
     }
   </div>
 
-  <div class="flex items-center justify-between gap-4 pt-1">
-    <mat-checkbox formControlName="rememberMe">
-      <span class="cursor-pointer text-sm text-text-secondary">Запомнить меня</span>
+  <div
+    class="flex items-center justify-between gap-4 pt-1"
+  >
+    <mat-checkbox
+      formControlName="rememberMe"
+    >
+      <span
+        class="cursor-pointer text-sm text-text-secondary"
+      >
+        {{
+          'auth.login.rememberMe'
+            | translate
+        }}
+      </span>
     </mat-checkbox>
 
     <button
       class="cursor-pointer text-sm font-bold text-primary-main transition hover:text-primary-hover"
       type="button"
     >
-      Забыли пароль?
+      {{
+        'auth.login.forgotPassword'
+          | translate
+      }}
     </button>
   </div>
 
@@ -109,51 +202,97 @@
     type="submit"
     [disabled]="isSubmitting()"
   >
-    <span class="inline-flex items-center justify-center gap-2">
-      <mat-icon class="text-[20px]!">lock_outline</mat-icon>
+    <span
+      class="inline-flex items-center justify-center gap-2"
+    >
+      <mat-icon class="text-[20px]!">
+        lock_outline
+      </mat-icon>
 
       @if (isSubmitting()) {
-        Вход...
+        {{
+          'auth.login.submitting'
+            | translate
+        }}
       } @else {
-        Войти
+        {{
+          'auth.login.submit'
+            | translate
+        }}
       }
     </span>
   </button>
 
-  <div class="relative py-2 text-center">
-    <div class="absolute left-0 top-1/2 h-px w-full bg-border"></div>
-    <span class="relative bg-surface px-4 text-sm text-text-muted">или войдите через</span>
+  <div
+    class="relative py-2 text-center"
+  >
+    <div
+      class="absolute left-0 top-1/2 h-px w-full bg-border"
+    ></div>
+
+    <span
+      class="relative bg-surface px-4 text-sm text-text-muted"
+    >
+      {{
+        'auth.login.socialDivider'
+          | translate
+      }}
+    </span>
   </div>
 
   <div class="grid grid-cols-2 gap-3">
     <button
       type="button"
       class="flex h-12 cursor-pointer items-center justify-center rounded-xl border border-border bg-surface shadow-sm transition hover:bg-bg-secondary"
-      aria-label="Войти через Google"
+      [attr.aria-label]="
+        'auth.login.googleAria'
+          | translate
+      "
       (click)="loginWithGoogle()"
     >
-      <img ngSrc="/assets/icons/google.svg" alt="Google" width="28" height="28" />
+      <img
+        ngSrc="/assets/icons/google.svg"
+        alt="Google"
+        width="28"
+        height="28"
+      />
     </button>
 
     <button
       type="button"
       class="flex h-12 cursor-pointer items-center justify-center rounded-xl border border-border bg-surface shadow-sm transition hover:bg-bg-secondary"
-      aria-label="Войти через GitHub"
+      [attr.aria-label]="
+        'auth.login.githubAria'
+          | translate
+      "
       (click)="loginWithGithub()"
     >
-      <img ngSrc="/assets/icons/github.svg" alt="GitHub" width="28" height="28" />
+      <img
+        ngSrc="/assets/icons/github.svg"
+        alt="GitHub"
+        width="28"
+        height="28"
+      />
     </button>
   </div>
 
-  <p class="text-center text-sm text-text-secondary">
-    Нет аккаунта?
+  <p
+    class="text-center text-sm text-text-secondary"
+  >
+    {{
+      'auth.login.noAccount'
+        | translate
+    }}
 
     <button
       class="cursor-pointer font-bold text-primary-main transition hover:text-primary-hover"
       type="button"
       (click)="goToRegister()"
     >
-      Зарегистрироваться
+      {{
+        'auth.login.register'
+          | translate
+      }}
     </button>
   </p>
 </form>

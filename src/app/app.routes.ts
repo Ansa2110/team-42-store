@@ -1,15 +1,19 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: 'auth',
-    loadComponent: () => import('./auth/auth-page/auth-page').then((m) => m.AuthPage),
+    loadComponent: () =>
+      import('./auth/auth-page/auth-page').then(
+        (module) => module.AuthPage,
+      ),
   },
   {
     path: '',
-    canActivate: [authGuard],
-    loadComponent: () => import('./layout/layout').then((m) => m.Layout),
+    loadComponent: () =>
+      import('./layout/layout').then(
+        (module) => module.Layout,
+      ),
     children: [
       {
         path: '',
@@ -18,20 +22,32 @@ export const routes: Routes = [
       },
       {
         path: 'main',
-        loadComponent: () => import('./main-page/main-page').then((m) => m.MainPage),
+        loadComponent: () =>
+          import('./main-page/main-page').then(
+            (module) => module.MainPage,
+          ),
       },
       {
         path: 'catalog',
-        loadComponent: () => import('@pages/catalog-page/catalog-page').then((m) => m.CatalogPage),
+        loadComponent: () =>
+          import('@pages/catalog-page/catalog-page').then(
+            (module) => module.CatalogPage,
+          ),
       },
       {
         path: 'about',
-        loadComponent: () => import('./pages/about-page/about-page').then((m) => m.AboutPage),
+        loadComponent: () =>
+          import('./pages/about-page/about-page').then(
+            (module) => module.AboutPage,
+          ),
       },
     ],
   },
   {
     path: '**',
-    loadComponent: () => import('./pages/not-found/not-found').then((m) => m.NotFound),
+    loadComponent: () =>
+      import('./pages/not-found/not-found').then(
+        (module) => module.NotFound,
+      ),
   },
 ];

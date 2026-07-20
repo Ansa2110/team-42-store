@@ -1,15 +1,90 @@
-@use '@angular/material' as mat;
 @import 'tailwindcss';
 
+html,
+body {
+  min-height: 100%;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+}
+html[data-theme='dark'] {
+  --primary: #8b6cff;
+  --primary-hover: #9b82ff;
+  --primary-active: #7654ec;
+  --primary-light: #2a2147;
+  --primary-soft: #211a38;
+
+  --bg-main: #0f172a;
+  --bg-secondary: #172033;
+  --bg-soft: #131c2e;
+
+  --surface: #111827;
+  --surface-soft: #172033;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #a78bfa;
+  --text-muted: #94a3b8;
+  --text-inverse: #0f172a;
+
+  --border: #334155;
+  --border-soft: #273449;
+
+  --background-header: #111827;
+  --border-header: #334155;
+
+  --text-header-primary: #f8fafc;
+  --text-header-secondary: #cbd5e1;
+
+  --header-accent: #7c5cff;
+  --header-accent-hover: #8d73ff;
+
+  --background-footer: #020617;
+  --background-footer-bottom: #0f172a;
+
+  --text-footer: #cbd5e1;
+  --text-footer-muted: #94a3b8;
+  --text-footer-title: #ffffff;
+
+  --border-footer: #334155;
+  --footer-accent: #7c5cff;
+
+  --error-light: #3f1d24;
+  --warning-light: #3a2a12;
+  --success-light: #123524;
+
+  --shadow-card: 0 1px 3px rgb(0 0 0 / 0.3);
+  --shadow-card-hover: 0 10px 25px rgb(0 0 0 / 0.4);
+
+  --gray-900: #f8fafc;
+  --gray-700: #cbd5e1;
+  --gray-400: #94a3b8;
+}
+
+html,
+body {
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+header,
+footer,
+section,
+input,
+button {
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
 @theme {
-  /* typography */
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
   --color-text-tertiary: var(--text-tertiary);
   --color-text-muted: var(--text-muted);
   --color-text-inverse: var(--text-inverse);
 
-  /* backgrounds */
   --color-bg-main: var(--bg-main);
   --color-bg-secondary: var(--bg-secondary);
   --color-bg-soft: var(--bg-soft);
@@ -22,8 +97,6 @@
   --color-primary-active: var(--primary-active);
   --color-primary-light: var(--primary-light);
   --color-primary-soft: var(--primary-soft);
-  --color-primary-soft: var(--primary-soft);
-  --color-primary-soft: var(--primary-soft);
 
   --color-info-main: var(--info-main);
   --color-error-main: var(--error-main);
@@ -32,10 +105,6 @@
   --color-warning-light: var(--warning-light);
   --color-success-main: var(--success-main);
 
-  --color-header: var(--color-header);
-  --color-footer: var(--color-footer);
-
-  /* header */
   --color-bg-header: var(--background-header);
   --color-border-header: var(--border-header);
   --color-text-header-primary: var(--text-header-primary);
@@ -43,7 +112,6 @@
   --color-header-accent: var(--header-accent);
   --color-header-accent-hover: var(--header-accent-hover);
 
-  /* footer */
   --color-bg-footer: var(--background-footer);
   --color-bg-footer-bottom: var(--background-footer-bottom);
   --color-text-footer: var(--text-footer);
@@ -60,15 +128,11 @@
   --color-footer-light: var(--footer-light);
 
   --color-shadow-card: var(--shadow-card);
-  --color-shadow-card-hover: var(--shadow-card-shadow-card);
+  --color-shadow-card-hover: var(--shadow-card-hover);
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
-  /* colors */
+
   --primary: #6d3df5;
   --primary-hover: #5b2ee0;
   --primary-active: #4c22c7;
@@ -96,10 +160,15 @@
 
   --info-main: purple;
   --error-main: red;
+  --error-light: #fef2f2;
   --warning-main: orange;
+  --warning-light: #fff7ed;
   --success-main: green;
+  --success-light: #f0fdf4;
 
-  /* header */
+  --shadow-card: 0 1px 3px rgb(15 23 42 / 0.08);
+  --shadow-card-hover: 0 10px 25px rgb(15 23 42 / 0.12);
+
   --background-header: #ffffff;
   --border-header: #e5e7eb;
 
@@ -109,7 +178,6 @@
   --header-accent: #5227d6;
   --header-accent-hover: #4520b8;
 
-  /* footer */
   --background-footer: #020617;
   --background-footer-bottom: #0f172a99;
 
@@ -120,7 +188,6 @@
   --border-footer: #334155;
   --footer-accent: #5227d6;
 
-  /* fonts */
   font-family:
     'Inter',
     -apple-system,
@@ -137,17 +204,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* font-size */
   --font-size-base: 16px;
   --font-size-subtitle: 14px;
 
-  /* border-radius */
   --border-radius-sm: 0.5rem;
   --border-radius-md: 0.75rem;
   --border-radius-lg: 25px;
 
-  /* other */
-  /* todo: delete unnecessary colors*/
   --bright-blue: oklch(51.01% 0.274 263.83);
   --electric-violet: oklch(53.18% 0.28 296.97);
   --french-violet: oklch(47.66% 0.246 305.88);
@@ -183,13 +246,6 @@ html {
   @media (width <= 768px) {
     font-size: calc(var(--font-size-base) - 2px);
   }
-}
-
-html,
-body {
-  min-height: 100%;
-  background-color: var(--bg-main);
-  color: var(--text-main);
 }
 
 h1 {
@@ -467,7 +523,6 @@ main {
     @apply card flex flex-col items-center justify-center px-6 py-16 text-center;
   } */
 }
-/* todo: delete */
 .content {
   display: flex;
   justify-content: space-around;
@@ -508,4 +563,65 @@ main {
 
 .nav-link-active {
   color: var(--header-accent);
+}
+
+
+.mat-mdc-form-field {
+  --mdc-outlined-text-field-input-text-color: var(--text-primary);
+  --mdc-outlined-text-field-input-text-placeholder-color: var(--text-muted);
+  --mdc-outlined-text-field-label-text-color: var(--text-secondary);
+  --mdc-outlined-text-field-hover-label-text-color: var(--text-secondary);
+  --mdc-outlined-text-field-focus-label-text-color: var(--primary);
+  --mdc-outlined-text-field-outline-color: var(--border);
+  --mdc-outlined-text-field-hover-outline-color: var(--text-muted);
+  --mdc-outlined-text-field-focus-outline-color: var(--primary);
+  --mdc-outlined-text-field-caret-color: var(--primary);
+  --mdc-outlined-text-field-container-color: transparent;
+}
+
+.mat-mdc-input-element {
+  color: var(--text-primary) !important;
+  caret-color: var(--primary) !important;
+}
+
+.mat-mdc-input-element::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 1;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text-primary) !important;
+  caret-color: var(--text-primary);
+  -webkit-box-shadow: 0 0 0 1000px var(--surface) inset !important;
+  box-shadow: 0 0 0 1000px var(--surface) inset !important;
+  transition: background-color 9999s ease-out 0s;
+}
+
+.mat-mdc-list-base {
+  --mdc-list-list-item-label-text-color: var(--text-primary);
+  --mdc-list-list-item-hover-label-text-color: var(--text-primary);
+  --mdc-list-list-item-focus-label-text-color: var(--text-primary);
+  --mdc-list-list-item-supporting-text-color: var(--text-secondary);
+  color: var(--text-primary);
+}
+
+.mat-mdc-list-option .mdc-list-item__primary-text,
+.mat-mdc-list-item .mdc-list-item__primary-text {
+  color: var(--text-primary) !important;
+}
+
+.mat-mdc-list-option .mdc-checkbox__background {
+  border-color: var(--border) !important;
+}
+
+.mat-divider {
+  border-top-color: var(--border) !important;
 }

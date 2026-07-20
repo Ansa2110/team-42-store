@@ -1,12 +1,12 @@
 <div class="bg-surface-soft px-8 py-6 rounded-lg w-screen">
   <div>
     <div class="bg-primary-soft rounded-md p-1 text-text-tertiary font-medium w-fit">
-      Весенняя распродажа
+      {{ 'main.promo.title' | translate }}
     </div>
     <p class="text-5xl font-medium py-6">
-      Cкидки до <span class="text-text-tertiary font-medium">50%</span>
+      {{ 'main.promo.discount' | translate }} <span class="text-text-tertiary font-medium">50%</span>
     </p>
-    <p class="subtitle text-text-secondary">Тысячи товаров по выгодным ценам</p>
-    <a mat-flat-button color="primary" class="rounded-sm" href="/catalog">К покупкам</a>
+    <p class="subtitle text-text-secondary">{{ 'main.promo.description' | translate }}</p>
+    <a mat-flat-button color="primary" class="rounded-sm" href="/catalog">{{ 'main.promo.action' | translate }}</a>
   </div>
 </div>
