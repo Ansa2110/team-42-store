@@ -8,10 +8,11 @@ import { catchError, of } from 'rxjs';
 import { SnackBarService } from '@shared/services/snackbar.service';
 import { ICategory, IProduct } from '@services/products-api/products.types';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { TranslatePipe } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-catalog-page',
-  imports: [CatalogFilters, ProductCard, MatProgressSpinner],
+  imports: [CatalogFilters, ProductCard, MatProgressSpinner,TranslatePipe],
   templateUrl: './catalog-page.html',
   styleUrl: './catalog-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

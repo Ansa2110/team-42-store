@@ -1,26 +1,40 @@
-import { Component, Input, EventEmitter, OnDestroy, OnInit, Output, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  signal,
+} from '@angular/core';
+
+const DEFAULT_DURATION_MS = 6 * 60 * 60 * 1000;
+const DEFAULT_STORAGE_KEY = 'shopfront_promo_sale_end';
 
 @Component({
   selector: 'app-promo-countdown-banner',
   imports: [],
   templateUrl: './promo-countdown-banner.html',
   styleUrl: './promo-countdown-banner.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PromoCountdownBanner implements OnInit, OnDestroy {
+  @Input({ required: true }) title!: string;
+  @Input({ required: true }) buttonText!: string;
+  @Input() durationMs = DEFAULT_DURATION_MS;
+  @Input() storageKey = DEFAULT_STORAGE_KEY;
 
-  @Input() title = 'Summer Sale ends in';
-  @Input() buttonText = 'Shop Now';
-  @Input() endDate: Date = new Date(Date.now() + 6 * 60 * 60 * 1000);
+  @Output() readonly bannerClicked = new EventEmitter<void>();
+  @Output() readonly expired = new EventEmitter<void>();
 
-  @Output() bannerClicked = new EventEmitter<void>();
-  @Output() expired = new EventEmitter<void>();
-
-  timeLeft = signal('00:00:00');
+  readonly timeLeft = signal('00:00:00');
 
   private intervalId?: ReturnType<typeof setInterval>;
-  private expiredEmitted = false;
+  private endTimestamp = 0;
 
   ngOnInit(): void {
+    this.endTimestamp = this.resolveEndTimestamp();
     this.updateTimeLeft();
 
     this.intervalId = setInterval(() => {
@@ -29,33 +43,40 @@ export class PromoCountdownBanner implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
+    this.clearTimer();
   }
 
   onBannerClick(): void {
     this.bannerClicked.emit();
   }
 
+  private resolveEndTimestamp(): number {
+    const storedValue = localStorage.getItem(this.storageKey);
+    const storedTimestamp = Number(storedValue);
+
+    if (Number.isFinite(storedTimestamp) && storedTimestamp > Date.now()) {
+      return storedTimestamp;
+    }
+
+    return this.startNewCycle();
+  }
+
+  private startNewCycle(): number {
+    const duration = this.durationMs > 0 ? this.durationMs : DEFAULT_DURATION_MS;
+    const nextEndTimestamp = Date.now() + duration;
+
+    localStorage.setItem(this.storageKey, String(nextEndTimestamp));
+
+    return nextEndTimestamp;
+  }
+
   private updateTimeLeft(): void {
-    const now = Date.now();
-    const end = new Date(this.endDate).getTime();
-    const diff = end - now;
+    let diff = this.endTimestamp - Date.now();
 
     if (diff <= 0) {
-      this.timeLeft.set('00:00:00');
-
-      if (!this.expiredEmitted) {
-        this.expired.emit();
-        this.expiredEmitted = true;
-      }
-
-      if (this.intervalId) {
-        clearInterval(this.intervalId);
-      }
-
-      return;
+      this.expired.emit();
+      this.endTimestamp = this.startNewCycle();
+      diff = this.endTimestamp - Date.now();
     }
 
     const hours = Math.floor(diff / (1000 * 60 * 60));
@@ -63,12 +84,18 @@ export class PromoCountdownBanner implements OnInit, OnDestroy {
     const seconds = Math.floor((diff / 1000) % 60);
 
     this.timeLeft.set(
-      `${this.format(hours)}:${this.format(minutes)}:${this.format(seconds)}`
+      `${this.format(hours)}:${this.format(minutes)}:${this.format(seconds)}`,
     );
+  }
+
+  private clearTimer(): void {
+    if (this.intervalId !== undefined) {
+      clearInterval(this.intervalId);
+      this.intervalId = undefined;
+    }
   }
 
   private format(value: number): string {
     return value.toString().padStart(2, '0');
   }
-
 }

@@ -63,8 +63,12 @@ export class AuthService {
 
       return response;
     } catch (error) {
-      throw new Error(this.getApiErrorMessage(error, 'Неверный username или пароль'), {
-        cause: error,});
+      throw new Error(
+        this.getApiErrorMessage(error, 'Неверный username или пароль'),
+        {
+          cause: error,
+        },
+      );
     }
   }
 
@@ -72,7 +76,9 @@ export class AuthService {
     const users = this.getLocalUsers();
     const normalizedEmail = payload.email.trim().toLowerCase();
 
-    const userAlreadyExists = users.some((user) => user.email.toLowerCase() === normalizedEmail);
+    const userAlreadyExists = users.some(
+      (user) => user.email.toLowerCase() === normalizedEmail,
+    );
 
     if (userAlreadyExists) {
       throw new Error('Пользователь с таким email уже существует');
@@ -85,11 +91,19 @@ export class AuthService {
       passwordHash: this.createPasswordHash(payload.password),
     };
 
-    localStorage.setItem(this.localUsersStorageKey, JSON.stringify([...users, newUser]));
+    localStorage.setItem(
+      this.localUsersStorageKey,
+      JSON.stringify([...users, newUser]),
+    );
   }
 
   loginWithGoogleToken(idToken: string): void {
     this.saveToken(idToken);
+  }
+
+  logout(): void {
+    localStorage.removeItem(this.tokenStorageKey);
+    this.token.set(null);
   }
 
   private findLocalUser(payload: LoginPayload): LocalRegisteredUser | null {
@@ -98,7 +112,9 @@ export class AuthService {
 
     return (
       this.getLocalUsers().find(
-        (user) => user.email.toLowerCase() === login && user.passwordHash === passwordHash,
+        (user) =>
+          user.email.toLowerCase() === login &&
+          user.passwordHash === passwordHash,
       ) ?? null
     );
   }

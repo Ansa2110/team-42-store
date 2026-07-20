@@ -1,7 +1,33 @@
-export const advantages = [
-  { title: 'Бесплатная доставка', subtitle: 'от 3000 у.е.', iconName: 'local_shipping' },
-  { title: 'Гарантия качества', subtitle: 'на все товары', iconName: 'gpp_good' },
-  { title: 'Возврат 14 дней', subtitle: 'легкий возврат товара', iconName: 'loop' },
-  { title: 'Поддержка 24/7', subtitle: 'мы всегда на связи', iconName: 'headset_mic' },
-  { title: 'Безопасная оплата', subtitle: 'ваши данные под защитой', iconName: 'credit_score' },
+export interface Advantage {
+  readonly iconName: string;
+  readonly titleKey: string;
+  readonly subtitleKey: string;
+}
+
+export const advantages: readonly Advantage[] = [
+  {
+    iconName: 'local_shipping',
+    titleKey: 'main.advantages.freeDelivery.title',
+    subtitleKey: 'main.advantages.freeDelivery.subtitle',
+  },
+  {
+    iconName: 'gpp_good',
+    titleKey: 'main.advantages.qualityGuarantee.title',
+    subtitleKey: 'main.advantages.qualityGuarantee.subtitle',
+  },
+  {
+    iconName: 'loop',
+    titleKey: 'main.advantages.return.title',
+    subtitleKey: 'main.advantages.return.subtitle',
+  },
+  {
+    iconName: 'headset_mic',
+    titleKey: 'main.advantages.support.title',
+    subtitleKey: 'main.advantages.support.subtitle',
+  },
+  {
+    iconName: 'credit_score',
+    titleKey: 'main.advantages.securePayment.title',
+    subtitleKey: 'main.advantages.securePayment.subtitle',
+  },
 ];
