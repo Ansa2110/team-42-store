@@ -7,15 +7,14 @@ import {
   signal,
 } from '@angular/core';
 import {
-  AbstractControl,
   FormBuilder,
   ReactiveFormsModule,
-  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -24,29 +23,48 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { environment } from '../../../environments/environment.local';
 import { AuthService } from '../auth.service';
-import { strongPasswordValidator } from '../auth.validators';
+import { AuthError } from '../auth.types';
+import {
+  passwordsMatchValidator,
+  strongPasswordValidator,
+} from '../auth.validators';
+import { GoogleAuthService } from '../google-auth.service';
 
-import type { GoogleAuthResponse } from '../auth.types';
+import type {
+  FormControl,
+  FormGroupDirective,
+  NgForm,
+} from '@angular/forms';
 
-interface GoogleIdentity {
-  accounts: {
-    id: {
-      initialize: (config: {
-        client_id: string;
-        callback: (
-          response: GoogleAuthResponse,
-        ) => void;
-      }) => void;
-      prompt: () => void;
-    };
-  };
-}
+class PasswordMatchErrorStateMatcher
+  implements ErrorStateMatcher
+{
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null,
+  ): boolean {
+    const interacted =
+      Boolean(control?.touched) ||
+      Boolean(form?.submitted);
 
-declare global {
-  interface Window {
-    google?: GoogleIdentity;
+    const hasControlError =
+      Boolean(control?.invalid);
+
+    const hasPasswordsMismatch =
+      Boolean(
+        control?.parent?.hasError(
+          'passwordsMismatch',
+        ),
+      );
+
+    return (
+      interacted &&
+      (
+        hasControlError ||
+        hasPasswordsMismatch
+      )
+    );
   }
 }
 
@@ -63,34 +81,32 @@ declare global {
   ],
   templateUrl: './register-form.html',
   styleUrl: './register-form.css',
-  changeDetection:
-  ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterForm {
   readonly loginClick = output<void>();
 
-  private readonly fb = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
   private readonly router = inject(Router);
-  private readonly authService =
-    inject(AuthService);
-  private readonly translate =
-    inject(TranslateService);
+  private readonly authService = inject(AuthService);
+  private readonly googleAuthService = inject(
+    GoogleAuthService,
+  );
+  private readonly translate = inject(
+    TranslateService,
+  );
 
-  private googleInitialized = false;
+  readonly passwordMatchErrorStateMatcher =
+    new PasswordMatchErrorStateMatcher();
 
   readonly isSubmitting = signal(false);
-  readonly serverError =
-    signal<string | null>(null);
+  readonly serverError = signal<string | null>(null);
   readonly passwordVisible = signal(false);
-  readonly confirmPasswordVisible =
-    signal(false);
+  readonly confirmPasswordVisible = signal(false);
 
-  readonly form = this.fb.nonNullable.group(
+  readonly form = this.formBuilder.nonNullable.group(
     {
-      name: [
-        '',
-        [Validators.required],
-      ],
+      name: ['', Validators.required],
       email: [
         '',
         [
@@ -107,13 +123,11 @@ export class RegisterForm {
       ],
       confirmPassword: [
         '',
-        [Validators.required],
+        Validators.required,
       ],
     },
     {
-      validators: [
-        this.passwordsMatchValidator,
-      ],
+      validators: passwordsMatchValidator,
     },
   );
 
@@ -133,17 +147,15 @@ export class RegisterForm {
     return this.form.controls.confirmPassword;
   }
 
-  get passwordInputType():
-    | 'text'
-    | 'password' {
+  get passwordInputType(): 'password' | 'text' {
     return this.passwordVisible()
       ? 'text'
       : 'password';
   }
 
   get confirmPasswordInputType():
-    | 'text'
-    | 'password' {
+    | 'password'
+    | 'text' {
     return this.confirmPasswordVisible()
       ? 'text'
       : 'password';
@@ -184,18 +196,13 @@ export class RegisterForm {
       await this.authService.login({
         username: email,
         password,
+        rememberMe: true,
       });
 
-      await this.router.navigateByUrl(
-        '/main',
-      );
-    } catch (error) {
+      await this.router.navigateByUrl('/main');
+    } catch (error: unknown) {
       this.serverError.set(
-        error instanceof Error
-          ? error.message
-          : this.translate.instant(
-            'auth.register.errors.registerFailed',
-          ),
+        this.getErrorMessage(error),
       );
     } finally {
       this.isSubmitting.set(false);
@@ -204,57 +211,25 @@ export class RegisterForm {
 
   async registerWithGoogle(): Promise<void> {
     this.serverError.set(null);
-
-    if (!environment.googleClientId) {
-      this.serverError.set(
-        this.translate.instant(
-          'auth.register.errors.googleUnavailable',
-        ),
-      );
-
-      return;
-    }
+    this.isSubmitting.set(true);
 
     try {
-      await this.loadGoogleIdentityScript();
+      const credential =
+        await this.googleAuthService.requestCredential();
 
-      if (!this.googleInitialized) {
-        window.google?.accounts.id.initialize({
-          client_id:
-          environment.googleClientId,
-          callback: async (
-            response,
-          ) => {
-            if (!response.credential) {
-              this.serverError.set(
-                this.translate.instant(
-                  'auth.register.errors.googleFailed',
-                ),
-              );
+      this.authService.loginWithGoogleCredential(
+        credential,
+      );
 
-              return;
-            }
-
-            this.authService.loginWithGoogleToken(
-              response.credential,
-            );
-
-            await this.router.navigateByUrl(
-              '/main',
-            );
-          },
-        });
-
-        this.googleInitialized = true;
-      }
-
-      window.google?.accounts.id.prompt();
+      await this.router.navigateByUrl('/main');
     } catch {
       this.serverError.set(
         this.translate.instant(
           'auth.register.errors.googleUnavailable',
         ),
       );
+    } finally {
+      this.isSubmitting.set(false);
     }
   }
 
@@ -270,71 +245,17 @@ export class RegisterForm {
     this.loginClick.emit();
   }
 
-  private passwordsMatchValidator(
-    control: AbstractControl,
-  ): ValidationErrors | null {
-    const password =
-      control.get('password')?.value;
-
-    const confirmPassword =
-      control.get(
-        'confirmPassword',
-      )?.value;
-
-    if (!password || !confirmPassword) {
-      return null;
-    }
-
-    return password === confirmPassword
-      ? null
-      : {
-        passwordsMismatch: true,
-      };
-  }
-
-  private loadGoogleIdentityScript():
-    Promise<void> {
-    if (window.google?.accounts.id) {
-      return Promise.resolve();
-    }
-
-    const existingScript =
-      document.querySelector<HTMLScriptElement>(
-        'script[src="https://accounts.google.com/gsi/client"]',
-      );
-
-    if (existingScript) {
-      return new Promise(
-        (resolve, reject) => {
-          existingScript.addEventListener(
-            'load',
-            () => resolve(),
-            { once: true },
-          );
-
-          existingScript.addEventListener(
-            'error',
-            () => reject(),
-            { once: true },
-          );
-        },
+  private getErrorMessage(
+    error: unknown,
+  ): string {
+    if (error instanceof AuthError) {
+      return this.translate.instant(
+        `auth.errors.${error.code}`,
       );
     }
 
-    return new Promise(
-      (resolve, reject) => {
-        const script =
-          document.createElement('script');
-
-        script.src =
-          'https://accounts.google.com/gsi/client';
-        script.async = true;
-        script.defer = true;
-        script.onload = () => resolve();
-        script.onerror = () => reject();
-
-        document.head.appendChild(script);
-      },
+    return this.translate.instant(
+      'auth.register.errors.registerFailed',
     );
   }
 }

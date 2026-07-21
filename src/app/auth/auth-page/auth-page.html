@@ -13,27 +13,16 @@
             <h1
               class="max-w-sm text-5xl font-extrabold leading-tight tracking-tight text-text-primary"
             >
-              {{
-                'auth.registerHero.titleFirst'
-                  | translate
-              }}
+              {{ 'auth.registerHero.titleFirst' | translate }}
               <br />
 
               <span class="text-primary-main">
-                {{
-                  'auth.registerHero.titleAccent'
-                    | translate
-                }}
+                {{ 'auth.registerHero.titleAccent' | translate }}
               </span>
             </h1>
 
-            <p
-              class="max-w-sm text-lg leading-7 text-text-secondary"
-            >
-              {{
-                'auth.registerHero.description'
-                  | translate
-              }}
+            <p class="max-w-sm text-lg leading-7 text-text-secondary">
+              {{ 'auth.registerHero.description' | translate }}
             </p>
           </div>
 
@@ -42,15 +31,11 @@
               <div
                 class="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-surface text-primary-main shadow-lg shadow-primary-main/10"
               >
-                <mat-icon>
-                  shopping_bag
-                </mat-icon>
+                <mat-icon>shopping_bag</mat-icon>
               </div>
 
               <div>
-                <p
-                  class="text-base font-bold text-text-primary"
-                >
+                <p class="text-base font-bold text-text-primary">
                   {{
                     'auth.registerHero.features.choice.title'
                       | translate
@@ -72,15 +57,11 @@
               <div
                 class="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-surface text-primary-main shadow-lg shadow-primary-main/10"
               >
-                <mat-icon>
-                  sell
-                </mat-icon>
+                <mat-icon>sell</mat-icon>
               </div>
 
               <div>
-                <p
-                  class="text-base font-bold text-text-primary"
-                >
+                <p class="text-base font-bold text-text-primary">
                   {{
                     'auth.registerHero.features.discounts.title'
                       | translate
@@ -102,15 +83,11 @@
               <div
                 class="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-surface text-primary-main shadow-lg shadow-primary-main/10"
               >
-                <mat-icon>
-                  verified_user
-                </mat-icon>
+                <mat-icon>verified_user</mat-icon>
               </div>
 
               <div>
-                <p
-                  class="text-base font-bold text-text-primary"
-                >
+                <p class="text-base font-bold text-text-primary">
                   {{
                     'auth.registerHero.features.security.title'
                       | translate
@@ -133,33 +110,20 @@
             <h1
               class="max-w-md text-5xl font-extrabold leading-tight tracking-tight text-text-primary"
             >
-              {{
-                'auth.loginHero.titleFirst'
-                  | translate
-              }}
+              {{ 'auth.loginHero.titleFirst' | translate }}
               <br />
 
-              {{
-                'auth.loginHero.titleSecond'
-                  | translate
-              }}
+              {{ 'auth.loginHero.titleSecond' | translate }}
 
               <span class="text-primary-main">
                 ShopFront!
               </span>
 
-              <span class="inline-block">
-                👋
-              </span>
+              <span class="inline-block">👋</span>
             </h1>
 
-            <p
-              class="max-w-md text-lg leading-7 text-text-secondary"
-            >
-              {{
-                'auth.loginHero.description'
-                  | translate
-              }}
+            <p class="max-w-md text-lg leading-7 text-text-secondary">
+              {{ 'auth.loginHero.description' | translate }}
             </p>
           </div>
 
@@ -171,13 +135,8 @@
                 ✓
               </div>
 
-              <p
-                class="text-base font-bold text-text-primary"
-              >
-                {{
-                  'auth.loginHero.features.cart'
-                    | translate
-                }}
+              <p class="text-base font-bold text-text-primary">
+                {{ 'auth.loginHero.features.cart' | translate }}
               </p>
             </div>
 
@@ -188,13 +147,8 @@
                 ✓
               </div>
 
-              <p
-                class="text-base font-bold text-text-primary"
-              >
-                {{
-                  'auth.loginHero.features.favorites'
-                    | translate
-                }}
+              <p class="text-base font-bold text-text-primary">
+                {{ 'auth.loginHero.features.favorites' | translate }}
               </p>
             </div>
 
@@ -205,13 +159,8 @@
                 ✓
               </div>
 
-              <p
-                class="text-base font-bold text-text-primary"
-              >
-                {{
-                  'auth.loginHero.features.orders'
-                    | translate
-                }}
+              <p class="text-base font-bold text-text-primary">
+                {{ 'auth.loginHero.features.orders' | translate }}
               </p>
             </div>
 
@@ -222,9 +171,7 @@
                 ✓
               </div>
 
-              <p
-                class="text-base font-bold text-text-primary"
-              >
+              <p class="text-base font-bold text-text-primary">
                 {{
                   'auth.loginHero.features.recommendations'
                     | translate
@@ -239,19 +186,13 @@
         @if (mode() === 'login') {
           <img
             src="/assets/auth/login-illustration.png"
-            [alt]="
-              'auth.images.loginAlt'
-                | translate
-            "
+            [alt]="'auth.images.loginAlt' | translate"
             class="h-full w-full object-contain"
           />
         } @else {
           <img
             src="/assets/auth/register-illustration.png"
-            [alt]="
-              'auth.images.registerAlt'
-                | translate
-            "
+            [alt]="'auth.images.registerAlt' | translate"
             class="h-full w-full object-contain"
           />
         }

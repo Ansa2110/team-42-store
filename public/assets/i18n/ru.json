@@ -25,6 +25,7 @@
     "fields": {
       "name": "Имя",
       "email": "Email",
+      "usernameOrEmail": "Имя пользователя или email",
       "password": "Пароль",
       "confirmPassword": "Подтвердите пароль"
     },
@@ -33,13 +34,24 @@
       "toggleConfirmPassword": "Показать или скрыть подтверждение пароля"
     },
     "validation": {
-      "nameRequired": "Требуется имя",
-      "emailRequired": "Требуется email",
-      "emailInvalid": "Неверный адрес электронной почты",
-      "passwordRequired": "Требуется пароль",
-      "passwordStrong": "Пароль должен содержать минимум 8 символов, буквы и цифры",
-      "confirmPasswordRequired": "Требуется подтверждение пароля",
+      "nameRequired": "Введите имя",
+      "emailRequired": "Введите email",
+      "emailInvalid": "Введите корректный email",
+      "usernameOrEmailRequired": "Введите имя пользователя или email",
+      "passwordRequired": "Введите пароль",
+      "passwordStrong": "Пароль должен содержать минимум 8 символов, включая буквы и цифры",
+      "confirmPasswordRequired": "Подтвердите пароль",
       "passwordsMismatch": "Пароли не совпадают"
+    },
+    "errors": {
+      "invalidCredentials": "Неверное имя пользователя, email или пароль",
+      "missingAccessToken": "Сервер не вернул access token",
+      "network": "Не удалось подключиться к серверу. Проверьте интернет-соединение.",
+      "profileFailed": "Не удалось загрузить профиль пользователя",
+      "serverUnavailable": "Сервер временно недоступен. Попробуйте позже.",
+      "unauthorized": "Сессия недействительна. Выполните вход повторно.",
+      "unknown": "Произошла неизвестная ошибка",
+      "userExists": "Пользователь с таким email уже существует"
     },
     "loginHero": {
       "titleFirst": "Добро пожаловать",
@@ -77,13 +89,12 @@
     },
     "login": {
       "title": "Вход в аккаунт",
-      "subtitle": "Введите свои данные для входа",
-      "emailPlaceholder": "Введите email",
-      "passwordPlaceholder": "Введите ваш пароль",
+      "subtitle": "Введите данные для входа",
+      "usernameOrEmailPlaceholder": "Введите имя пользователя или email",
+      "passwordPlaceholder": "Введите пароль",
       "rememberMe": "Запомнить меня",
-      "forgotPassword": "Забыли пароль?",
       "submit": "Войти",
-      "submitting": "Вход...",
+      "submitting": "Выполняется вход...",
       "socialDivider": "или войдите через",
       "googleAria": "Войти через Google",
       "githubAria": "Войти через GitHub",
@@ -99,12 +110,12 @@
     "register": {
       "title": "Регистрация",
       "subtitle": "Заполните форму, чтобы создать аккаунт",
-      "namePlaceholder": "Введите ваше имя",
-      "emailPlaceholder": "Введите ваш email",
+      "namePlaceholder": "Введите имя",
+      "emailPlaceholder": "Введите email",
       "passwordPlaceholder": "Минимум 8 символов",
       "confirmPasswordPlaceholder": "Повторите пароль",
       "submit": "Создать аккаунт",
-      "submitting": "Создание аккаунта...",
+      "submitting": "Создаём аккаунт...",
       "socialDivider": "или зарегистрируйтесь через",
       "googleAria": "Зарегистрироваться через Google",
       "githubAria": "Зарегистрироваться через GitHub",
