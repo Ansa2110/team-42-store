@@ -6,6 +6,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { SnackBarService } from '@shared/services/snackbar.service';
 import { LoadingButtonDirective } from '@shared/directives/loading-button.directive';
+import {
+  TranslatePipe,
+  TranslateService,
+} from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-subscribe-form',
@@ -17,6 +22,7 @@ import { LoadingButtonDirective } from '@shared/directives/loading-button.direct
     ReactiveFormsModule,
     MatButtonModule,
     LoadingButtonDirective,
+    TranslatePipe,
   ],
   templateUrl: './subscribe-form.html',
   styleUrl: './subscribe-form.css',
@@ -25,16 +31,24 @@ export class SubscribeForm {
   private snackbar = inject(SnackBarService);
   readonly emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   readonly submitting = signal(false);
+  private readonly translate = inject(TranslateService);
 
-  handleSubscribe() {
+  handleSubscribe(): void {
+    if (this.emailFormControl.invalid) {
+      this.emailFormControl.markAsTouched();
+      this.snackbar.error(
+        this.translate.instant('main.subscribe.messages.error'),
+      );
+      return;
+    }
+
     this.submitting.set(true);
+
     setTimeout(() => {
-      if (!this.emailFormControl.errors) {
-        this.snackbar.success('Успешно. Теперь вы будете получать самые свежие предложения!');
-        this.emailFormControl.reset();
-      } else {
-        this.snackbar.error('Некорректный емаил');
-      }
+      this.snackbar.success(
+        this.translate.instant('main.subscribe.messages.success'),
+      );
+      this.emailFormControl.reset();
       this.submitting.set(false);
     }, 1000);
   }

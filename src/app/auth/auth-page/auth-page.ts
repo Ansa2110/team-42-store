@@ -1,18 +1,29 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { Router } from '@angular/router';
+
 import { MatIconModule } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { AuthService } from '../auth.service';
 import { LoginForm } from '../login-form/login-form';
 import { RegisterForm } from '../register-form/register-form';
 
-type AuthMode = 'login' | 'register';
+import type { AuthMode } from '../auth.types';
 
 @Component({
   selector: 'app-auth-page',
-  imports: [LoginForm, RegisterForm, MatIconModule],
+  imports: [
+    LoginForm,
+    RegisterForm,
+    MatIconModule,
+    TranslatePipe,
+  ],
   templateUrl: './auth-page.html',
-  styleUrl: './auth-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthPage {

@@ -1,21 +1,28 @@
 <section
-  class="h-screen overflow-hidden bg-[linear-gradient(135deg,#ffffff_0%,#fbf9ff_48%,#f5efff_100%)] text-text-primary"
+  class="min-h-dvh overflow-x-hidden bg-[linear-gradient(135deg,var(--bg-main)_0%,var(--bg-secondary)_48%,var(--primary-soft)_100%)] text-text-primary"
 >
-  <div class="mx-auto flex h-full w-full max-w-360 flex-col px-8 py-6 lg:px-16">
+  <div class="mx-auto flex min-h-dvh w-full max-w-360 flex-col px-8 py-6 lg:px-16">
     <header class="shrink-0">
       <a
-        routerLink="/"
-        aria-label="Go to home page"
+        routerLink="/main"
+        [attr.aria-label]="'notFound.homeAria' | translate"
         class="inline-flex items-center gap-2 text-sm font-bold text-text-primary no-underline"
       >
-        <span class="flex h-5 w-5 items-center justify-center rounded bg-primary-main text-white">
-          <mat-icon class="h-4! w-4! text-base!">shopping_bag</mat-icon>
+        <span
+          class="flex h-5 w-5 items-center justify-center rounded bg-primary-main text-white"
+        >
+          <mat-icon class="h-4! w-4! text-base!" aria-hidden="true">
+            shopping_bag
+          </mat-icon>
         </span>
+
         <span>ShopFront</span>
       </a>
     </header>
 
-    <div class="grid min-h-0 flex-1 items-center gap-4 lg:grid-cols-[38%_62%]">
+    <div
+      class="grid min-h-0 flex-1 items-center gap-4 py-8 lg:grid-cols-[38%_62%] lg:py-0"
+    >
       <div class="flex min-w-0 flex-col items-start">
         <h1
           class="m-0 flex gap-8 font-sans! text-[7rem]! font-medium! leading-none! tracking-normal! text-text-primary sm:text-[10rem]! lg:text-[10rem]!"
@@ -25,35 +32,44 @@
           <span>4</span>
         </h1>
 
-        <h2 class="mt-8 text-3xl font-black leading-tight text-text-primary sm:text-4xl lg:text-[2.8rem]">
-          Страница не найдена
+        <h2
+          class="mt-8 text-3xl font-black leading-tight text-text-primary sm:text-4xl lg:text-[2.8rem]"
+        >
+          {{ 'notFound.title' | translate }}
         </h2>
 
-        <p class="mt-5! max-w-120 text-base leading-8 text-text-secondary sm:text-lg sm:leading-9">
-          К сожалению, запрашиваемая страница не существует или была удалена.
+        <p
+          class="mt-5! max-w-120 text-base leading-8 text-text-secondary sm:text-lg sm:leading-9"
+        >
+          {{ 'notFound.description' | translate }}
         </p>
 
         <a
-          routerLink="/"
-          class="mt-10 inline-flex h-14 min-w-[18rem] cursor-pointer items-center justify-center gap-3 rounded-lg bg-primary-main px-8 text-base font-bold text-white no-underline shadow-[0_16px_32px_rgba(109,61,245,0.28)] transition hover:bg-primary-hover active:bg-primary-active"
+          routerLink="/main"
+          class="mt-10 inline-flex min-h-14 w-full cursor-pointer items-center justify-center gap-3 rounded-lg bg-primary-main px-8 py-3 text-center text-base font-bold text-white no-underline shadow-[0_16px_32px_rgba(109,61,245,0.28)] transition hover:bg-primary-hover active:bg-primary-active sm:w-auto sm:min-w-[18rem]"
         >
-          <mat-icon class="h-5! w-5! text-xl!">home</mat-icon>
-          Вернуться на главную
+          <mat-icon class="h-5! w-5! text-xl!" aria-hidden="true">
+            home
+          </mat-icon>
+
+          {{ 'notFound.action' | translate }}
         </a>
       </div>
 
-      <div class="relative hidden h-full min-h-0 items-center justify-end overflow-visible lg:flex">
+      <div
+        class="relative hidden h-full min-h-0 items-center justify-end overflow-visible lg:flex"
+      >
         <img
-          src="/assets/not-found/not-found-ufo.png"
-          alt="Иллюстрация с летающей тарелкой и коробкой"
+          src="assets/not-found/not-found-ufo.png"
+          [alt]="'notFound.imageAlt' | translate"
           class="h-auto w-[135%] max-w-none object-contain object-right xl:w-[145%]"
         />
       </div>
 
       <div class="mt-8 flex justify-center lg:hidden">
         <img
-          src="/assets/not-found/not-found-ufo.png"
-          alt="Иллюстрация с летающей тарелкой и коробкой"
+          src="assets/not-found/not-found-ufo.png"
+          [alt]="'notFound.imageAlt' | translate"
           class="w-full max-w-md object-contain"
         />
       </div>

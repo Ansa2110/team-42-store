@@ -10,7 +10,7 @@
             <app-product-card [product]="product"></app-product-card>
           }
         } @else {
-          <p>Sorry! We couldn't find anything</p>
+          <p>{{ 'catalog.empty' | translate }}</p>
         }
       } @else {
         <div class="flex justify-center col-span-2 py-8">

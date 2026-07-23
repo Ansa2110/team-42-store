@@ -1,7 +1,11 @@
 <div class="flex flex-col items-center gap-12">
   <app-promo-banner></app-promo-banner>
   <app-advantages-section></app-advantages-section>
-  <app-categories-section [sectionTitle]="categories"></app-categories-section>
-  <app-products-section [sectionTitle]="recomendations"></app-products-section>
+  <app-categories-section
+    [sectionTitle]="'main.categories.title' | translate"
+  ></app-categories-section>
+  <app-products-section
+    [sectionTitle]="'main.products.title' | translate"
+  ></app-products-section>
   <app-subscribe-form></app-subscribe-form>
 </div>

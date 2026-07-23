@@ -2,28 +2,28 @@
   <div class="flex gap-2 items-center">
     <mat-icon></mat-icon>
     <div>
-      <p class="title">Подпишитесь на новости и получайте скидки</p>
-      <p class="subtitle">Будьте в курсе новинок и эксклюзивных предложений</p>
+      <p class="title"> {{ 'main.subscribe.title' | translate }}</p>
+      <p class="subtitle">{{ 'main.subscribe.subtitle' | translate }}</p>
     </div>
   </div>
   <form class="flex gap-2 items-center">
     <mat-form-field>
-      <mat-label>Email</mat-label>
+      <mat-label>{{ 'main.subscribe.emailLabel' | translate }}</mat-label>
       <input
         type="email"
         matInput
         [formControl]="emailFormControl"
-        placeholder="Ex. pat@example.com"
+        placeholder="main.subscribe.emailPlaceholder' | translate"
       />
       @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
-        <mat-error>Please enter a valid email address</mat-error>
+        <mat-error>{{ 'main.subscribe.validation.invalid' | translate }}</mat-error>
       }
       @if (emailFormControl.hasError('required')) {
-        <mat-error>Email is <strong>required</strong></mat-error>
+        <mat-error> {{ 'main.subscribe.validation.required' | translate }} </mat-error>
       }
     </mat-form-field>
     <button [appLoadingButton]="submitting()" matButton="filled" (click)="handleSubscribe()">
-      Подписаться
+      {{ 'main.subscribe.submit' | translate }}
     </button>
   </form>
 </div>

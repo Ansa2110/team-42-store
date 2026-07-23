@@ -4,10 +4,11 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ProductsService } from '@services/products-api/products.service';
 import { SnackBarService } from '@shared/services/snackbar.service';
 import { catchError, of } from 'rxjs';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-categories-section',
-  imports: [RouterLink],
+  imports: [RouterLink, TranslatePipe],
   templateUrl: './categories-section.html',
   styleUrl: './categories-section.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

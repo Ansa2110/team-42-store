@@ -1,4 +1,6 @@
-<section class="min-h-screen bg-primary-light px-4 py-6 text-text-primary sm:px-6 lg:px-10">
+<section
+  class="min-h-screen bg-primary-light px-4 py-6 text-text-primary sm:px-6 lg:px-10"
+>
   <div
     class="mx-auto grid min-h-[calc(100vh-48px)] max-w-7xl overflow-hidden rounded-3xl bg-surface/80 shadow-2xl shadow-primary-main/10 backdrop-blur lg:grid-cols-[1fr_1fr]"
   >
@@ -8,14 +10,19 @@
       <div>
         @if (mode() === 'register') {
           <div class="flex flex-col gap-5">
-            <h1 class="max-w-sm text-5xl font-extrabold leading-tight tracking-tight text-text-primary">
-              Создайте свой
+            <h1
+              class="max-w-sm text-5xl font-extrabold leading-tight tracking-tight text-text-primary"
+            >
+              {{ 'auth.registerHero.titleFirst' | translate }}
               <br />
-              <span class="text-primary-main">аккаунт</span>
+
+              <span class="text-primary-main">
+                {{ 'auth.registerHero.titleAccent' | translate }}
+              </span>
             </h1>
 
             <p class="max-w-sm text-lg leading-7 text-text-secondary">
-              Зарегистрируйтесь и откройте для себя лучшие товары
+              {{ 'auth.registerHero.description' | translate }}
             </p>
           </div>
 
@@ -28,8 +35,21 @@
               </div>
 
               <div>
-                <p class="text-base font-bold text-text-primary">Широкий выбор</p>
-                <p class="mt-1 text-sm font-semibold text-text-secondary">тысяч товаров</p>
+                <p class="text-base font-bold text-text-primary">
+                  {{
+                    'auth.registerHero.features.choice.title'
+                      | translate
+                  }}
+                </p>
+
+                <p
+                  class="mt-1 text-sm font-semibold text-text-secondary"
+                >
+                  {{
+                    'auth.registerHero.features.choice.text'
+                      | translate
+                  }}
+                </p>
               </div>
             </div>
 
@@ -41,8 +61,21 @@
               </div>
 
               <div>
-                <p class="text-base font-bold text-text-primary">Эксклюзивные скидки</p>
-                <p class="mt-1 text-sm font-semibold text-text-secondary">и акции</p>
+                <p class="text-base font-bold text-text-primary">
+                  {{
+                    'auth.registerHero.features.discounts.title'
+                      | translate
+                  }}
+                </p>
+
+                <p
+                  class="mt-1 text-sm font-semibold text-text-secondary"
+                >
+                  {{
+                    'auth.registerHero.features.discounts.text'
+                      | translate
+                  }}
+                </p>
               </div>
             </div>
 
@@ -54,22 +87,43 @@
               </div>
 
               <div>
-                <p class="text-base font-bold text-text-primary">Безопасные покупки</p>
-                <p class="mt-1 text-sm font-semibold text-text-secondary">и защита данных</p>
+                <p class="text-base font-bold text-text-primary">
+                  {{
+                    'auth.registerHero.features.security.title'
+                      | translate
+                  }}
+                </p>
+
+                <p
+                  class="mt-1 text-sm font-semibold text-text-secondary"
+                >
+                  {{
+                    'auth.registerHero.features.security.text'
+                      | translate
+                  }}
+                </p>
               </div>
             </div>
           </div>
         } @else {
           <div class="flex flex-col gap-5">
-            <h1 class="max-w-md text-5xl font-extrabold leading-tight tracking-tight text-text-primary">
-              Добро пожаловать
+            <h1
+              class="max-w-md text-5xl font-extrabold leading-tight tracking-tight text-text-primary"
+            >
+              {{ 'auth.loginHero.titleFirst' | translate }}
               <br />
-              в <span class="text-primary-main">ShopFront!</span>
+
+              {{ 'auth.loginHero.titleSecond' | translate }}
+
+              <span class="text-primary-main">
+                ShopFront!
+              </span>
+
               <span class="inline-block">👋</span>
             </h1>
 
             <p class="max-w-md text-lg leading-7 text-text-secondary">
-              Войдите в свой аккаунт и продолжайте покупки с удовольствием
+              {{ 'auth.loginHero.description' | translate }}
             </p>
           </div>
 
@@ -80,7 +134,10 @@
               >
                 ✓
               </div>
-              <p class="text-base font-bold text-text-primary">Быстрый доступ к корзине</p>
+
+              <p class="text-base font-bold text-text-primary">
+                {{ 'auth.loginHero.features.cart' | translate }}
+              </p>
             </div>
 
             <div class="flex items-center gap-4">
@@ -89,7 +146,10 @@
               >
                 ✓
               </div>
-              <p class="text-base font-bold text-text-primary">Сохранённые товары в избранном</p>
+
+              <p class="text-base font-bold text-text-primary">
+                {{ 'auth.loginHero.features.favorites' | translate }}
+              </p>
             </div>
 
             <div class="flex items-center gap-4">
@@ -98,7 +158,10 @@
               >
                 ✓
               </div>
-              <p class="text-base font-bold text-text-primary">История заказов и доставка</p>
+
+              <p class="text-base font-bold text-text-primary">
+                {{ 'auth.loginHero.features.orders' | translate }}
+              </p>
             </div>
 
             <div class="flex items-center gap-4">
@@ -107,7 +170,13 @@
               >
                 ✓
               </div>
-              <p class="text-base font-bold text-text-primary">Персональные рекомендации</p>
+
+              <p class="text-base font-bold text-text-primary">
+                {{
+                  'auth.loginHero.features.recommendations'
+                    | translate
+                }}
+              </p>
             </div>
           </div>
         }
@@ -116,26 +185,32 @@
       <div class="mt-auto min-h-80 w-full">
         @if (mode() === 'login') {
           <img
-            src="/assets/auth/login-illustration.png"
-            alt="ShopFront login"
+            src="assets/auth/login-illustration.png"
+            [alt]="'auth.images.loginAlt' | translate"
             class="h-full w-full object-contain"
           />
         } @else {
           <img
-            src="/assets/auth/register-illustration.png"
-            alt="ShopFront registration"
+            src="assets/auth/register-illustration.png"
+            [alt]="'auth.images.registerAlt' | translate"
             class="h-full w-full object-contain"
           />
         }
       </div>
     </aside>
 
-    <main class="flex items-center justify-center bg-surface px-6 py-10 sm:px-10 lg:px-14">
+    <main
+      class="flex items-center justify-center bg-surface px-6 py-10 sm:px-10 lg:px-14"
+    >
       <div class="w-full max-w-107.5">
         @if (mode() === 'login') {
-          <app-login-form (registerClick)="showRegister()" />
+          <app-login-form
+            (registerClick)="showRegister()"
+          />
         } @else {
-          <app-register-form (loginClick)="showLogin()" />
+          <app-register-form
+            (loginClick)="showLogin()"
+          />
         }
       </div>
     </main>

@@ -1,0 +1,305 @@
+{
+  "header": {
+    "homeAria": "Перейти на главную страницу ShopFront",
+    "catalog": "Каталог",
+    "search": "Найти товары",
+    "searchPlaceholder": "Поиск товаров...",
+    "searchShort": "Поиск...",
+    "interfaceSettings": "Настройки интерфейса",
+    "changeLanguage": "Сменить язык",
+    "darkTheme": "Включить тёмную тему",
+    "lightTheme": "Включить светлую тему",
+    "profileMenu": "Открыть меню профиля",
+    "profile": "Профиль",
+    "logout": "Выйти",
+    "login": "Войти",
+    "favorites": "Избранное",
+    "cart": "Корзина"
+  },
+  "footer": {
+    "homeAria": "Перейти на главную страницу ShopFront",
+    "about": "О нас",
+    "copyright": "© 2026 ShopFront. Все права защищены."
+  },
+  "auth": {
+    "fields": {
+      "name": "Имя",
+      "email": "Email",
+      "usernameOrEmail": "Имя пользователя или email",
+      "password": "Пароль",
+      "confirmPassword": "Подтвердите пароль"
+    },
+    "actions": {
+      "togglePassword": "Показать или скрыть пароль",
+      "toggleConfirmPassword": "Показать или скрыть подтверждение пароля"
+    },
+    "validation": {
+      "nameRequired": "Введите имя",
+      "emailRequired": "Введите email",
+      "emailInvalid": "Введите корректный email",
+      "usernameOrEmailRequired": "Введите имя пользователя или email",
+      "passwordRequired": "Введите пароль",
+      "passwordStrong": "Пароль должен содержать минимум 8 символов, включая буквы и цифры",
+      "confirmPasswordRequired": "Подтвердите пароль",
+      "passwordsMismatch": "Пароли не совпадают"
+    },
+    "errors": {
+      "invalidCredentials": "Неверное имя пользователя, email или пароль",
+      "missingAccessToken": "Сервер не вернул access token",
+      "network": "Не удалось подключиться к серверу. Проверьте интернет-соединение.",
+      "profileFailed": "Не удалось загрузить профиль пользователя",
+      "serverUnavailable": "Сервер временно недоступен. Попробуйте позже.",
+      "unauthorized": "Сессия недействительна. Выполните вход повторно.",
+      "unknown": "Произошла неизвестная ошибка",
+      "userExists": "Пользователь с таким email уже существует"
+    },
+    "loginHero": {
+      "titleFirst": "Добро пожаловать",
+      "titleSecond": "в",
+      "description": "Войдите в свой аккаунт и продолжайте покупки с удовольствием",
+      "features": {
+        "cart": "Быстрый доступ к корзине",
+        "favorites": "Сохранённые товары в избранном",
+        "orders": "История заказов и доставка",
+        "recommendations": "Персональные рекомендации"
+      }
+    },
+    "registerHero": {
+      "titleFirst": "Создайте свой",
+      "titleAccent": "аккаунт",
+      "description": "Зарегистрируйтесь и откройте для себя лучшие товары",
+      "features": {
+        "choice": {
+          "title": "Широкий выбор",
+          "text": "тысяч товаров"
+        },
+        "discounts": {
+          "title": "Эксклюзивные скидки",
+          "text": "и акции"
+        },
+        "security": {
+          "title": "Безопасные покупки",
+          "text": "и защита данных"
+        }
+      }
+    },
+    "images": {
+      "loginAlt": "Иллюстрация страницы входа ShopFront",
+      "registerAlt": "Иллюстрация страницы регистрации ShopFront"
+    },
+    "login": {
+      "title": "Вход в аккаунт",
+      "subtitle": "Введите данные для входа",
+      "usernameOrEmailPlaceholder": "Введите имя пользователя или email",
+      "passwordPlaceholder": "Введите пароль",
+      "rememberMe": "Запомнить меня",
+      "submit": "Войти",
+      "submitting": "Выполняется вход...",
+      "socialDivider": "или войдите через",
+      "googleAria": "Войти через Google",
+      "githubAria": "Войти через GitHub",
+      "noAccount": "Нет аккаунта?",
+      "register": "Зарегистрироваться",
+      "errors": {
+        "loginFailed": "Не удалось войти в аккаунт",
+        "googleUnavailable": "Авторизация через Google недоступна",
+        "googleFailed": "Не удалось выполнить авторизацию через Google",
+        "githubBackend": "Для авторизации через GitHub требуется сервер"
+      }
+    },
+    "register": {
+      "title": "Регистрация",
+      "subtitle": "Заполните форму, чтобы создать аккаунт",
+      "namePlaceholder": "Введите имя",
+      "emailPlaceholder": "Введите email",
+      "passwordPlaceholder": "Минимум 8 символов",
+      "confirmPasswordPlaceholder": "Повторите пароль",
+      "submit": "Создать аккаунт",
+      "submitting": "Создаём аккаунт...",
+      "socialDivider": "или зарегистрируйтесь через",
+      "googleAria": "Зарегистрироваться через Google",
+      "githubAria": "Зарегистрироваться через GitHub",
+      "hasAccount": "Уже есть аккаунт?",
+      "login": "Войти",
+      "errors": {
+        "registerFailed": "Не удалось создать аккаунт",
+        "googleUnavailable": "Регистрация через Google недоступна",
+        "googleFailed": "Не удалось выполнить регистрацию через Google",
+        "githubBackend": "Для регистрации через GitHub требуется сервер"
+      }
+    }
+  },
+  "main": {
+    "advantages": {
+      "freeDelivery": {
+        "title": "Бесплатная доставка",
+        "subtitle": "от 3000 у.е."
+      },
+      "qualityGuarantee": {
+        "title": "Гарантия качества",
+        "subtitle": "на все товары"
+      },
+      "return": {
+        "title": "Возврат 14 дней",
+        "subtitle": "лёгкий возврат товара"
+      },
+      "support": {
+        "title": "Поддержка 24/7",
+        "subtitle": "мы всегда на связи"
+      },
+      "securePayment": {
+        "title": "Безопасная оплата",
+        "subtitle": "ваши данные под защитой"
+      }
+    },
+    "categories": {
+      "title": "Популярные категории",
+      "viewAll": "Смотреть все"
+    },
+    "products": {
+      "title": "Популярные товары",
+      "viewAll": "Смотреть все"
+    },
+    "promo": {
+      "title": "Весенняя распродажа",
+      "discount": "Скидки до",
+      "description": "Тысячи товаров по специальным ценам",
+      "action": "К покупкам"
+    },
+    "subscribe": {
+      "title": "Подпишитесь на наши новости",
+      "subtitle": "Получайте информацию о скидках, акциях и новых товарах",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Введите ваш email",
+      "submit": "Подписаться",
+      "submitting": "Подписываем...",
+      "validation": {
+        "required": "Введите email",
+        "invalid": "Введите корректный email"
+      },
+      "messages": {
+        "success": "Вы успешно подписались на рассылку",
+        "error": "Не удалось оформить подписку"
+      }
+    }
+  },
+  "productCard": {
+    "addToFavorites": "Добавить товар в избранное",
+    "removeFromFavorites": "Удалить товар из избранного",
+    "imageAlt": "Изображение товара {{title}}",
+    "imageUnavailable": "Изображение товара недоступно",
+    "rating": "Рейтинг",
+    "discount": "Скидка {{value}}",
+    "price": "Цена",
+    "finalPrice": "Цена со скидкой"
+  },
+  "about": {
+    "breadcrumb": {
+      "ariaLabel": "Навигационная цепочка",
+      "home": "Главная",
+      "current": "О нас"
+    },
+    "hero": {
+      "title": "О нас",
+      "descriptionFirst": "ShopFront — это команда единомышленников, которая создаёт современный интернет-магазин для удобных и приятных покупок.",
+      "descriptionSecond": "Наша цель — предоставить качественный сервис, широкий ассортимент товаров и честные цены каждому покупателю.",
+      "imageAlt": "Встреча команды ShopFront"
+    },
+    "stats": {
+      "customers": {
+        "title": "5000+",
+        "text": "довольных покупателей"
+      },
+      "products": {
+        "title": "50 000+",
+        "text": "товаров в каталоге"
+      },
+      "delivery": {
+        "title": "Быстрая доставка",
+        "text": "по всему Казахстану"
+      },
+      "support": {
+        "title": "Поддержка 24/7",
+        "text": "мы всегда рядом"
+      }
+    },
+    "developers": {
+      "title": "Разработчики",
+      "description": "Команда, которая создала и поддерживает ShopFront.",
+      "githubAria": "Открыть профиль {{name}} на GitHub",
+      "roles": {
+        "teamLead": "Тимлид",
+        "teamMember": "Участник команды"
+      },
+      "members": {
+        "ansar": {
+          "name": "Ансар",
+          "text": "Координирует работу команды, отвечает за продуктовые решения и общий процесс разработки."
+        },
+        "viktoryia": {
+          "name": "Виктория",
+          "text": "Работает над деталями интерфейса и помогает сделать процесс покупок понятным и приятным."
+        },
+        "angelina": {
+          "name": "Ангелина",
+          "text": "Разрабатывает пользовательские функции и поддерживает качественный клиентский опыт."
+        }
+      }
+    }
+  },
+  "notFound": {
+    "homeAria": "Перейти на главную страницу ShopFront",
+    "title": "Страница не найдена",
+    "description": "К сожалению, запрашиваемая страница не существует или была удалена.",
+    "action": "Вернуться на главную",
+    "imageAlt": "Иллюстрация с летающей тарелкой и коробкой"
+  },
+  "common": {
+    "loading": "Загрузка...",
+    "error": "Произошла ошибка",
+    "retry": "Повторить",
+    "close": "Закрыть",
+    "back": "Назад",
+    "next": "Далее",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "yes": "Да",
+    "no": "Нет"
+  },
+  "catalog": {
+    "categories": "Категории",
+    "filters": "Фильтры",
+    "price": "Цена",
+    "empty": "К сожалению, ничего не найдено"
+  },
+  "categories": {
+    "beauty": "Красота",
+    "fragrances": "Парфюмерия",
+    "furniture": "Мебель",
+    "groceries": "Продукты",
+    "home-decoration": "Декор для дома",
+    "kitchen-accessories": "Кухонные принадлежности",
+    "laptops": "Ноутбуки",
+    "mens-shirts": "Мужские рубашки",
+    "mens-shoes": "Мужская обувь",
+    "mens-watches": "Мужские часы",
+    "mobile-accessories": "Аксессуары для телефонов",
+    "motorcycle": "Мотоциклы",
+    "skin-care": "Уход за кожей",
+    "smartphones": "Смартфоны",
+    "sports-accessories": "Спортивные аксессуары",
+    "sunglasses": "Солнцезащитные очки",
+    "tablets": "Планшеты",
+    "tops": "Топы",
+    "vehicle": "Транспорт",
+    "womens-bags": "Женские сумки",
+    "womens-dresses": "Женские платья",
+    "womens-jewellery": "Женские украшения",
+    "womens-shoes": "Женская обувь",
+    "womens-watches": "Женские часы"
+  },
+  "promo": {
+    "title": "Летняя распродажа закончится через",
+    "button": "К покупкам"
+  }
+}

@@ -1,5 +1,9 @@
-<app-header></app-header>
-<main class="flex flex-col gap-6 w-full h-auto overflow-x-hidden">
-  <router-outlet></router-outlet>
-</main>
-<app-footer></app-footer>
+<div class="flex min-h-dvh flex-col">
+  <app-header />
+
+  <main class="flex w-full flex-1 flex-col gap-6 overflow-x-hidden">
+    <router-outlet />
+  </main>
+
+  <app-footer />
+</div>

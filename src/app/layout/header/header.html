@@ -1,72 +1,283 @@
-<app-promo-countdown-banner
-  title="Summer Sale ends in"
-  buttonText="Shop Now"
-  [endDate]="saleEndDate"
-  (bannerClicked)="onPromoClicked()"
-  (expired)="onPromoExpired()"
-/>
-<header class="w-full bg-bg-header border-b border-border-header sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
-
-    <div class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-xl bg-header-accent flex items-center justify-center text-bg-header font-bold">
-        42
-      </div>
-
-      <div>
-        <h1 class="text-lg font-semibold text-text-header-primary">
-          Team 42 Store
-        </h1>
-
-        <p class="text-xs text-text-header-secondary">
-          Online shopping
-        </p>
-      </div>
-    </div>
-
-    <div class="hidden md:flex flex-1 max-w-md">
-      <input
-        type="text"
-        placeholder="Search products..."
-        class="w-full px-4 py-2 rounded-xl border border-border-header text-sm focus:outline-none focus:ring-2 focus:ring-header-accent focus:border-header-accent"
-      />
-    </div>
-
-    <nav class="hidden lg:flex items-center gap-6 text-sm font-medium">
-      <a routerLink="/main" routerLinkActive="nav-link-active" class="text-text-header-secondary hover:text-header-accent transition">
-        Home
-      </a>
-
-      <a routerLink="/catalog" routerLinkActive="nav-link-active" class="text-text-header-secondary hover:text-header-accent transition">
-        Catalog
-      </a>
-
-      <a
-        routerLink="/about"
-        routerLinkActive="nav-link-active"
-        class="text-text-header-secondary hover:text-header-accent transition"
+<header
+  class="sticky top-0 z-50 w-full border-b border-border-header bg-bg-header"
+>
+  <div
+    class="mx-auto flex w-full max-w-7xl items-center gap-4 px-4 py-2 sm:px-6"
+  >
+    <a
+      routerLink="/main"
+      [attr.aria-label]="'header.homeAria' | translate"
+      class="mr-2 flex shrink-0 items-center gap-2"
+      (click)="closeProfileMenu()"
+    >
+      <span
+        class="flex size-8 items-center justify-center rounded-lg bg-header-accent text-white"
+        aria-hidden="true"
       >
-        About Us
-      </a>
+        <span class="material-icons-outlined text-lg">
+          shopping_bag
+        </span>
+      </span>
 
-      <a href="" routerLinkActive="nav-link-active" class="text-text-header-secondary hover:text-header-accent transition">
-        New Arrivals
-      </a>
+      <span
+        class="hidden text-lg font-bold text-text-header-primary sm:block"
+      >
+        ShopFront
+      </span>
+    </a>
 
-      <a href="" routerLinkActive="nav-link-active" class="text-text-header-secondary hover:text-header-accent transition">
-        Deals
-      </a>
-    </nav>
+    <a
+      routerLink="/catalog"
+      routerLinkActive="ring-2 ring-header-accent/25"
+      class="hidden h-9 shrink-0 items-center gap-1.5 rounded-lg bg-header-accent px-3 text-sm font-semibold text-white transition-colors hover:bg-header-accent-hover md:flex"
+      (click)="closeProfileMenu()"
+    >
+      <span
+        class="material-icons-outlined text-lg"
+        aria-hidden="true"
+      >
+        grid_view
+      </span>
 
-    <div class="flex items-center gap-3">
-      <button class="px-4 py-2 text-sm font-medium text-bg-header bg-header-accent rounded-xl hover:bg-header-accent-hover transition">
-        Login
+      <span>{{ 'header.catalog' | translate }}</span>
+
+    </a>
+
+    <label
+      class="relative hidden min-w-40 flex-1 md:block"
+      [attr.aria-label]="'header.search' | translate"
+    >
+      <input
+        type="search"
+        [placeholder]="'header.searchPlaceholder' | translate"
+        class="h-9 w-full rounded-lg border border-border-header bg-bg-header py-2 pl-3 pr-9 text-sm text-text-header-primary outline-none transition placeholder:text-text-header-secondary focus:border-header-accent focus:ring-2 focus:ring-header-accent/20"
+        (focus)="closeProfileMenu()"
+      />
+
+      <span
+        class="material-icons-outlined pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-lg text-text-header-secondary"
+        aria-hidden="true"
+      >
+        search
+      </span>
+    </label>
+
+    <div
+      class="hidden shrink-0 items-center gap-1.5 lg:flex"
+      [attr.aria-label]="'header.interfaceSettings' | translate"
+    >
+      <button
+        type="button"
+        [attr.aria-label]="'header.changeLanguage' | translate"
+        class="flex h-9 cursor-pointer items-center gap-1.5 rounded-lg border border-border-header bg-bg-header px-2.5 text-xs font-medium text-text-header-primary transition-colors hover:border-header-accent hover:bg-bg-secondary"
+        (click)="toggleLanguage()"
+      >
+        <span
+          class="material-icons-outlined text-base"
+          aria-hidden="true"
+        >
+          language
+        </span>
+
+        <span>
+          {{ languageService.language().toUpperCase() }}
+        </span>
       </button>
 
-      <button class="px-4 py-2 text-sm font-medium text-bg-header bg-header-accent rounded-xl hover:bg-header-accent-hover transition shadow-sm">
-        Cart
+      <button
+        type="button"
+        [attr.aria-label]="
+          (themeService.isDark()
+            ? 'header.lightTheme'
+            : 'header.darkTheme') | translate
+        "
+        class="flex size-9 cursor-pointer items-center justify-center rounded-lg border border-border-header bg-bg-header text-text-header-primary transition-colors hover:border-header-accent hover:bg-bg-secondary"
+        (click)="toggleTheme()"
+      >
+        <span
+          class="material-icons-outlined text-lg"
+          aria-hidden="true"
+        >
+          {{ themeService.isDark() ? 'light_mode' : 'dark_mode' }}
+        </span>
       </button>
     </div>
 
+    <div class="ml-auto flex shrink-0 items-center gap-2">
+      @if (authService.isAuthenticated()) {
+        <div class="relative">
+          <button
+            type="button"
+            [attr.aria-label]="'header.profileMenu' | translate"
+            aria-haspopup="menu"
+            [attr.aria-expanded]="profileMenuOpened()"
+            class="relative z-20 flex h-9 cursor-pointer items-center gap-2 border border-border-header bg-bg-header px-3 text-xs font-semibold text-text-header-primary transition-colors hover:border-header-accent hover:text-header-accent"
+            [class.rounded-lg]="!profileMenuOpened()"
+            [class.rounded-t-lg]="profileMenuOpened()"
+            [class.border-b-transparent]="profileMenuOpened()"
+            (click)="toggleProfileMenu()"
+          >
+            <span
+              class="material-icons-outlined text-base"
+              aria-hidden="true"
+            >
+              person_outline
+            </span>
+
+            <span>{{ 'header.profile' | translate }}</span>
+
+            <span
+              class="material-icons-outlined text-base transition-transform"
+              [class.rotate-180]="profileMenuOpened()"
+              aria-hidden="true"
+            >
+              keyboard_arrow_down
+            </span>
+          </button>
+
+          @if (profileMenuOpened()) {
+            <div
+              role="menu"
+              class="absolute right-0 top-full z-10 min-w-full overflow-hidden rounded-b-lg border border-border-header bg-bg-header shadow-lg"
+            >
+              <button
+                type="button"
+                role="menuitem"
+                class="flex w-full cursor-pointer items-center gap-2 whitespace-nowrap px-3 py-2 text-left text-sm font-medium text-text-header-primary transition-colors hover:bg-bg-secondary hover:text-header-accent"
+                (click)="logout()"
+              >
+                <span
+                  class="material-icons-outlined text-lg"
+                  aria-hidden="true"
+                >
+                  logout
+                </span>
+
+                <span>{{ 'header.logout' | translate }}</span>
+              </button>
+            </div>
+          }
+        </div>
+      } @else {
+        <a
+          routerLink="/auth"
+          class="flex h-9 items-center gap-2 rounded-lg bg-header-accent px-3 text-xs font-semibold text-white transition-colors hover:bg-header-accent-hover"
+          (click)="closeProfileMenu()"
+        >
+          <span
+            class="material-icons-outlined text-base"
+            aria-hidden="true"
+          >
+            login
+          </span>
+
+          <span>{{ 'header.login' | translate }}</span>
+        </a>
+      }
+
+      <button
+        type="button"
+        [attr.aria-label]="'header.favorites' | translate"
+        class="hidden h-9 cursor-pointer items-center gap-2 rounded-lg border border-border-header bg-bg-header px-3 text-xs font-medium text-text-header-primary transition-colors hover:border-header-accent hover:text-header-accent sm:flex"
+        (click)="closeProfileMenu()"
+      >
+        <span
+          class="material-icons-outlined text-base"
+          aria-hidden="true"
+        >
+          favorite_border
+        </span>
+
+        <span>{{ 'header.favorites' | translate }}</span>
+      </button>
+
+      <button
+        type="button"
+        [attr.aria-label]="'header.cart' | translate"
+        class="relative flex h-9 cursor-pointer items-center gap-2 rounded-lg border border-border-header bg-bg-header px-3 text-xs font-medium text-text-header-primary transition-colors hover:border-header-accent hover:text-header-accent"
+        (click)="closeProfileMenu()"
+      >
+        <span
+          class="material-icons-outlined text-base"
+          aria-hidden="true"
+        >
+          shopping_cart
+        </span>
+
+        <span class="hidden sm:inline">
+          {{ 'header.cart' | translate }}
+        </span>
+
+        <span
+          class="flex size-4 items-center justify-center rounded-full bg-header-accent text-[9px] font-bold text-white"
+        >
+          0
+        </span>
+      </button>
+    </div>
   </div>
+
+  <div
+    class="mx-auto flex w-full max-w-7xl items-center gap-2 px-4 pb-2 sm:px-6 md:hidden"
+  >
+    <label
+      class="relative min-w-0 flex-1"
+      [attr.aria-label]="'header.search' | translate"
+    >
+      <input
+        type="search"
+        [placeholder]="'header.searchShort' | translate"
+        class="h-9 w-full rounded-lg border border-border-header bg-bg-header py-2 pl-3 pr-9 text-sm text-text-header-primary outline-none placeholder:text-text-header-secondary focus:border-header-accent focus:ring-2 focus:ring-header-accent/20"
+        (focus)="closeProfileMenu()"
+      />
+
+      <span
+        class="material-icons-outlined pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-lg text-text-header-secondary"
+        aria-hidden="true"
+      >
+        search
+      </span>
+    </label>
+
+    <button
+      type="button"
+      [attr.aria-label]="'header.changeLanguage' | translate"
+      class="flex h-9 shrink-0 cursor-pointer items-center gap-1.5 rounded-lg border border-border-header bg-bg-header px-3 text-xs font-medium text-text-header-primary"
+      (click)="toggleLanguage()"
+    >
+      <span
+        class="material-icons-outlined text-base"
+        aria-hidden="true"
+      >
+        language
+      </span>
+
+      <span>
+        {{ languageService.language().toUpperCase() }}
+      </span>
+    </button>
+
+    <button
+      type="button"
+      [attr.aria-label]="
+        (themeService.isDark()
+          ? 'header.lightTheme'
+          : 'header.darkTheme') | translate
+      "
+      class="flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-border-header bg-bg-header text-text-header-primary"
+      (click)="toggleTheme()"
+    >
+      <span
+        class="material-icons-outlined text-lg"
+        aria-hidden="true"
+      >
+        {{ themeService.isDark() ? 'light_mode' : 'dark_mode' }}
+      </span>
+    </button>
+  </div>
+  <app-promo-countdown-banner
+    [title]="'promo.title' | translate"
+    [buttonText]="'promo.button' | translate"
+    (bannerClicked)="openCatalog()"
+  />
 </header>
