@@ -1,15 +1,32 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable, computed, inject, signal } from '@angular/core';
+import {
+  HttpClient,
+  HttpErrorResponse,
+} from '@angular/common/http';
+import {
+  Injectable,
+  computed,
+  inject,
+} from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
-import { API_URL, AUTH_TOKEN_STORAGE_KEY } from './auth.tokens';
-
-import type {
-  AuthResponse,
-  LocalRegisteredUser,
-  LoginPayload,
-  RegisterPayload,
+import { API_URL } from './auth.tokens';
+import { AuthSessionService } from './auth-session.service';
+import {
+  AuthError,
+  type ApiAuthSession,
+  type AuthResponse,
+  type AuthUser,
+  type GoogleAuthSession,
+  type LocalAuthSession,
+  type LocalRegisteredUser,
+  type LoginPayload,
+  type RegisterPayload,
 } from './auth.types';
+import {
+  decodeJwt,
+  getJwtExpiresAt,
+} from './jwt.utils';
+import { LocalAuthService } from './local-auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,152 +34,302 @@ import type {
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = inject(API_URL);
-  private readonly tokenStorageKey = inject(AUTH_TOKEN_STORAGE_KEY);
-  private readonly localUsersStorageKey = 'shopfront_registered_users';
+  private readonly localAuthService =
+    inject(LocalAuthService);
+  private readonly sessionService =
+    inject(AuthSessionService);
 
-  private readonly token = signal<string | null>(this.getStoredToken());
+  readonly isAuthenticated = computed(
+    () => this.sessionService.isAuthenticated(),
+  );
 
-  readonly isAuthenticated = computed(() => Boolean(this.token()));
-
-  getToken(): string | null {
-    return this.token();
+  getApiAccessToken(): string | null {
+    return this.sessionService.getApiAccessToken();
   }
 
-  isLoggedUser(): boolean {
-    return this.isAuthenticated();
-  }
-
-  async login(payload: LoginPayload): Promise<AuthResponse> {
-    const localUser = this.findLocalUser(payload);
+  async login(
+    payload: LoginPayload,
+  ): Promise<AuthResponse> {
+    const localUser =
+      this.localAuthService.findUserByEmail(
+        payload.username,
+      );
 
     if (localUser) {
-      const response = this.createLocalAuthResponse(localUser);
-      this.saveToken(response.accessToken);
+      const passwordMatches =
+        await this.localAuthService.verifyPassword(
+          localUser,
+          payload.password,
+        );
 
-      return response;
+      if (!passwordMatches) {
+        throw new AuthError(
+          'invalidCredentials',
+        );
+      }
+
+      return this.loginLocalUser(
+        localUser,
+        payload.rememberMe,
+      );
     }
 
+    return this.loginApiUser(payload);
+  }
+
+  async register(
+    payload: RegisterPayload,
+  ): Promise<void> {
+    await this.localAuthService.register(
+      payload,
+    );
+  }
+
+  loginWithGoogleCredential(
+    credential: string,
+    rememberMe = true,
+  ): void {
+    const payload = decodeJwt(credential);
+    const expiresAt =
+      getJwtExpiresAt(payload);
+
+    if (
+      !payload ||
+      !expiresAt ||
+      expiresAt <= Date.now()
+    ) {
+      throw new AuthError(
+        'sessionExpired',
+      );
+    }
+
+    const fullName =
+      payload.name?.trim() ?? '';
+
+    const [
+      firstName = '',
+      ...lastNameParts
+    ] = fullName.split(/\s+/);
+
+    const session: GoogleAuthSession = {
+      type: 'google',
+      token: credential,
+      expiresAt,
+      user: {
+        id:
+          payload.sub ??
+          payload.email ??
+          'google-user',
+        username:
+          payload.email ??
+          payload.sub ??
+          'google-user',
+        email: payload.email ?? '',
+        firstName:
+          payload.given_name ??
+          firstName,
+        lastName:
+          payload.family_name ??
+          lastNameParts.join(' '),
+        image: payload.picture,
+      },
+    };
+
+    this.sessionService.saveSession(
+      session,
+      rememberMe
+        ? 'local'
+        : 'session',
+    );
+  }
+
+  logout(): void {
+    this.sessionService.logout();
+  }
+
+  private async loginApiUser(
+    payload: LoginPayload,
+  ): Promise<AuthResponse> {
+    let response: AuthResponse;
+
     try {
-      const response = await firstValueFrom(
+      response = await firstValueFrom(
         this.http.post<AuthResponse>(
           `${this.apiUrl}/auth/login`,
           {
-            username: payload.username,
+            username:
+              payload.username.trim(),
             password: payload.password,
             expiresInMins: 30,
           },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
+        ),
+      );
+    } catch (error: unknown) {
+      throw this.mapHttpError(
+        error,
+        'invalidCredentials',
+      );
+    }
+
+    if (!response.accessToken) {
+      throw new AuthError(
+        'missingAccessToken',
+      );
+    }
+
+    const expiresAt =
+      getJwtExpiresAt(
+        decodeJwt(
+          response.accessToken,
+        ),
+      ) ??
+      Date.now() +
+      30 * 60 * 1000;
+
+    const session: ApiAuthSession = {
+      type: 'api',
+      token: response.accessToken,
+      refreshToken:
+      response.refreshToken,
+      expiresAt,
+      user:
+        this.authResponseToUser(
+          response,
+        ),
+    };
+
+    this.sessionService.saveSession(
+      session,
+      payload.rememberMe
+        ? 'local'
+        : 'session',
+    );
+
+    try {
+      await this.loadApiCurrentUser();
+    } catch (error: unknown) {
+      this.logout();
+      throw error;
+    }
+
+    return response;
+  }
+
+  private loginLocalUser(
+    user: LocalRegisteredUser,
+    rememberMe: boolean,
+  ): AuthResponse {
+    const response =
+      this.localAuthService
+        .createAuthResponse(user);
+
+    const session: LocalAuthSession = {
+      type: 'local',
+      token: response.accessToken,
+      expiresAt: null,
+      user:
+        this.authResponseToUser(
+          response,
+        ),
+    };
+
+    this.sessionService.saveSession(
+      session,
+      rememberMe
+        ? 'local'
+        : 'session',
+    );
+
+    return response;
+  }
+
+  private async loadApiCurrentUser():
+    Promise<void> {
+    try {
+      const user = await firstValueFrom(
+        this.http.get<AuthUser>(
+          `${this.apiUrl}/auth/me`,
         ),
       );
 
-      this.saveToken(response.accessToken);
+      this.sessionService
+        .updateSessionUser(user);
+    } catch (error: unknown) {
+      throw this.mapHttpError(
+        error,
+        'unauthorized',
+      );
+    }
+  }
 
-      return response;
-    } catch (error) {
-      throw new Error(
-        this.getApiErrorMessage(error, 'Неверный username или пароль'),
+  private authResponseToUser(
+    response: AuthResponse,
+  ): AuthUser {
+    return {
+      id: response.id,
+      username: response.username,
+      email: response.email,
+      firstName: response.firstName,
+      lastName: response.lastName,
+      image: response.image,
+    };
+  }
+
+  private mapHttpError(
+    error: unknown,
+    authFailureCode:
+      | 'invalidCredentials'
+      | 'unauthorized',
+  ): AuthError {
+    if (
+      !(
+        error instanceof
+        HttpErrorResponse
+      )
+    ) {
+      return new AuthError(
+        'unknown',
         {
           cause: error,
         },
       );
     }
-  }
 
-  async register(payload: RegisterPayload): Promise<void> {
-    const users = this.getLocalUsers();
-    const normalizedEmail = payload.email.trim().toLowerCase();
+    if (error.status === 0) {
+      return new AuthError(
+        'network',
+        {
+          cause: error,
+        },
+      );
+    }
 
-    const userAlreadyExists = users.some(
-      (user) => user.email.toLowerCase() === normalizedEmail,
+    if (
+      error.status === 400 ||
+      error.status === 401
+    ) {
+      return new AuthError(
+        authFailureCode,
+        {
+          cause: error,
+        },
+      );
+    }
+
+    if (error.status >= 500) {
+      return new AuthError(
+        'serverUnavailable',
+        {
+          cause: error,
+        },
+      );
+    }
+
+    return new AuthError(
+      'unknown',
+      {
+        cause: error,
+      },
     );
-
-    if (userAlreadyExists) {
-      throw new Error('Пользователь с таким email уже существует');
-    }
-
-    const newUser: LocalRegisteredUser = {
-      id: Date.now(),
-      name: payload.name.trim(),
-      email: normalizedEmail,
-      passwordHash: this.createPasswordHash(payload.password),
-    };
-
-    localStorage.setItem(
-      this.localUsersStorageKey,
-      JSON.stringify([...users, newUser]),
-    );
-  }
-
-  loginWithGoogleToken(idToken: string): void {
-    this.saveToken(idToken);
-  }
-
-  logout(): void {
-    localStorage.removeItem(this.tokenStorageKey);
-    this.token.set(null);
-  }
-
-  private findLocalUser(payload: LoginPayload): LocalRegisteredUser | null {
-    const login = payload.username.trim().toLowerCase();
-    const passwordHash = this.createPasswordHash(payload.password);
-
-    return (
-      this.getLocalUsers().find(
-        (user) =>
-          user.email.toLowerCase() === login &&
-          user.passwordHash === passwordHash,
-      ) ?? null
-    );
-  }
-
-  private getLocalUsers(): LocalRegisteredUser[] {
-    const rawUsers = localStorage.getItem(this.localUsersStorageKey);
-
-    if (!rawUsers) {
-      return [];
-    }
-
-    try {
-      return JSON.parse(rawUsers) as LocalRegisteredUser[];
-    } catch {
-      return [];
-    }
-  }
-
-  private createLocalAuthResponse(user: LocalRegisteredUser): AuthResponse {
-    return {
-      id: user.id,
-      username: user.email,
-      email: user.email,
-      firstName: user.name,
-      lastName: '',
-      accessToken: `local-token-${user.id}`,
-      refreshToken: `local-refresh-token-${user.id}`,
-    };
-  }
-
-  private saveToken(token: string): void {
-    localStorage.setItem(this.tokenStorageKey, token);
-    this.token.set(token);
-  }
-
-  private getStoredToken(): string | null {
-    return localStorage.getItem(this.tokenStorageKey);
-  }
-
-  private createPasswordHash(password: string): string {
-    return btoa(password);
-  }
-
-  private getApiErrorMessage(error: unknown, fallback: string): string {
-    if (error instanceof HttpErrorResponse) {
-      return error.error?.message || fallback;
-    }
-
-    return fallback;
   }
 }

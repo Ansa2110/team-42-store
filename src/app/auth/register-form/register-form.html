@@ -8,28 +8,18 @@
     <div
       class="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-primary-light text-primary-main"
     >
-      <mat-icon>
-        person_add
-      </mat-icon>
+      <mat-icon>person_add</mat-icon>
     </div>
 
     <div>
       <h2
         class="text-3xl font-extrabold leading-tight tracking-tight text-text-primary"
       >
-        {{
-          'auth.register.title'
-            | translate
-        }}
+        {{ 'auth.register.title' | translate }}
       </h2>
 
-      <p
-        class="mt-1 text-sm text-text-secondary"
-      >
-        {{
-          'auth.register.subtitle'
-            | translate
-        }}
+      <p class="mt-1 text-sm text-text-secondary">
+        {{ 'auth.register.subtitle' | translate }}
       </p>
     </div>
   </div>
@@ -37,6 +27,7 @@
   @if (serverError()) {
     <div
       class="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700"
+      role="alert"
     >
       {{ serverError() }}
     </div>
@@ -59,12 +50,12 @@
         matInput
         class="cursor-text"
         type="text"
+        formControlName="name"
+        autocomplete="given-name"
         [placeholder]="
           'auth.register.namePlaceholder'
             | translate
         "
-        formControlName="name"
-        autocomplete="given-name"
       />
 
       <mat-icon
@@ -73,27 +64,19 @@
       >
         person_outline
       </mat-icon>
-    </mat-form-field>
 
-    @if (
-      name.touched &&
-      name.invalid
-      ) {
-      <div
-        class="-mt-3 text-sm font-medium text-red-600"
-      >
-        @if (
-          name.errors?.['required']
-          ) {
-          <p>
-            {{
-              'auth.validation.nameRequired'
-                | translate
-            }}
-          </p>
-        }
-      </div>
-    }
+      @if (
+        name.touched &&
+        name.errors?.['required']
+        ) {
+        <mat-error>
+          {{
+            'auth.validation.nameRequired'
+              | translate
+          }}
+        </mat-error>
+      }
+    </mat-form-field>
   </div>
 
   <div>
@@ -113,12 +96,12 @@
         matInput
         class="cursor-text"
         type="email"
+        formControlName="email"
+        autocomplete="email"
         [placeholder]="
           'auth.register.emailPlaceholder'
             | translate
         "
-        formControlName="email"
-        autocomplete="email"
       />
 
       <mat-icon
@@ -127,38 +110,29 @@
       >
         mail_outline
       </mat-icon>
+
+      @if (
+        email.touched &&
+        email.errors?.['required']
+        ) {
+        <mat-error>
+          {{
+            'auth.validation.emailRequired'
+              | translate
+          }}
+        </mat-error>
+      } @else if (
+        email.touched &&
+        email.errors?.['email']
+        ) {
+        <mat-error>
+          {{
+            'auth.validation.emailInvalid'
+              | translate
+          }}
+        </mat-error>
+      }
     </mat-form-field>
-
-    @if (
-      email.touched &&
-      email.invalid
-      ) {
-      <div
-        class="-mt-3 text-sm font-medium text-red-600"
-      >
-        @if (
-          email.errors?.['required']
-          ) {
-          <p>
-            {{
-              'auth.validation.emailRequired'
-                | translate
-            }}
-          </p>
-        }
-
-        @if (
-          email.errors?.['email']
-          ) {
-          <p>
-            {{
-              'auth.validation.emailInvalid'
-                | translate
-            }}
-          </p>
-        }
-      </div>
-    }
   </div>
 
   <div>
@@ -166,10 +140,7 @@
       for="registerPassword"
       class="mb-2 block text-sm font-bold text-text-primary"
     >
-      {{
-        'auth.fields.password'
-          | translate
-      }}
+      {{ 'auth.fields.password' | translate }}
     </label>
 
     <mat-form-field
@@ -180,70 +151,55 @@
         id="registerPassword"
         matInput
         class="cursor-text"
+        formControlName="password"
+        autocomplete="new-password"
         [type]="passwordInputType"
         [placeholder]="
           'auth.register.passwordPlaceholder'
             | translate
         "
-        formControlName="password"
-        autocomplete="new-password"
       />
 
       <button
         mat-icon-button
         matSuffix
-        class="cursor-pointer!"
+        class="cursor-pointer"
         type="button"
         [attr.aria-label]="
           'auth.actions.togglePassword'
             | translate
         "
-        (click)="
-          togglePasswordVisibility()
-        "
+        (click)="togglePasswordVisibility()"
       >
         @if (passwordVisible()) {
-          <mat-icon>
-            visibility_off
-          </mat-icon>
+          <mat-icon>visibility_off</mat-icon>
         } @else {
-          <mat-icon>
-            visibility
-          </mat-icon>
+          <mat-icon>visibility</mat-icon>
         }
       </button>
+
+      @if (
+        password.touched &&
+        password.errors?.['required']
+        ) {
+        <mat-error>
+          {{
+            'auth.validation.passwordRequired'
+              | translate
+          }}
+        </mat-error>
+      } @else if (
+        password.touched &&
+        password.errors?.['strongPassword']
+        ) {
+        <mat-error>
+          {{
+            'auth.validation.passwordStrong'
+              | translate
+          }}
+        </mat-error>
+      }
     </mat-form-field>
-
-    @if (
-      password.touched &&
-      password.invalid
-      ) {
-      <div
-        class="-mt-3 text-sm font-medium text-red-600"
-      >
-        @if (
-          password.errors?.['required']
-          ) {
-          <p>
-            {{
-              'auth.validation.passwordRequired'
-                | translate
-            }}
-          </p>
-        }
-
-        @if (
-          password.errors?.['strongPassword']
-          ) {
-          <p>
-            {{
-              'auth.validation.passwordStrong'
-                | translate
-            }}
-          </p>
-        }
-      </div>
-    }
   </div>
 
   <div>
@@ -251,10 +207,7 @@
       for="registerConfirmPassword"
       class="mb-2 block text-sm font-bold text-text-primary"
     >
-      {{
-        'auth.fields.confirmPassword'
-          | translate
-      }}
+      {{ 'auth.fields.confirmPassword' | translate }}
     </label>
 
     <mat-form-field
@@ -265,109 +218,82 @@
         id="registerConfirmPassword"
         matInput
         class="cursor-text"
+        formControlName="confirmPassword"
+        autocomplete="new-password"
         [type]="confirmPasswordInputType"
+        [errorStateMatcher]="
+          passwordMatchErrorStateMatcher
+        "
         [placeholder]="
           'auth.register.confirmPasswordPlaceholder'
             | translate
         "
-        formControlName="confirmPassword"
-        autocomplete="new-password"
       />
 
       <button
         mat-icon-button
         matSuffix
-        class="cursor-pointer!"
+        class="cursor-pointer"
         type="button"
         [attr.aria-label]="
           'auth.actions.toggleConfirmPassword'
             | translate
         "
-        (click)="
-          toggleConfirmPasswordVisibility()
-        "
+        (click)="toggleConfirmPasswordVisibility()"
       >
-        @if (
-          confirmPasswordVisible()
-          ) {
-          <mat-icon>
-            visibility_off
-          </mat-icon>
+        @if (confirmPasswordVisible()) {
+          <mat-icon>visibility_off</mat-icon>
         } @else {
-          <mat-icon>
-            visibility
-          </mat-icon>
+          <mat-icon>visibility</mat-icon>
         }
       </button>
-    </mat-form-field>
 
-    @if (
-      confirmPassword.touched &&
-      confirmPassword.invalid
-      ) {
-      <div
-        class="-mt-3 text-sm font-medium text-red-600"
-      >
-        @if (
-          confirmPassword.errors?.['required']
-          ) {
-          <p>
-            {{
-              'auth.validation.confirmPasswordRequired'
-                | translate
-            }}
-          </p>
-        }
-      </div>
-    }
-
-    @if (
-      confirmPassword.touched &&
-      form.errors?.['passwordsMismatch']
-      ) {
-      <div
-        class="-mt-3 text-sm font-medium text-red-600"
-      >
-        <p>
+      @if (
+        confirmPassword.touched &&
+        confirmPassword.errors?.['required']
+        ) {
+        <mat-error>
+          {{
+            'auth.validation.confirmPasswordRequired'
+              | translate
+          }}
+        </mat-error>
+      } @else if (
+        confirmPassword.touched &&
+        form.errors?.['passwordsMismatch']
+        ) {
+        <mat-error>
           {{
             'auth.validation.passwordsMismatch'
               | translate
           }}
-        </p>
-      </div>
-    }
+        </mat-error>
+      }
+    </mat-form-field>
   </div>
 
   <button
     mat-flat-button
-    class="h-12! w-full! cursor-pointer! rounded-xl! bg-primary-main! font-bold! text-text-inverse! hover:bg-primary-hover!"
+    class="auth-submit-button w-full cursor-pointer font-bold"
     type="submit"
     [disabled]="isSubmitting()"
   >
     <span
       class="inline-flex items-center justify-center gap-2"
     >
-      <mat-icon class="text-[20px]!">
+      <mat-icon class="text-[20px]">
         person_add
       </mat-icon>
 
       @if (isSubmitting()) {
-        {{
-          'auth.register.submitting'
-            | translate
-        }}
+        {{ 'auth.register.submitting' | translate }}
       } @else {
-        {{
-          'auth.register.submit'
-            | translate
-        }}
+        {{ 'auth.register.submit' | translate }}
       }
     </span>
   </button>
 
-  <div
-    class="relative py-2 text-center"
-  >
+  <div class="relative py-2 text-center">
     <div
       class="absolute left-0 top-1/2 h-px w-full bg-border"
     ></div>
@@ -375,17 +301,15 @@
     <span
       class="relative bg-surface px-4 text-sm text-text-muted"
     >
-      {{
-        'auth.register.socialDivider'
-          | translate
-      }}
+      {{ 'auth.register.socialDivider' | translate }}
     </span>
   </div>
 
   <div class="grid grid-cols-2 gap-3">
     <button
       type="button"
-      class="flex h-12 cursor-pointer items-center justify-center rounded-xl border border-border bg-surface shadow-sm transition hover:bg-bg-secondary"
+      class="flex h-12 cursor-pointer items-center justify-center rounded-xl border border-border bg-surface shadow-sm transition hover:bg-bg-secondary disabled:cursor-not-allowed disabled:opacity-60"
+      [disabled]="isSubmitting()"
       [attr.aria-label]="
         'auth.register.googleAria'
           | translate
@@ -394,7 +318,7 @@
     >
       <img
         ngSrc="/assets/icons/google.svg"
-        alt="Google"
+        alt=""
         width="28"
         height="28"
       />
@@ -411,30 +335,22 @@
     >
       <img
         ngSrc="/assets/icons/github.svg"
-        alt="GitHub"
+        alt=""
         width="28"
         height="28"
       />
     </button>
   </div>
 
-  <p
-    class="text-center text-sm text-text-secondary"
-  >
-    {{
-      'auth.register.hasAccount'
-        | translate
-    }}
+  <p class="text-center text-sm text-text-secondary">
+    {{ 'auth.register.hasAccount' | translate }}
 
     <button
       class="cursor-pointer font-bold text-primary-main transition hover:text-primary-hover"
       type="button"
       (click)="goToLogin()"
     >
-      {{
-        'auth.register.login'
-          | translate
-      }}
+      {{ 'auth.register.login' | translate }}
     </button>
   </p>
 </form>

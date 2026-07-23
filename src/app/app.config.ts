@@ -11,7 +11,7 @@ import { provideRouter } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { environment } from '../environments/environment.local';
+import { environment } from '../environments/environment';
 
 import { routes } from './app.routes';
 import { authInterceptor } from './auth/auth.interceptor';

@@ -13,7 +13,7 @@ import { AuthService } from '../auth.service';
 import { LoginForm } from '../login-form/login-form';
 import { RegisterForm } from '../register-form/register-form';
 
-type AuthMode = 'login' | 'register';
+import type { AuthMode } from '../auth.types';
 
 @Component({
   selector: 'app-auth-page',
@@ -24,27 +24,17 @@ type AuthMode = 'login' | 'register';
     TranslatePipe,
   ],
   templateUrl: './auth-page.html',
-  styleUrl: './auth-page.css',
-  changeDetection:
-  ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthPage {
-  private readonly router =
-    inject(Router);
+  private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
 
-  private readonly authService =
-    inject(AuthService);
-
-  readonly mode =
-    signal<AuthMode>('login');
+  readonly mode = signal<AuthMode>('login');
 
   constructor() {
-    if (
-      this.authService.isAuthenticated()
-    ) {
-      void this.router.navigateByUrl(
-        '/main',
-      );
+    if (this.authService.isAuthenticated()) {
+      void this.router.navigateByUrl('/main');
     }
   }
 

@@ -8,28 +8,18 @@
     <div
       class="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-primary-light text-primary-main"
     >
-      <mat-icon>
-        lock_outline
-      </mat-icon>
+      <mat-icon>lock_outline</mat-icon>
     </div>
 
     <div>
       <h2
         class="text-3xl font-extrabold leading-tight tracking-tight text-text-primary"
       >
-        {{
-          'auth.login.title'
-            | translate
-        }}
+        {{ 'auth.login.title' | translate }}
       </h2>
 
-      <p
-        class="mt-1 text-sm text-text-secondary"
-      >
-        {{
-          'auth.login.subtitle'
-            | translate
-        }}
+      <p class="mt-1 text-sm text-text-secondary">
+        {{ 'auth.login.subtitle' | translate }}
       </p>
     </div>
   </div>
@@ -37,6 +27,7 @@
   @if (serverError()) {
     <div
       class="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700"
+      role="alert"
     >
       {{ serverError() }}
     </div>
@@ -47,7 +38,7 @@
       for="loginUsername"
       class="mb-2 block text-sm font-bold text-text-primary"
     >
-      {{ 'auth.fields.email' | translate }}
+      {{ 'auth.fields.usernameOrEmail' | translate }}
     </label>
 
     <mat-form-field
@@ -57,13 +48,13 @@
       <input
         id="loginUsername"
         matInput
-        type="email"
+        type="text"
+        formControlName="username"
+        autocomplete="username"
         [placeholder]="
-          'auth.login.emailPlaceholder'
+          'auth.login.usernameOrEmailPlaceholder'
             | translate
         "
-        formControlName="username"
-        autocomplete="email"
       />
 
       <mat-icon
@@ -72,27 +63,19 @@
       >
         person_outline
       </mat-icon>
-    </mat-form-field>
 
-    @if (
-      username.touched &&
-      username.invalid
-      ) {
-      <div
-        class="-mt-3 text-sm font-medium text-red-600"
-      >
-        @if (
-          username.errors?.['required']
-          ) {
-          <p>
-            {{
-              'auth.validation.emailRequired'
-                | translate
-            }}
-          </p>
-        }
-      </div>
-    }
+      @if (
+        username.touched &&
+        username.errors?.['required']
+        ) {
+        <mat-error>
+          {{
+            'auth.validation.usernameOrEmailRequired'
+              | translate
+          }}
+        </mat-error>
+      }
+    </mat-form-field>
   </div>
 
   <div>
@@ -100,10 +83,7 @@
       for="loginPassword"
       class="mb-2 block text-sm font-bold text-text-primary"
     >
-      {{
-        'auth.fields.password'
-          | translate
-      }}
+      {{ 'auth.fields.password' | translate }}
     </label>
 
     <mat-form-field
@@ -114,118 +94,75 @@
         id="loginPassword"
         matInput
         class="cursor-text"
+        formControlName="password"
+        autocomplete="current-password"
         [type]="passwordInputType"
         [placeholder]="
           'auth.login.passwordPlaceholder'
             | translate
         "
-        formControlName="password"
-        autocomplete="current-password"
       />
 
       <button
         mat-icon-button
         matSuffix
-        class="cursor-pointer!"
+        class="cursor-pointer"
         type="button"
         [attr.aria-label]="
           'auth.actions.togglePassword'
             | translate
         "
-        (click)="
-          togglePasswordVisibility()
-        "
+        (click)="togglePasswordVisibility()"
       >
         @if (passwordVisible()) {
-          <mat-icon>
-            visibility_off
-          </mat-icon>
+          <mat-icon>visibility_off</mat-icon>
         } @else {
-          <mat-icon>
-            visibility
-          </mat-icon>
+          <mat-icon>visibility</mat-icon>
         }
       </button>
-    </mat-form-field>
 
-    @if (
-      password.touched &&
-      password.invalid
-      ) {
-      <div
-        class="-mt-3 text-sm font-medium text-red-600"
-      >
-        @if (
-          password.errors?.['required']
-          ) {
-          <p>
-            {{
-              'auth.validation.passwordRequired'
-                | translate
-            }}
-          </p>
-        }
-      </div>
-    }
+      @if (
+        password.touched &&
+        password.errors?.['required']
+        ) {
+        <mat-error>
+          {{
+            'auth.validation.passwordRequired'
+              | translate
+          }}
+        </mat-error>
+      }
+    </mat-form-field>
   </div>
 
-  <div
-    class="flex items-center justify-between gap-4 pt-1"
-  >
-    <mat-checkbox
-      formControlName="rememberMe"
-    >
-      <span
-        class="cursor-pointer text-sm text-text-secondary"
-      >
-        {{
-          'auth.login.rememberMe'
-            | translate
-        }}
+  <div class="flex items-center pt-1">
+    <mat-checkbox formControlName="rememberMe">
+      <span class="cursor-pointer text-sm text-text-secondary">
+        {{ 'auth.login.rememberMe' | translate }}
       </span>
     </mat-checkbox>
-
-    <button
-      class="cursor-pointer text-sm font-bold text-primary-main transition hover:text-primary-hover"
-      type="button"
-    >
-      {{
-        'auth.login.forgotPassword'
-          | translate
-      }}
-    </button>
   </div>
 
   <button
     mat-flat-button
-    class="h-12! w-full! cursor-pointer! rounded-xl! bg-primary-main! font-bold! text-text-inverse! hover:bg-primary-hover!"
+    class="auth-submit-button w-full cursor-pointer font-bold"
     type="submit"
     [disabled]="isSubmitting()"
   >
-    <span
-      class="inline-flex items-center justify-center gap-2"
-    >
-      <mat-icon class="text-[20px]!">
+    <span class="inline-flex items-center justify-center gap-2">
+      <mat-icon class="text-[20px]">
         lock_outline
       </mat-icon>
 
       @if (isSubmitting()) {
-        {{
-          'auth.login.submitting'
-            | translate
-        }}
+        {{ 'auth.login.submitting' | translate }}
       } @else {
-        {{
-          'auth.login.submit'
-            | translate
-        }}
+        {{ 'auth.login.submit' | translate }}
       }
     </span>
   </button>
 
-  <div
-    class="relative py-2 text-center"
-  >
+  <div class="relative py-2 text-center">
     <div
       class="absolute left-0 top-1/2 h-px w-full bg-border"
     ></div>
@@ -233,17 +170,15 @@
     <span
       class="relative bg-surface px-4 text-sm text-text-muted"
     >
-      {{
-        'auth.login.socialDivider'
-          | translate
-      }}
+      {{ 'auth.login.socialDivider' | translate }}
     </span>
   </div>
 
   <div class="grid grid-cols-2 gap-3">
     <button
       type="button"
-      class="flex h-12 cursor-pointer items-center justify-center rounded-xl border border-border bg-surface shadow-sm transition hover:bg-bg-secondary"
+      class="flex h-12 cursor-pointer items-center justify-center rounded-xl border border-border bg-surface shadow-sm transition hover:bg-bg-secondary disabled:cursor-not-allowed disabled:opacity-60"
+      [disabled]="isSubmitting()"
       [attr.aria-label]="
         'auth.login.googleAria'
           | translate
@@ -252,7 +187,7 @@
     >
       <img
         ngSrc="/assets/icons/google.svg"
-        alt="Google"
+        alt=""
         width="28"
         height="28"
       />
@@ -269,30 +204,22 @@
     >
       <img
         ngSrc="/assets/icons/github.svg"
-        alt="GitHub"
+        alt=""
         width="28"
         height="28"
       />
     </button>
   </div>
 
-  <p
-    class="text-center text-sm text-text-secondary"
-  >
-    {{
-      'auth.login.noAccount'
-        | translate
-    }}
+  <p class="text-center text-sm text-text-secondary">
+    {{ 'auth.login.noAccount' | translate }}
 
     <button
       class="cursor-pointer font-bold text-primary-main transition hover:text-primary-hover"
       type="button"
       (click)="goToRegister()"
     >
-      {{
-        'auth.login.register'
-          | translate
-      }}
+      {{ 'auth.login.register' | translate }}
     </button>
   </p>
 </form>

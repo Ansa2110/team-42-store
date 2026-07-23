@@ -25,6 +25,7 @@
     "fields": {
       "name": "Name",
       "email": "Email",
+      "usernameOrEmail": "Username or email",
       "password": "Password",
       "confirmPassword": "Confirm password"
     },
@@ -36,10 +37,21 @@
       "nameRequired": "Name is required",
       "emailRequired": "Email is required",
       "emailInvalid": "Enter a valid email address",
+      "usernameOrEmailRequired": "Username or email is required",
       "passwordRequired": "Password is required",
-      "passwordStrong": "Password must contain at least 8 characters, letters and numbers",
+      "passwordStrong": "Password must contain at least 8 characters, including letters and numbers",
       "confirmPasswordRequired": "Password confirmation is required",
       "passwordsMismatch": "Passwords do not match"
+    },
+    "errors": {
+      "invalidCredentials": "Invalid username, email, or password",
+      "missingAccessToken": "The server did not return an access token",
+      "network": "Unable to connect to the server. Check your internet connection.",
+      "profileFailed": "Unable to load the user profile",
+      "serverUnavailable": "The server is temporarily unavailable. Try again later.",
+      "unauthorized": "Your session is invalid. Sign in again.",
+      "unknown": "An unknown error occurred",
+      "userExists": "A user with this email already exists"
     },
     "loginHero": {
       "titleFirst": "Welcome back",
@@ -78,10 +90,9 @@
     "login": {
       "title": "Sign in",
       "subtitle": "Enter your account details",
-      "emailPlaceholder": "Enter your email",
+      "usernameOrEmailPlaceholder": "Enter your username or email",
       "passwordPlaceholder": "Enter your password",
       "rememberMe": "Remember me",
-      "forgotPassword": "Forgot password?",
       "submit": "Sign in",
       "submitting": "Signing in...",
       "socialDivider": "or sign in with",
