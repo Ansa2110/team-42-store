@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 
+import { authGuard } from './guards/auth.guard';
+
 export const routes: Routes = [
   {
     path: 'auth',
@@ -32,6 +34,22 @@ export const routes: Routes = [
         loadComponent: () =>
           import('@pages/catalog-page/catalog-page').then(
             (module) => module.CatalogPage,
+          ),
+      },
+      {
+        path: 'favorites',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./pages/favorites-page/favorites-page').then(
+            (module) => module.FavoritesPage,
+          ),
+      },
+      {
+        path: 'cart',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./pages/cart-page/cart-page').then(
+            (module) => module.CartPage,
           ),
       },
       {
