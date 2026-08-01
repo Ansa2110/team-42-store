@@ -17,6 +17,9 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '../../auth/auth.service';
 import { LanguageService } from '@services/language.service';
 import { ThemeService } from '@services/theme.service';
+import { CartService } from '@shared/services/cart.service';
+import { FavoritesService } from '@shared/services/favourites.service';
+
 import { PromoCountdownBanner } from './promo-countdown-banner/promo-countdown-banner';
 
 @Component({
@@ -38,7 +41,11 @@ export class Header {
   readonly authService = inject(AuthService);
   readonly languageService = inject(LanguageService);
   readonly themeService = inject(ThemeService);
-  readonly profileMenuOpened = signal(false);
+  readonly cartService = inject(CartService);
+  readonly favoritesService = inject(FavoritesService);
+
+  readonly profileMenuOpened =
+    signal(false);
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {

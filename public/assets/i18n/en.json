@@ -186,12 +186,19 @@
   "productCard": {
     "addToFavorites": "Add product to favorites",
     "removeFromFavorites": "Remove product from favorites",
+    "addToCart": "Add to cart",
+    "addOneMore": "Add one more",
     "imageAlt": "Image of {{title}}",
     "imageUnavailable": "Product image is unavailable",
     "rating": "Rating",
     "discount": "{{value}} discount",
     "price": "Price",
-    "finalPrice": "Discounted price"
+    "finalPrice": "Discounted price",
+    "messages": {
+      "addedToFavorites": "Product added to favorites",
+      "removedFromFavorites": "Product removed from favorites",
+      "addedToCart": "Product added to cart"
+    }
   },
   "about": {
     "breadcrumb": {
@@ -301,5 +308,37 @@
   "promo": {
     "title": "Summer sale ends in",
     "button": "Shop now"
+  },
+  "favorites": {
+    "title": "Favorites",
+    "subtitle": "Products you have saved",
+    "clear": "Clear favorites",
+    "emptyTitle": "Your favorites are empty",
+    "emptyDescription": "Add products to favorites by clicking the heart icon on a product card.",
+    "goToCatalog": "Go to catalog"
+  },
+  "cart": {
+    "title": "Cart",
+    "subtitle": "Review the selected products and change their quantity",
+    "clear": "Clear cart",
+    "emptyTitle": "Your cart is empty",
+    "emptyDescription": "Add products from the catalog to see them here.",
+    "goToCatalog": "Go to catalog",
+    "removeItem": "Remove product from cart",
+    "decreaseQuantity": "Decrease quantity",
+    "increaseQuantity": "Increase quantity",
+    "order": "Place order",
+    "continueShopping": "Continue shopping",
+    "summary": {
+      "title": "Order summary",
+      "items": "Products",
+      "subtotal": "Subtotal",
+      "delivery": "Delivery",
+      "free": "Free",
+      "total": "Total"
+    },
+    "messages": {
+      "orderUnavailable": "Order checkout is not implemented yet"
+    }
   }
 }

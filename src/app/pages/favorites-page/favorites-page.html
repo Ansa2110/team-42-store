@@ -1,0 +1,82 @@
+<section
+  class="mx-auto flex w-full max-w-7xl flex-1 flex-col px-4 py-8 text-text-primary sm:px-6"
+>
+  <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex flex-col gap-2">
+      <h1 class="text-3xl font-bold text-text-primary">
+        {{ 'favorites.title' | translate }}
+      </h1>
+
+      <p class="text-sm text-text-secondary">
+        {{ 'favorites.subtitle' | translate }}
+      </p>
+    </div>
+
+    @if (!favoritesService.isEmpty()) {
+      <button
+        type="button"
+        mat-stroked-button
+        class="border-border text-text-primary"
+        (click)="favoritesService.clearFavorites()"
+      >
+        <mat-icon class="material-icons-outlined">
+          delete_sweep
+        </mat-icon>
+
+        <span>
+          {{ 'favorites.clear' | translate }}
+        </span>
+      </button>
+    }
+  </div>
+
+  @if (favoritesService.isEmpty()) {
+    <div
+      class="flex flex-1 flex-col items-center justify-center rounded-2xl border border-border bg-surface px-6 py-16 text-center"
+    >
+      <span
+        class="flex size-20 items-center justify-center rounded-full bg-primary-light text-text-tertiary"
+        aria-hidden="true"
+      >
+        <mat-icon class="material-icons-outlined text-4xl">
+          favorite_border
+        </mat-icon>
+      </span>
+
+      <div class="mt-6 flex flex-col gap-3">
+        <h2 class="text-2xl font-semibold text-text-primary">
+          {{ 'favorites.emptyTitle' | translate }}
+        </h2>
+
+        <p class="max-w-lg text-sm leading-6 text-text-secondary">
+          {{ 'favorites.emptyDescription' | translate }}
+        </p>
+      </div>
+
+      <a
+        routerLink="/catalog"
+        mat-flat-button
+        class="mt-6"
+      >
+        <mat-icon class="material-icons-outlined">
+          grid_view
+        </mat-icon>
+
+        <span>
+          {{ 'favorites.goToCatalog' | translate }}
+        </span>
+      </a>
+    </div>
+  } @else {
+    <div
+      class="grid grid-cols-1 justify-items-center gap-6 md:grid-cols-2 xl:grid-cols-3"
+    >
+      @for (
+        product of favoritesService.favorites();
+        track product.id
+        ) {
+        <app-product-card [product]="product" />
+      }
+    </div>
+  }
+</section>

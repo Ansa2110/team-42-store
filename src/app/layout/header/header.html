@@ -175,10 +175,11 @@
         </a>
       }
 
-      <button
-        type="button"
+      <a
+        routerLink="/favorites"
+        routerLinkActive="border-header-accent text-header-accent"
         [attr.aria-label]="'header.favorites' | translate"
-        class="hidden h-9 cursor-pointer items-center gap-2 rounded-lg border border-border-header bg-bg-header px-3 text-xs font-medium text-text-header-primary transition-colors hover:border-header-accent hover:text-header-accent sm:flex"
+        class="relative hidden h-9 cursor-pointer items-center gap-2 rounded-lg border border-border-header bg-bg-header px-3 text-xs font-medium text-text-header-primary transition-colors hover:border-header-accent hover:text-header-accent sm:flex"
         (click)="closeProfileMenu()"
       >
         <span
@@ -189,10 +190,19 @@
         </span>
 
         <span>{{ 'header.favorites' | translate }}</span>
-      </button>
 
-      <button
-        type="button"
+        @if (favoritesService.favoritesCount() > 0) {
+          <span
+            class="flex size-4 items-center justify-center rounded-full bg-header-accent text-[9px] font-bold text-white"
+          >
+            {{ favoritesService.favoritesCount() }}
+          </span>
+        }
+      </a>
+
+      <a
+        routerLink="/cart"
+        routerLinkActive="border-header-accent text-header-accent"
         [attr.aria-label]="'header.cart' | translate"
         class="relative flex h-9 cursor-pointer items-center gap-2 rounded-lg border border-border-header bg-bg-header px-3 text-xs font-medium text-text-header-primary transition-colors hover:border-header-accent hover:text-header-accent"
         (click)="closeProfileMenu()"
@@ -211,9 +221,9 @@
         <span
           class="flex size-4 items-center justify-center rounded-full bg-header-accent text-[9px] font-bold text-white"
         >
-          0
+          {{ cartService.totalQuantity() }}
         </span>
-      </button>
+      </a>
     </div>
   </div>
 
