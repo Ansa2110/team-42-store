@@ -15,7 +15,9 @@ import { ThemeService } from '@services/theme.service';
   styleUrl: './app.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class App {
-  private readonly themeService = inject(ThemeService);
-  private readonly languageService = inject(LanguageService);
+export class AppComponent {
+  constructor() {
+    inject(ThemeService);
+    inject(LanguageService);
+  }
 }

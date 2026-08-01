@@ -1,33 +1,124 @@
 @let productVM = product();
-<div class="bg-sufrace-soft border border-border rounded-md p-4 w-[320px]">
+
+<article
+  class="flex h-full w-[320px] flex-col rounded-md border border-border bg-surface p-4 text-text-primary shadow-sm transition hover:shadow-md"
+>
   <div class="relative flex justify-center">
-    <div class="absolute right-2 top-2 text-text-tertiary">
-      @if (isFavorite()) {
-        <mat-icon class="material-icons-outlined" (click)="toggleItem()">favorite</mat-icon>
-      } @else {
-        <mat-icon class="material-icons-outlined" (click)="toggleItem()">favorite_border</mat-icon>
-      }
-    </div>
+    <button
+      type="button"
+      [attr.aria-label]="
+    (isFavorite()
+      ? 'productCard.removeFromFavorites'
+      : 'productCard.addToFavorites') | translate
+  "
+      class="absolute right-2 top-2 z-10 flex size-10 cursor-pointer items-center justify-center rounded-full bg-transparent text-primary-main transition-colors hover:bg-primary-light"
+      (click)="toggleFavorite()"
+    >
+  <span
+    class="material-icons-outlined text-2xl"
+    aria-hidden="true"
+  >
+    {{ isFavorite() ? 'favorite' : 'favorite_border' }}
+  </span>
+    </button>
+
     @if (productVM.thumbnail; as src) {
-      <img [src]="src" alt="src" class="h-35 w-35" />
+      <img
+        [ngSrc]="src"
+        [alt]="
+          'productCard.imageAlt'
+            | translate
+              : {
+                  title: productVM.title
+                }
+        "
+        width="160"
+        height="160"
+        class="h-40 w-40 object-contain"
+      />
     } @else {
-      <img alt="error" />
+      <div
+        class="flex h-40 w-40 items-center justify-center rounded-md bg-bg-secondary text-text-muted"
+      >
+        <mat-icon class="material-icons-outlined text-4xl">
+          image_not_supported
+        </mat-icon>
+      </div>
     }
   </div>
-  <div>
-    <p class="text-text-tertiary font-bold text-base">{{ productVM.title }}</p>
-    <p>{{ productVM.rating }}</p>
-  </div>
-  <div class="my-2">
-    <p class="text-text-muted">
-      {{ productVM.price }}
+
+  <div class="mt-4 flex flex-1 flex-col">
+    <p
+      class="line-clamp-2 text-base font-bold text-text-tertiary"
+    >
+      {{ productVM.title }}
     </p>
-    <p class="flex justify-between text-lg">
-      {{
-        productVM.price - (productVM.price * productVM.discountPercentage) / 100 | number: '1.2-2'
-      }}
-      <span class="text-error-main"> - {{ productVM.discountPercentage | percent }} </span>
-    </p>
-    <p class="text-error-main"></p>
+
+    <div
+      class="mt-2 flex items-center gap-1 text-sm text-text-secondary"
+    >
+      <mat-icon
+        class="material-icons-outlined text-base text-warning-main"
+      >
+        star
+      </mat-icon>
+
+      <span>
+        {{ productVM.rating | number: '1.1-1' }}
+      </span>
+    </div>
+
+    <div class="mt-4">
+      <p class="text-sm text-text-muted line-through">
+        {{ productVM.price | number: '1.2-2' }}
+      </p>
+
+      <div
+        class="mt-1 flex items-center justify-between gap-3"
+      >
+        <p
+          class="text-lg font-semibold text-text-primary"
+        >
+          {{
+            discountedPrice()
+              | number: '1.2-2'
+          }}
+        </p>
+
+        <span
+          class="rounded-full bg-error-light px-2 py-1 text-xs font-semibold text-error-main"
+        >
+          -{{
+            productVM.discountPercentage /
+            100
+              | percent: '1.0-0'
+          }}
+        </span>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      mat-flat-button
+      class="mt-4 w-full"
+      (click)="addToCart()"
+    >
+      <mat-icon class="material-icons-outlined">
+        {{
+          isInCart()
+            ? 'add_shopping_cart'
+            : 'shopping_cart'
+        }}
+      </mat-icon>
+
+      <span>
+        {{
+          (isInCart()
+            ? 'productCard.addOneMore'
+            : 'productCard.addToCart')
+            | translate
+        }}
+      </span>
+    </button>
   </div>
-</div>
+</article>
